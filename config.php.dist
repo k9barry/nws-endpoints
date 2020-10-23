@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * Rename this file to config.php
+ *
+ * Config file defining file locations and storage of API keys.
+ * This file is required for this script to function, you will
+ * need to change the values below to match your keys.
+ *
+ */
+
+// Data folder for files created by scripts
+$strDataFolder = "./data"; // No ending '/'
+
+// Monitor folder this script is watching for file additions
+$strInFolder = "Y:"; // mapped drive to NWS xml file folder
+
+// Filename extensions to be monitored for in the monitor folder
+$arrayInputFileExtensions = array('xml');
+
+// Set output folder for output files
+$strOutFolder = "" . $strDataFolder . "/Output";
+
+// Move the original files to this folder after processing
+$strBackupFolder = "" . $strDataFolder . "/Archive";
+
+// Log folder to store log files into
+$strLogFolder = "" . $strDataFolder . "/Logs";
+
+// Set time to wait before checking input folder for new files (in seconds)
+$sleep = 3;
+
+// Set the database location and name
+$db = "" . $strDataFolder . "/Database.sqlite";
+
+// Set the database table name to store incidents into
+$db_table = 'incidents';
+
+//Set the location for the csv file of active whitelist of incidents to send
+$CfsCsvFilePath = "./src/nwscfstype.csv";
+
+// Table name for active incidnets to be sent nwscfstypecsv
+$CfsTableName = preg_replace("/[^a-zA-Z0-9\s]/", '', $CfsCsvFilePath);
+
+/**
+ * sendSNPP
+ *
+ */
+$snpp_url = "YOUR_SNPP_URL;
+$snpp_port = "444";
+$snpp_page = "YOUR_SNPP_PAGING_CODE";
+
+/**
+ * sendPushover
+ *
+ */
+$pushoverUrl = "https://api.pushover.net/1/messages.json";
+$pushoverToken = "YOUR_PUSHOVER_TOKEN";
+$pushoverUser = "YOUR_PUSHOVER_USER";
+
+/**
+ * sendWebhook
+ *
+ */
+$webhookUrl = "YOUR_MICROSOFT_TEAMS_INCOMING_WEB_URL";
+
+/**
+ * Google API key
+ *
+ */
+$googleApiKey = "YOUR_GOOGLE_API_KEY";

@@ -1,0 +1,28 @@
+{
+    "name": "k9barry/nws-webhook-connector",
+    "description": "A PHP package to send notifications to Microsoft Teams by using Incoming Webhook",
+    "license": "MIT",
+    "keywords": ["nws", "Microsoft", "Teams", "webhook", "connector"],
+    "authors": [
+        {
+            "name": "K9 Barry",
+            "email": "k9barry@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "ext-curl": "*",
+        "ext-mysqli": "*",
+        "ext-pdo_mysql": "*",
+        "ext-pdo_sqlite": "*",
+        "sebbmeyer/php-microsoft-teams-connector": "dev-bugfix",
+        "monolog/monolog": "^2.1"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:k9barry/php-microsoft-teams-connector"
+        }
+    ]
+}

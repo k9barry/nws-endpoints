@@ -1,0 +1,109 @@
+﻿CFS Type,Default Status,Police,Fire,EMS,Active
+================================,===============,======,====,===,======
+ <New Call>,In Progress,Yes,No,No,No
+911 Hangup,In Progress,Yes,No,No,No
+Abandoned Vehicle,In Progress,Yes,No,No,No
+Accident - PD,In Progress,Yes,No,No,No
+Accident - PI,In Progress,Yes,Yes,No,Yes
+Alarm,In Progress,Yes,No,No,No
+Alarm - Bank,In Progress,Yes,No,No,No
+Animal Complaint,In Progress,Yes,No,No,No
+Assault,In Progress,Yes,No,No,No
+Assist Motorist,In Progress,Yes,No,No,No
+Assist Other Agency,In Progress,Yes,No,No,No
+Battery - Non Domestic,In Progress,Yes,No,No,No
+BI Alert,In Progress,Yes,No,No,No
+Burglary,Not In Progress,Yes,No,No,No
+Child Offense,Not In Progress,Yes,No,No,No
+Civil - Civil Process,Not In Progress,Yes,No,No,No
+Civil - Eviction,In Progress,Yes,No,No,No
+Civil - Replevin,In Progress,Yes,No,No,No
+DCS Assist,In Progress,Yes,No,No,No
+Death Investigation,In Progress,Yes,No,No,Yes
+Dispatch - ATL,In Progress,Yes,No,No,No
+Disturbance,In Progress,Yes,No,No,No
+Domestic Dispute,In Progress,Yes,No,No,No
+Drug Violation,Just Occurred,Yes,No,No,No
+E - FLU LIKE,BLS,No,Yes,No,Yes
+Emergency Detention Order,In Progress,Yes,No,No,No
+Escape,Routine,Yes,No,No,No
+Escort,In Progress,Yes,No,No,No
+F - Aircraft Incident,In Progress,Yes,Yes,No,Yes
+F - Arson,Not In Progress,Yes,Yes,No,Yes
+F - Bomb Incident,In Progress,Yes,Yes,No,Yes
+F - Brush Fire,In Progress,No,Yes,No,Yes
+F - CO Check,In Progress,No,Yes,No,Yes
+F - Elevator Rescue,In Progress,No,Yes,No,Yes
+F - EMA Assist,In Progress,No,Yes,No,Yes
+F - Fire Alarm - Commercial,In Progress,No,Yes,No,Yes
+F - Fire Alarm - Residential,In Progress,No,Yes,No,Yes
+F - Fire Investigation,In Progress,No,Yes,No,Yes
+F - Fuel Spill,In Progress,No,Yes,No,Yes
+F - Gas Odor/Leak,In Progress,No,Yes,No,Yes
+F - Hazmat Incident,In Progress,Yes,Yes,No,Yes
+F - MAYDAY,In Progress,No,Yes,No,Yes
+F - Pole Fire / Lines Down,In Progress,No,Yes,No,Yes
+F - Public Assist,In Progress,No,Yes,No,Yes
+F - Serious PI,In Progress,No,Yes,No,Yes
+F - Special Rescue,In Progress,No,Yes,No,Yes
+F - Station Coverage,In Progress,No,Yes,No,Yes
+F - Structure Fire - Commercial,In Progress,No,Yes,No,Yes
+F - Structure Fire - Residential,In Progress,No,Yes,No,Yes
+F - Train Incident,In Progress,Yes,Yes,No,Yes
+F - Trash Fire,In Progress,No,Yes,No,Yes
+F - Vehicle Fire,In Progress,No,Yes,No,Yes
+F - Water Rescue,In Progress,No,Yes,No,Yes
+F - Working - Comm,In Progress,No,Yes,No,Yes
+F - Working - Resd,In Progress,No,Yes,No,Yes
+Fight - Non Domestic,In Progress,Yes,No,No,No
+Follow Up,In Progress,Yes,No,No,No
+Fraud/Scam,Just Occurred,Yes,No,No,No
+Harassment,Just Occurred,Yes,No,No,No
+Homicide,In Progress,Yes,No,No,No
+Hunting Violation,Just Occurred,Yes,No,No,No
+Illegal Dumping,Not In Progress,Yes,No,No,No
+Intoxicated Person/Driver,In Progress,Yes,No,No,No
+Jail Incident,Routine,Yes,No,No,No
+Loud Party,In Progress,Yes,No,No,No
+Medical Call - ALS,In Progress,No,Yes,No,Yes
+Medical Call - BLS,In Progress,No,Yes,No,Yes
+Mental Subject,In Progress,Yes,No,No,Yes
+Missing Person,In Progress,Yes,No,No,No
+Missing-PL,In Progress,Yes,Yes,No,No
+Mobile Test Call,In Progress,Yes,Yes,No,No
+Motor Check,Routine,Yes,No,No,No
+Notification,Routine,Yes,No,No,No
+Open Door,In Progress,Yes,No,No,No
+Ordinance Violation,In Progress,Yes,No,No,No
+Other - Not Listed,Not In Progress,Yes,No,No,No
+Overdose,In Progress,Yes,No,No,Yes
+Patrol Check,In Progress,Yes,No,No,No
+Police Assist EMS,In Progress,Yes,No,No,No
+Property - Found,In Progress,Yes,No,No,No
+Property Check,In Progress,Yes,No,No,No
+Property Damage,Not In Progress,Yes,No,No,No
+Pursuit,In Progress,Yes,No,No,No
+Rape,Just Occurred,Yes,No,No,Yes
+Repossession,Not In Progress,Yes,No,No,No
+Road Hazard,Routine,Yes,Yes,No,No
+Robbery,Just Occurred,Yes,No,No,No
+Runaway,Just Occurred,Yes,No,No,No
+Shooting,In Progress,Yes,Yes,No,Yes
+Shoplifting,In Progress,Yes,No,No,No
+SOR - Sex Offender Reg,In Progress,Yes,No,No,No
+Stabbing,In Progress,Yes,No,No,Yes
+Standby,In Progress,Yes,No,No,No
+Suicide - Attempted or Threatene,In Progress,Yes,No,No,Yes
+Suspicious Activity,In Progress,Yes,No,No,No
+Theft,In Progress,Yes,No,No,No
+Traffic Stop,In Progress,Yes,No,No,No
+Transport,Routine,Yes,No,No,No
+Trespassing,In Progress,Yes,No,No,No
+Trouble With,In Progress,Yes,No,No,No
+Unconscious - Breathing,In Progress,No,Yes,No,Yes
+Unconscious - NOT Breathing,In Progress,No,Yes,No,Yes
+Vehicle Theft,Just Occurred,Yes,No,No,No
+Warrant Service,In Progress,Yes,No,No,No
+Welfare Check,In Progress,Yes,No,No,No
+z!! Active Assailant !!,In Progress,Yes,Yes,No,Yes
+"z!"" Active Assailant Working ""!",In Progress,Yes,Yes,No,Yes
