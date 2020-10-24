@@ -43,22 +43,6 @@ $CfsCsvFilePath = "./src/nwscfstype.csv";
 $CfsTableName = preg_replace("/[^a-zA-Z0-9\s]/", '', $CfsCsvFilePath);
 
 /**
- * sendSNPP
- *
- */
-$snpp_url = "YOUR_SNPP_URL;
-$snpp_port = "444";
-$snpp_page = "YOUR_SNPP_PAGING_CODE";
-
-/**
- * sendPushover
- *
- */
-$pushoverUrl = "https://api.pushover.net/1/messages.json";
-$pushoverToken = "YOUR_PUSHOVER_TOKEN";
-$pushoverUser = "YOUR_PUSHOVER_USER";
-
-/**
  * sendWebhook
  *
  */

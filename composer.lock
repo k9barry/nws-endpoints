@@ -4,47 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a29b0f278d919a14e86990fdedb74f6",
+    "content-hash": "a7c4b64692d135a9ac0d658d84767006",
     "packages": [
-        {
-            "name": "k9barry/nws_to_webhook",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:k9barry/NWS_to_Webhook.git",
-                "reference": "b29f3138f3ee4d025d6b7f02d890c016129235a0"
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-mysqli": "*",
-                "ext-pdo_mysql": "*",
-                "ext-pdo_sqlite": "*",
-                "k9barry/nws_to_webhook": "*",
-                "monolog/monolog": "^2.1",
-                "php": "^7.4",
-                "sebbmeyer/php-microsoft-teams-connector": "dev-bugfix"
-            },
-            "type": "library",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "K9 Barry",
-                    "email": "k9barry@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A PHP package to send notifications to Microsoft Teams by using Incoming Webhook",
-            "keywords": [
-                "Microsoft",
-                "Teams",
-                "connector",
-                "nws",
-                "webhook"
-            ],
-            "time": "2020-10-17T18:41:30+00:00"
-        },
         {
             "name": "monolog/monolog",
             "version": "2.1.1",
@@ -234,13 +195,12 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "k9barry/nws_to_webhook": 20,
         "sebbmeyer/php-microsoft-teams-connector": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4",
+        "php": "^7.3",
         "ext-curl": "*",
         "ext-mysqli": "*",
         "ext-pdo_mysql": "*",

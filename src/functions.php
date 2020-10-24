@@ -289,14 +289,9 @@ function insertRecord($db_conn, $db_incident, $xml, $send)
     $logger->info("[insertRecord] Record inserted into DB");
 
     if (sendActiveIncident($db_conn, $db_nwsCfsTableName = "nwscfstypecsv", $AgencyContexts_AgencyContext_CallType)) {
-        /***** This is where the mlApiCreateIncident function will be called if ($mlCreate == 1) { mlApiCreateIncident ($v1, $v2, $v3, $v4.....); } will create a new ml incident *****/
-        /***** This is where the mlApiAddEndpoint function will be called mlApiAddEndpoint ($v1, $v2, $v3, $v4.....); will add ml endpoint users to incident *****/
-        /***** This is where the mlApiAddResource function will be called mlApiAddResource ($v1, $v2, $v3, $v4.....); will add ml resources like radio and phone endpoints *****/
         if ($send == 1) {
             $logger->info("[insertRecord] Sending xml file to push functions");
             sendWebhook($db_conn, $db_incident, $xml); // Webhook
-            #sendPushover($db_conn, $db_incident, $xml);  // Pushover
-            #sendSNPP($db_conn, $db_incident, $xml);  // Active911
         }
         $logger->info("[insertRecord] Send flag not set - nothing sent to push functions");
     }
@@ -459,12 +454,6 @@ function sendActiveIncident($db_conn, $db_nwsCfsTableName, $IncidentType)
     $result = $db_conn->query($sql);
     $n = 0;
     foreach ($result as $row) {
-        //echo "Incident Type: " . $row['cfstype'] . "\n";
-        //echo "Default Status: " . $row['defaultstatus'] . "\n";
-        //echo "Police: " . $row['police'] . "\n";
-        //echo "Fire: " . $row['fire'] . "\n";
-        //echo "EMS: " . $row['ems'] . "\n";
-        //echo "Active: " . $row['active'] . "\n";
         if ($row['active'] == "Yes") {
             $n++;
         }
@@ -476,107 +465,6 @@ function sendActiveIncident($db_conn, $db_nwsCfsTableName, $IncidentType)
         $logger->info("[sendActiveIncident] Incident is NOT whitelisted");
         return false;
     }
-}
-
-/**
- * sendSNPP
- *
- * @param  mixed $db_conn
- * @param  mixed $db_incident
- * @param  mixed $xml
- * @return void
- */
-function sendSNPP($db_conn, $db_incident, $xml)
-{
-    global $logger;
-    global $snpp_url;
-    global $snpp_port;
-    global $snpp_page;
-    $CallId = $xml->CallId;
-    $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
-    $row = $db_conn->prepare($sql);
-    $row->execute();
-    $snpp_mess = $row->fetchAll(PDO::FETCH_ASSOC);
-    $snpp = fsockopen($snpp_url, $snpp_port, $errno, $errstr);
-    if (!$snpp) {
-        $logger->info("[sendSNPP] fsockopen error - " . $errstr($errno) . "");
-    } else {
-        $logger->info("[sendSNPP] Open connection to Active911 - " . fgets($snpp) . "");
-        fwrite($snpp, "PAGE $snpp_page\r\n");
-        $logger->info("[sendSNPP] Execute PAGEr number to " . $snpp_page . " - " . fgets($snpp) . "");
-        fwrite($snpp, "DATA\r\n");
-        $logger->info("[sendSNPP] Set DATA protocol - " . fgets($snpp) . "");
-        $out = $sep = '';
-        foreach ($snpp_mess[0] as $key => $value) {
-            $out .= $sep . $key . ":" . $value . "\n";
-            $sep = '';
-        }
-        fwrite($snpp, "$out\r\n");
-        fwrite($snpp, ".\r\n");
-        $logger->info("[sendSNPP] \n" . $out . "");
-        $logger->info("[sendSNPP] " . fgets($snpp) . "");
-        fwrite($snpp, "SEND\r\n");
-        $logger->info("[sendSNPP] Execute SEND - " . fgets($snpp) . "");
-        fwrite($snpp, "QUIT\r\n");
-        $logger->info("[sendSNPP] Execute QUIT - " . fgets($snpp) . "");
-        fclose($snpp);
-    }
-}
-
-/**
- * sendPushover
- *
- * @param  mixed $db_conn
- * @param  mixed $db_incident
- * @param  mixed $xml
- * @return void
- */
-function sendPushover($db_conn, $db_incident, $xml)
-{
-    global $logger;
-    global $pushoverUrl;
-    global $pushoverToken;
-    global $pushoverUser;
-    global $googleApiKey;
-    $CallId = $xml->CallId;
-    $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
-    $row = $db_conn->prepare($sql);
-    $row->execute();
-    $pushoverMessage = $row->fetchAll(PDO::FETCH_ASSOC);
-    $out = $sep = '';
-    foreach ($pushoverMessage[0] as $key => $value) {
-        $out .= $sep . $key . ":" . $value . "\n";
-        $sep = '';
-    }
-    extract($pushoverMessage[0]);
-    $urlEncFullAddress = urlencode($db_FullAddress);
-    $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&
-    maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
-    $logger->info("[sendPushover] Open connection to Pushover using Google Url - \n" . $mapUrl . "");
-    curl_setopt_array($ch = curl_init(), array(
-        CURLOPT_URL => "$pushoverUrl",
-        CURLOPT_POSTFIELDS => array(
-            "token" => "$pushoverToken",
-            "user" => "$pushoverUser",
-            "title" => "MCCD Call: $db_CallNumber $db_CallType",
-            "message" => "
-            Type: $db_AgencyType
-            Loc: $db_FullAddress
-            Inc: $db_CallType
-            Nature: $db_NatureOfCall
-            Cross Rd: $db_NearestCrossStreets
-            Beat: $db_PoliceBeat
-            Quad: $db_FireQuadrant
-            Unit: $db_UnitNumber
-            Narr: $db_Narrative_Text",
-            "sound" => "bike",
-            "html" => "1",
-            "attachment" => curl_file_create("$mapUrl", "image/jpeg"),
-        ),
-    ));
-    $result = curl_exec($ch);
-    curl_close($ch);
-    $logger->info("[sendPushover] Pushover message sent - " . $result . "");
 }
 
 /**
