@@ -1,7 +1,7 @@
 {
     "name": "k9barry/nws-webhook-connector",
     "description": "A PHP package to send notifications to Microsoft Teams by using Incoming Webhook",
-    "license": "MIT",
+    "license": "proprietary",
     "keywords": ["nws", "Microsoft", "Teams", "webhook", "connector"],
     "authors": [
         {
