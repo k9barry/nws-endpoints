@@ -1,8 +1,12 @@
 <?php
 
-// Include needed function.php file
-include "./config.php";
-include "./src/functions.php";
+// Require function.php file
+$functionfile = "./src/functions.php";
+require_once $functionfile;
+
+// Check if config.php exists and if so include it
+$configfile = "./config.php";
+require_once $configfile;
 
 //Composer autoload
 require_once "./vendor/autoload.php";
