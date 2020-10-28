@@ -18,7 +18,7 @@
         "ext-pdo_sqlite": "*",
         "sebbmeyer/php-microsoft-teams-connector": "dev-bugfix",
         "monolog/monolog": "^2.1",
-        "k9barry/nws-webhook_api": "*"
+        "k9barry/nws-webhook_api": "1.1"
     },
     "autoload": {
         "psr-4": {
