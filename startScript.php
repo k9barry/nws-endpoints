@@ -9,7 +9,7 @@ use K9Barry\Webhook;
 
  // Require config functions
 $configfile = "./config.php";
-if (exists ($configfile)) {
+if (file_exists($configfile)) {
     require_once $configfile;
 } else {
     die ("Unable to locate config.php file");
