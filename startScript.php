@@ -1,5 +1,8 @@
 <?php
 
+//Composer autoload
+require_once "./vendor/autoload.php";
+
 use K9Barry\Webhook;
 
 /**
@@ -14,9 +17,6 @@ if (file_exists($configfile)) {
 } else {
     die ("Unable to locate config.php file");
 }
-
-//Composer autoload
-require_once "./vendor/autoload.php";
 
 ini_set('memory_limit', '-1');
 ini_set("max_execution_time", 0);
