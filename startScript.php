@@ -15,10 +15,6 @@ if (file_exists($configfile)) {
     die ("Unable to locate config.php file");
 }
 
-// Require webhook functions
-$functionfile = "./src/Webhook/*.php";
-require_once $functionfile;
-
 //Composer autoload
 require_once "./vendor/autoload.php";
 
