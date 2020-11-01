@@ -53,3 +53,4 @@ $webhookUrl = "YOUR_MICROSOFT_TEAMS_INCOMING_WEB_URL";
  *
  */
 $googleApiKey = "YOUR_GOOGLE_API_KEY";
+
