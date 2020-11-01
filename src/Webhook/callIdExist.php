@@ -1,6 +1,6 @@
 <?php
 
-namespace Webhook\Functions;
+namespace K9Barry\Webhook;
 
 class callIdExist
 {

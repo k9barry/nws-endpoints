@@ -1,6 +1,6 @@
 <?php
 
-namespace Webhook\Monitor;
+namespace K9Barry\Webhook;
 
 class globCaseInsensitivePattern
 {

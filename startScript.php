@@ -1,5 +1,7 @@
 <?php
 
+use K9Bary\Webhook;
+
 /**
  * startScript
  *
