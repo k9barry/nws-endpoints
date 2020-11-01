@@ -1,6 +1,6 @@
 <?php
 
-use K9Bary\Webhook;
+use K9Barry\Webhook;
 
 /**
  * startScript
