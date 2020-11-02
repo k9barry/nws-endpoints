@@ -2,7 +2,7 @@
 
 namespace K9Barry\Webhook;
 
-class MonitorFolderAndCallEXE {
+class MonitorFolderAndCallEXE   {
     /**
      * MonitorFolderAndCallEXE
      *
