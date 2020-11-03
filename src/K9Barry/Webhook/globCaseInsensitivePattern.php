@@ -1,6 +1,6 @@
 <?php
 
-namespace K9Barry;
+namespace K9Barry\Webhook;
 
 class globCaseInsensitivePattern
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace K9Barryebhook;
+namespace K9Barry\Webhook;
 
 class recordReceived
 {
