@@ -12,7 +12,7 @@ require_once "./vendor/autoload.php";
  *
  */
 
-use K9Barry;
+use K9Barry\Webhook;
 
 /**
  * Load Monolog and Initialize
