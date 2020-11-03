@@ -3,7 +3,7 @@
 //Composer autoload
 require_once "./vendor/autoload.php";
 
-use K9Barry\Webhook;
+use K9Barry;
 
 /**
  * startScript
