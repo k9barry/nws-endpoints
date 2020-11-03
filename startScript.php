@@ -23,6 +23,8 @@ use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Monolog\Processor\IntrospectionProcessor;
 
+initLogger();
+
 //$logger = new Logger('webhook_logger'); // Create the logger
 //$logger->pushHandler(new RotatingFileHandler("./data/Logs/webhook.log", Logger::DEBUG)); // Add sRotatingFileHandler
 //$logger->pushProcessor(new IntrospectionProcessor());
