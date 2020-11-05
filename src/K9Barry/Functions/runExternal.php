@@ -1,7 +1,7 @@
 <?php
 
 /**
- * RunExternalEXE
+ * runExternal
  *
  * @param  mixed $strInFile
  * @param  mixed $strInRootFolder
@@ -9,7 +9,7 @@
  * @param  mixed $strBackupFolder
  * @return void
  */
-function RunExternalEXE($strInFile, $strInRootFolder, $strOutFolder, $strBackupFolder)
+function runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBackupFolder)
 {
     global $logger, $db, $db_table, $CfsTableName, $CfsCsvFilePath, $strLogFolder;
     $logger->info("$strInFile => $strOutFolder");
@@ -19,7 +19,7 @@ function RunExternalEXE($strInFile, $strInRootFolder, $strOutFolder, $strBackupF
     $strOutFile = $strOutFolder . '/' . $strRelativeFileName;
     $strOutFile = str_replace('//', '/', $strOutFile);
     recursive_mkdir(dirname($strOutFile));
-    $strOutFile = RenameIfExisFileName($strOutFile);
+    $strOutFile = renameIfExists($strOutFile);
 
     /*************************************************************************************************************************************
      * Add my custom functions to be preformed when new file is added to monitor folder
@@ -43,7 +43,7 @@ function RunExternalEXE($strInFile, $strInRootFolder, $strOutFolder, $strBackupF
     $strBackupFile = $strBackupFolder . '/' . $strRelativeFileName;
     $strBackupFile = str_replace('//', '/', $strBackupFile);
     recursive_mkdir(dirname($strBackupFile));
-    $strBackupFile = RenameIfExisFileName($strBackupFile);
+    $strBackupFile = renameIfExists($strBackupFile);
     rename($strInFile, $strBackupFile);
     $logger->info("MoveFile: $strInFile => $strBackupFile");
 }

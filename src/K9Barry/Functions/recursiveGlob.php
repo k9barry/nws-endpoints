@@ -32,7 +32,7 @@ function recursiveGlob($dir, $ext, $strInRootFolder, $strOutFolder, $strBackupFo
                 continue;
             }
             $logger->info("Found file: " . $file . "");
-            RunExternalEXE($file, $strInRootFolder, $strOutFolder, $strBackupFolder);
+            runExternal($file, $strInRootFolder, $strOutFolder, $strBackupFolder);
         }
     }
 }

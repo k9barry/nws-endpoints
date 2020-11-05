@@ -60,7 +60,7 @@ if (!is_dir($strBackupFolder)) {
     mkdir($strBackupFolder);
 }
 while (true) {
-    MonitorFolderAndCallEXE($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder);
+    monitorFolder($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder);
     $logger->info('[Start/End] =====================================================');
     sleep($sleep); //Waiting for XXX seconds
 }

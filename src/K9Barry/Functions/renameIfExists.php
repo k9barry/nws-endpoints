@@ -1,12 +1,12 @@
 <?php
 
 /**
- * RenameIfExisFileName
+ * renameIfExists
  *
  * @param  mixed $filename
  * @return void
  */
-function RenameIfExisFileName($filename)
+function renameIfExists($filename)
 {
     if (!file_exists($filename)) {
         return $filename;

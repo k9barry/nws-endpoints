@@ -1,7 +1,7 @@
 <?php
 
 /**
- * MonitorFolderAndCallEXE
+ * monitorFolder
  *
  * @param  mixed $strInFolder
  * @param  mixed $extensions
@@ -9,7 +9,7 @@
  * @param  mixed $strBackupFolder
  * @return void
  */
-function MonitorFolderAndCallEXE($strInFolder, $extensions, $strOutFolder, $strBackupFolder)
+function monitorFolder($strInFolder, $extensions, $strOutFolder, $strBackupFolder)
 {
     $strFilterFormat = globCaseInsensitivePattern($extensions);
     recursiveGlob($strInFolder, $strFilterFormat, $strInFolder, $strOutFolder, $strBackupFolder);
