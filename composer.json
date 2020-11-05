@@ -1,9 +1,9 @@
 {
-    "name": "k9barry/nws-webhook",
-    "description": "A PHP package to send notifications to Microsoft Teams by using Incoming Webhook",
+    "name": "k9barry/nws-endpoints",
+    "description": "A PHP package to send notifications to various endpoints from New World Systems",
     "license": "proprietary",
     "minimum-stability": "dev",
-    "keywords": ["nws", "Microsoft", "Teams", "webhook", "connector"],
+    "keywords": ["nws", "Microsoft", "Teams", "webhook", "Pushover", "SNPP", "Active911", "connector"],
     "authors": [
         {
             "name": "K9 Barry",
@@ -19,11 +19,11 @@
         "ext-pdo_sqlite": "*",
         "sebbmeyer/php-microsoft-teams-connector": "dev-bugfix",
         "monolog/monolog": "^2.1",
-        "k9barry/webhook": "dev-master"
+        "k9barry/nws-endpoints": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "K9Barry\\Webhook\\": "/src/"
+            "K9Barry\\Functions\\": "/src/"
         }
     },
     "repositories": [
