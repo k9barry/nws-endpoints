@@ -61,6 +61,6 @@ if (!is_dir($strBackupFolder)) {
 }
 while (true) {
     monitorFolder($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder);
-    $logger->info('[Start/End] =====================================================');
+    $logger->info("=====================================================");
     sleep($sleep); //Waiting for XXX seconds
 }
