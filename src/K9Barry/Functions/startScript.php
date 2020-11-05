@@ -26,11 +26,13 @@ $logger->info('Webhook logger is now ready'); // You can now use your logger
  *
  */
 
-$configfile = "./data/config.php";
+$configfile = "./src/config.php";
 if (file_exists($configfile)) {
     require_once $configfile;
 } else {
-    die("Unable to locate config.php file");
+    rename("./src/config.php.dist", "./src/config.php");
+    $logger->warning("config.php file was not located so I created one for you.  Please be sure to change the settings");
+    require_once $configfile;
 }
 
 /**
