@@ -1,19 +1,16 @@
 <?php
 
-namespace K9Barry\Webhook;
-
-class createIncidentsTable
+/**
+ * createIncidentsTable
+ *
+ * @param  mixed $db_conn
+ * @param  mixed $db_incident
+ * @return void
+ */
+function createIncidentsTable($db_conn, $db_incident)
 {
-    /**
-     * createIncidentsTable
-     *
-     * @param  mixed $db_conn
-     * @param  mixed $db_incident
-     * @return void
-     */
-    public function createIncidentsTable($db_conn, $db_incident)
-    {
-        $sql = "CREATE TABLE IF NOT EXISTS $db_incident
+    global $logger;
+    $sql = "CREATE TABLE IF NOT EXISTS $db_incident
 		(
         db_CallId INTEGER PRIMARY KEY,
         db_CallNumber INTEGER,
@@ -40,7 +37,6 @@ class createIncidentsTable
         db_Incident_Jurisdiction TEXT,
         db_Narrative_Text TEXT
         )";
-        $db_conn->exec($sql);
-        $logger->info("[CreateIncidentsTable] Create table " . $db_incident . " if it does not exist");
-    }
+    $db_conn->exec($sql);
+    $logger->info("[CreateIncidentsTable] Create table " . $db_incident . " if it does not exist");
 }

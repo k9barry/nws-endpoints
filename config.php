@@ -46,14 +46,16 @@ $CfsTableName = preg_replace("/[^a-zA-Z0-9\s]/", '', $CfsCsvFilePath);
  * sendSNPP
  *
  */
-$snpp_url = "snpp.active911.com";
-$snpp_port = "444";
-$snpp_page = "PP2335-jZ4H4fh8Lk6zB2jf";
+$snppSend = false;
+$snppUrl = "snpp.active911.com";
+$snppPort = "444";
+$snppPage = "PP2335-jZ4H4fh8Lk6zB2jf";
 
 /**
  * sendPushover
  *
  */
+$pushoverSend = false;
 $pushoverUrl = "https://api.pushover.net/1/messages.json";
 $pushoverToken = "aodca6wpud384boctokw3o3spnui41";
 $pushoverUser = "gbvpr4istsx6g3yynx87eqah5nc2n1";
@@ -62,6 +64,7 @@ $pushoverUser = "gbvpr4istsx6g3yynx87eqah5nc2n1";
  * sendWebhook
  *
  */
+$webhookSend = true;
 $webhookUrl = "https://outlook.office.com/webhook/e1059a7d-c09b-4b4d-afd7-edba8f04d9dd@deefb18f-6e39-486d-b9b0-4931e10710e2/IncomingWebhook/55a2bb25274e47e5af3d83792d432196/5102ae40-48ec-43ab-8729-1f0301969875";
 
 /**
