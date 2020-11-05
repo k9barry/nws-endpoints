@@ -32,7 +32,7 @@ if (file_exists($configfile)) {
 } else {
     rename("./src/config.php.dist", "./src/config.php");
     $logger->warning("config.php file was not located so I created one for you.  Please be sure to change the settings");
-    require_once $configfile;
+    die("config.php file was not located so I created one for you.  Please be sure to change the settings");
 }
 
 /**
