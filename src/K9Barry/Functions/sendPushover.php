@@ -24,7 +24,7 @@ function sendPushover($db_conn, $db_incident, $xml)
     extract($pushoverMessage[0]);
     $urlEncFullAddress = urlencode($db_FullAddress);
     $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
-    $logger->info("[sendPushover] Open connection to Pushover using Google Url - \n" . $mapUrl . "");
+    $logger->info("Open connection to Pushover using Google Url " . $mapUrl . "");
     curl_setopt_array($ch = curl_init(), array(
         CURLOPT_URL => "$pushoverUrl",
         CURLOPT_POSTFIELDS => array(
