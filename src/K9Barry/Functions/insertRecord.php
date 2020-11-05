@@ -211,6 +211,6 @@ function insertRecord($db_conn, $db_incident, $xml, $send)
                 sendSNPP($db_conn, $db_incident, $xml); // Active911 via snpp
             }
         }
-        $logger->info("Send flag not set - nothing sent to endpoint(s)");
     }
+    $logger->info("Send flag not set - nothing sent to endpoint(s)");
 }
