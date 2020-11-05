@@ -40,7 +40,7 @@ $db_table = 'incidents';
 $CfsCsvFilePath = "./src/nwscfstype.csv";
 
 // Table name for active incidnets to be sent nwscfstypecsv
-$CfsTableName = preg_replace("/[^a-zA-Z0-9\s]/", '', $CfsCsvFilePath);
+$CfsTableName = "nwscfstypecsv";
 
 /**
  * sendSNPP
@@ -55,7 +55,7 @@ $snppPage = "PP2335-jZ4H4fh8Lk6zB2jf";
  * sendPushover
  *
  */
-$pushoverSend = false;
+$pushoverSend = true;
 $pushoverUrl = "https://api.pushover.net/1/messages.json";
 $pushoverToken = "aodca6wpud384boctokw3o3spnui41";
 $pushoverUser = "gbvpr4istsx6g3yynx87eqah5nc2n1";

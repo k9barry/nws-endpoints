@@ -10,7 +10,7 @@
  */
 function sendWebhook($db_conn, $db_incident, $xml)
 {
-    global $logger;
+    global $logger, $googleApiKey, $webhookUrl;
     $CallId = $xml->CallId;
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
     $row = $db_conn->prepare($sql);

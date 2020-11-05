@@ -12,6 +12,7 @@
  */
 function insertRecord($db_conn, $db_incident, $xml, $send)
 {
+    global $logger, $CfsTableName, $webhookSend, $pushoverSend, $snppSend;
     if ($send == 0) { // checking for changes between old and new
         $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$xml->CallId'";
         $row = $db_conn->prepare($sql);

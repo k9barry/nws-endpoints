@@ -10,12 +10,13 @@
  */
 function csvToSqlite($db_conn, $csvFilePath, $options = array())
 {
+    global $logger, $CfsTableName;
     extract($options);
     if (($csv_handle = fopen($csvFilePath, "r")) === false) {
         throw new Exception('Cannot open CSV file');
     }
     $delimiter = ',';
-    $table = preg_replace("/[^A-Z0-9]/i", '', basename($csvFilePath));
+    $table = $CfsTableName;
     $fields = array_map(function ($field) {
         return strtolower(preg_replace("/[^A-Z0-9]/i", '', $field));
     }, fgetcsv($csv_handle, 0, $delimiter));
