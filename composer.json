@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "K9Barry\\Webhook\\": "$WEBROOT/src/"
+            "K9Barry\\Webhook\\": "/src/"
         }
     },
     "repositories": [
