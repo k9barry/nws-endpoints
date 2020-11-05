@@ -7,6 +7,11 @@
 
 require_once "./vendor/autoload.php";
 
+foreach (glob('./src/K9Barry/Webhook/*.php') as $filename)
+{
+    include_once $filename;
+}
+
 /**
  * Load K9Barry namespace
  *
