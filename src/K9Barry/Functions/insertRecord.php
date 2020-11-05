@@ -199,16 +199,16 @@ function insertRecord($db_conn, $db_incident, $xml, $send)
     if (sendActiveIncident($db_conn, $CfsTableName, $AgencyContexts_AgencyContext_CallType)) {
         if ($send == 1) {
             if ($webhookSend) {
-                sendWebhook($db_conn, $db_incident, $xml); // Webhook
                 $logger->info("Sending xml file to webhook");
+                sendWebhook($db_conn, $db_incident, $xml); // Webhook
             }
             if ($pushoverSend) {
-                sendPushover($db_conn, $db_incident, $xml); // Pushover
                 $logger->info("Sending xml file to pushover");
+                sendPushover($db_conn, $db_incident, $xml); // Pushover
             }
             if ($snppSend) {
-                sendSNPP($db_conn, $db_incident, $xml); // Active911 via snpp
                 $logger->info("Sending xml file to snpp");
+                sendSNPP($db_conn, $db_incident, $xml); // Active911 via snpp
             }
         }
         $logger->info("Send flag not set - nothing sent to endpoint(s)");

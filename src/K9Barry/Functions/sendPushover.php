@@ -48,5 +48,6 @@ function sendPushover($db_conn, $db_incident, $xml)
     ));
     $result = curl_exec($ch);
     curl_close($ch);
-    $logger->info("Pushover message sent - ");
+    $logger->info("Pushover message sent - " . $result . "");
+    return null;
 }
