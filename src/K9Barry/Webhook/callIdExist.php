@@ -18,7 +18,7 @@ class callIdExist
         $result = $db_conn->query($sql);
         foreach ($result as $result) {
             $RowExists = $result[0];
-            $logger->info("[callIdExist] Call id exists ");
+            $logger->info("Call id exists ");
         }
         return $RowExists;
     }
