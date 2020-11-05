@@ -40,12 +40,31 @@ $db_table = 'incidents';
 $CfsCsvFilePath = "./src/nwscfstype.csv";
 
 // Table name for active incidnets to be sent nwscfstypecsv
-$CfsTableName = preg_replace("/[^a-zA-Z0-9\s]/", '', $CfsCsvFilePath);
+$CfsTableName = "nwscfstypecsv;
+
+/**
+ * sendSNPP
+ *
+ */
+$snppSend = false;
+$snppUrl = "snpp.active911.com";
+$snppPort = "444";
+$snppPage = "YOUR_SNPP_PAGER_ID";
+
+/**
+ * sendPushover
+ *
+ */
+$pushoverSend = false;
+$pushoverUrl = "https://api.pushover.net/1/messages.json";
+$pushoverToken = "YOUR_PUSHOVER_TOKEN";
+$pushoverUser = "YOUR_PUSHOVER_USER";
 
 /**
  * sendWebhook
  *
  */
+$webhookSend = true;
 $webhookUrl = "YOUR_MICROSOFT_TEAMS_INCOMING_WEB_URL";
 
 /**
@@ -53,4 +72,3 @@ $webhookUrl = "YOUR_MICROSOFT_TEAMS_INCOMING_WEB_URL";
  *
  */
 $googleApiKey = "YOUR_GOOGLE_API_KEY";
-
