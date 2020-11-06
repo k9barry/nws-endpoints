@@ -15,7 +15,11 @@ function callIdExist($db_conn, $db_incident, $CallId)
     $result = $db_conn->query($sql);
     foreach ($result as $result) {
         $RowExists = $result[0];
-        $logger->info("Call id exists ");
+    }
+    if ($RowExists) {
+        $logger->info("Call ID exists in database");
+    } else {
+        $logger->info("Call ID does not exist in database");
     }
     return $RowExists;
 }

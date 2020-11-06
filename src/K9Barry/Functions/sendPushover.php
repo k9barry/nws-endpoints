@@ -27,6 +27,7 @@ function sendPushover($db_conn, $db_incident, $xml)
     $logger->info("Open connection to Pushover using Google Url " . $mapUrl . "");
     curl_setopt_array($ch = curl_init(), array(
         CURLOPT_URL => "$pushoverUrl",
+        CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POSTFIELDS => array(
             "token" => "$pushoverToken",
             "user" => "$pushoverUser",
@@ -47,7 +48,6 @@ function sendPushover($db_conn, $db_incident, $xml)
         ),
     ));
     $result = curl_exec($ch);
-    $response = file_get_contents($ch);
     curl_close($ch);
-    $logger->info("Pushover message sent - " . $result . " " . $response . "");
+    $logger->info("Pushover message sent - " . $result . "");
 }
