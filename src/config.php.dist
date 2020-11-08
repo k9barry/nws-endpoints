@@ -10,10 +10,10 @@
  */
 
 // Data folder for files created by scripts
-$strDataFolder = "./data"; // No ending '/'
+$strDataFolder = "./data"; //No ending '/'
 
 // Monitor folder this script is watching for file additions
-$strInFolder = "Y:"; // mapped drive to NWS xml file folder
+$strInFolder = "Y:"; //mapped drive to NWS xml file folder
 
 // Filename extensions to be monitored for in the monitor folder
 $arrayInputFileExtensions = array('xml');
@@ -40,17 +40,35 @@ $db_table = 'incidents';
 $CfsCsvFilePath = "./src/nwscfstype.csv";
 
 // Table name for active incidnets to be sent nwscfstypecsv
-$CfsTableName = preg_replace("/[^a-zA-Z0-9\s]/", '', $CfsCsvFilePath);
+$CfsTableName = "nwscfstypecsv";
+
+/**
+ * sendSNPP
+ *
+ */
+$snppSend = false;
+$snppUrl = "snpp.active911.com";
+$snppPort = "444";
+$snppPage = "Active911.com_token";
+
+/**
+ * sendPushover
+ *
+ */
+$pushoverSend = true;
+$pushoverUrl = "https://api.pushover.net/1/messages.json";
+$pushoverToken = "Pushover.net_token";
+$pushoverUser = "Pushover.net_user_or_group_ID";
 
 /**
  * sendWebhook
  *
  */
-$webhookUrl = "YOUR_MICROSOFT_TEAMS_INCOMING_WEB_URL";
+$webhookSend = true;
+$webhookUrl = "Microsoft_Teams_Webhook_URL";
 
 /**
  * Google API key
  *
  */
-$googleApiKey = "YOUR_GOOGLE_API_KEY";
-
+$googleApiKey = "Google_Map_API_Key";
