@@ -20,7 +20,7 @@ function sendActiveIncident($db_conn, $CfsTableName, $IncidentType)
     $result = $db_conn->query($sql);
     $n = 0;
     foreach ($result as $row) {
-        if ($row['active'] == "Yes") {
+        if ($row['fire'] == "Yes") {
             $n++;
         }
     }
