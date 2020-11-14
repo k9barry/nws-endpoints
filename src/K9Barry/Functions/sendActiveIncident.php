@@ -10,7 +10,7 @@
  */
 function sendActiveIncident($db_conn, $CfsTableName, $IncidentType)
 {
-    global $logger, $CfsTableName;
+    global $logger;
     if (strpos($IncidentType, "|")) { // two incident types exist
         $type = explode("|", $IncidentType);
         $sql = "SELECT * FROM $CfsTableName WHERE cfstype LIKE '$type[0]' OR cfstype LIKE '$type[1]'";
