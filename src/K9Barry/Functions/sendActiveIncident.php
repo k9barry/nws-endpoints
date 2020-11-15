@@ -25,10 +25,10 @@ function sendActiveIncident($db_conn, $CfsTableName, $IncidentType)
         }
     }
     if ($n >= 1) {
-        $logger->info("Incident is whitelisted");
+        $logger->info("Incident " . $IncidentType ." is whitelisted");
         return true;
     } else {
-        $logger->info("Incident is NOT whitelisted");
+        $logger->info("Incident " . $IncidentType . " is NOT whitelisted");
         return false;
     }
 }
