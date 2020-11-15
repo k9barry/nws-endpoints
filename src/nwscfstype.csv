@@ -115,7 +115,7 @@ Property Damage,Not In Progress,Yes,No,No,Yes
 Pursuit,In Progress,Yes,No,No,Yes
 Rape,Just Occurred,Yes,No,No,Yes
 Repossession,Not In Progress,Yes,No,No,Yes
-Road Hazard,Routine,Yes,Yes,No,Yes
+Road Hazard,Routine,Yes,No,No,Yes
 Robbery,Just Occurred,Yes,No,No,Yes
 Runaway,Just Occurred,Yes,No,No,Yes
 Seizure,In Progress,No,Yes,No,Yes
