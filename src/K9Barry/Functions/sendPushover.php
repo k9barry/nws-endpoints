@@ -34,6 +34,7 @@ function sendPushover($db_conn, $db_incident, $xml)
             "title" => "MCCD Call: $db_CallNumber $db_CallType",
             "message" => "
             Type: $db_AgencyType
+            C-Name: $db_CommonName
             Loc: $db_FullAddress
             Inc: $db_CallType
             Nature: $db_NatureOfCall
