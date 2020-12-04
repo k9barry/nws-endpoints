@@ -1,44 +1,72 @@
-CFS Type,Default Status,Police,Fire,EMS,Active
+﻿CFS Type,Default Status,Police,Fire,EMS,Active
 ================================,===============,======,====,===,======
 911 Hangup,In Progress,Yes,No,No,Yes
 Abandoned Vehicle,In Progress,Yes,No,No,Yes
-Abdominal Pain,In Progress,No,Yes,No,Yes
 Accident - Check Out,In Progress,No,Yes,No,Yes
 Accident - PD,In Progress,Yes,No,No,Yes
 Accident - PI,In Progress,No,Yes,No,Yes
 Alarm,In Progress,Yes,No,No,Yes
 Alarm - Bank,In Progress,Yes,No,No,Yes
-Allergic Reaction,In Progress,No,Yes,No,Yes
-Animal Bite,In Progress,No,Yes,No,Yes
 Animal Complaint,In Progress,Yes,No,No,Yes
 Assault,In Progress,Yes,No,No,Yes
 Assist EMS,In Progress,Yes,No,No,Yes
 Assist Motorist,In Progress,Yes,No,No,Yes
 Assist Other Agency,In Progress,Yes,No,No,Yes
-Assist Person,In Progress,Yes,Yes,No,Yes
-Back Pain,In Progress,No,Yes,No,Yes
 Battery - Non Domestic,In Progress,Yes,No,No,Yes
 BI Alert,In Progress,Yes,No,No,Yes
-Bleeding - Nontraumatic,In Progress,No,Yes,No,Yes
-Bleeding - Traumatic,In Progress,No,Yes,No,Yes
 Burglary,Not In Progress,Yes,No,No,Yes
-Burns,In Progress,No,Yes,No,Yes
-Cardiac Arrest,In Progress,No,Yes,No,Yes
-Cardiac Arrest - Working,In Progress,No,Yes,No,Yes
-Chest Pain,In Progress,No,Yes,No,Yes
 Child Offense,Not In Progress,Yes,No,No,Yes
-Choking,In Progress,No,Yes,No,Yes
 Civil - Civil Process,Not In Progress,Yes,No,No,Yes
 Civil - Eviction,In Progress,Yes,No,No,Yes
 Civil - Replevin,In Progress,Yes,No,No,Yes
 CO Check with Symptoms,In Progress,No,Yes,No,Yes
 DCS Assist,In Progress,Yes,No,No,Yes
 Death Investigation,In Progress,Yes,No,No,Yes
-Diabetic,In Progress,No,Yes,No,Yes
 Dispatch - ATL,In Progress,Yes,No,No,Yes
 Disturbance,In Progress,Yes,No,No,Yes
 Domestic Dispute,In Progress,Yes,No,No,Yes
 Drug Violation,Just Occurred,Yes,No,No,Yes
+E - Abdominal Pain,In Progress,No,Yes,No,Yes
+E - Allergic Reaction,In Progress,No,Yes,No,Yes
+E - Animal Bite,In Progress,No,Yes,No,Yes
+E - Assault - Scene Not Secure,In Progress,No,Yes,No,Yes
+E - Assault - Scene Secure,In Progress,No,Yes,No,Yes
+E - Assist Person,In Progress,Yes,Yes,No,Yes
+E - Back Pain,In Progress,No,Yes,No,Yes
+E - Bleeding - Nontraumatic,In Progress,No,Yes,No,Yes
+E - Bleeding - Traumatic,In Progress,No,Yes,No,Yes
+E - Burns,In Progress,No,Yes,No,Yes
+E - Cardiac Arrest,In Progress,No,Yes,No,Yes
+E - Cardiac Arrest - Working,In Progress,No,Yes,No,Yes
+E - Chest Pain,In Progress,No,Yes,No,Yes
+E - Choking,In Progress,No,Yes,No,Yes
+E - Diabetic,In Progress,No,Yes,No,Yes
+E - Drowning,In Progress,No,Yes,No,Yes
+E - Head Injury - Conscious,In Progress,No,Yes,No,Yes
+E - Head Injury - Unconscious,In Progress,No,Yes,No,Yes
+E - Headache,In Progress,No,Yes,No,Yes
+E - Hyperthermia,In Progress,No,Yes,No,Yes
+E - Hypothermia,In Progress,No,Yes,No,Yes
+E - Injured in Fall,In Progress,No,Yes,No,Yes
+E - Injured Person - Traumatic,In Progress,No,Yes,No,Yes
+E - Medical Alarm,In Progress,No,Yes,No,Yes
+E - Mental Emot -Scene Not Safe,In Progress,No,Yes,No,Yes
+E - Mental Emotional -Scene Safe,In Progress,No,Yes,No,Yes
+E - OB/GYN,In Progress,No,Yes,No,Yes
+E - Overdose - Scene is Not Safe,In Progress,No,Yes,No,Yes
+E - Overdose - Scene is Safe,In Progress,No,Yes,No,Yes
+E - Seizure,In Progress,No,Yes,No,Yes
+E - Shooting - Scene is Not Safe,In Progress,No,Yes,No,Yes
+E - Shooting - Scene is Safe,In Progress,No,Yes,No,Yes
+E - Sick Person - Flu Like,In Progress,No,Yes,No,Yes
+E - Sick Person - Not Flu Like,In Progress,No,Yes,No,Yes
+E - Stabbing - Scene is Not Safe,In Progress,No,Yes,No,Yes
+E - Stabbing - Scene is Safe,In Progress,No,Yes,No,Yes
+E - Stroke,In Progress,No,Yes,No,Yes
+E - Trouble Breathing,In Progress,No,Yes,No,Yes
+E - Unconscious Person,In Progress,No,Yes,No,Yes
+E - Unknown Medical ALS,In Progress,No,Yes,No,Yes
+E - Unknown Medical BLS,In Progress,No,Yes,No,Yes
 Emergency Detention Order,In Progress,Yes,No,No,Yes
 Escape,Routine,Yes,No,No,Yes
 Escort,In Progress,Yes,No,No,Yes
@@ -55,10 +83,10 @@ F - Fire Investigation,In Progress,No,Yes,No,Yes
 F - Fuel Spill,In Progress,No,Yes,No,Yes
 F - Gas Odor/Leak,In Progress,No,Yes,No,Yes
 F - Hazmat Incident,In Progress,Yes,Yes,No,Yes
+F - Hazmat WORKING,In Progress,No,Yes,No,Yes
 F - MAYDAY,In Progress,No,Yes,No,Yes
 F - Mutual Aid,In Progress,No,Yes,No,Yes
 F - Pole Fire / Lines Down,In Progress,No,Yes,No,Yes
-F - Public Assist,In Progress,No,Yes,No,Yes
 F - Serious PI,In Progress,No,Yes,No,Yes
 F - Special Rescue,In Progress,No,Yes,No,Yes
 F - Station Coverage,In Progress,No,Yes,No,Yes
@@ -75,24 +103,12 @@ Fight - Non Domestic,In Progress,Yes,No,No,Yes
 Follow Up,In Progress,Yes,No,No,Yes
 Fraud/Scam,Just Occurred,Yes,No,No,Yes
 Harassment,Just Occurred,Yes,No,No,Yes
-Head Injury - Conscious,In Progress,No,Yes,No,Yes
-Head Injury - Unconscious,In Progress,No,Yes,No,Yes
-Headache,In Progress,No,Yes,No,Yes
 Homicide,In Progress,Yes,No,No,Yes
 Hunting Violation,Just Occurred,Yes,No,No,Yes
-Hyperthermia,In Progress,No,Yes,No,Yes
-Hypothermia,In Progress,No,Yes,No,Yes
 Illegal Dumping,Not In Progress,Yes,No,No,Yes
-Injured Person - Nontraumatic,In Progress,No,Yes,No,Yes
-Injured Person - Traumatic,In Progress,No,Yes,No,Yes
 Intoxicated Person/Driver,In Progress,Yes,No,No,Yes
 Jail Incident,Routine,Yes,No,No,Yes
 Loud Party,In Progress,Yes,No,No,Yes
-Medical Alarm,In Progress,No,Yes,No,Yes
-Medical Call - ALS,In Progress,No,Yes,No,Yes
-Medical Call - BLS,In Progress,No,Yes,No,Yes
-Mental Emotional -Scene Not Safe,In Progress,No,Yes,No,Yes
-Mental Emotional -Scene Safe,In Progress,No,Yes,No,Yes
 Mental Subject,In Progress,Yes,No,No,Yes
 Missing Person,In Progress,Yes,No,No,Yes
 Missing-PL,In Progress,Yes,Yes,No,Yes
@@ -100,13 +116,10 @@ Mobile Test Call,In Progress,Yes,Yes,No,Yes
 Motor Check,Routine,Yes,No,No,Yes
 New Call,In Progress,No,No,No,Yes
 Notification,Routine,Yes,No,No,Yes
-OB/GYN,In Progress,No,Yes,No,Yes
 Open Door,In Progress,Yes,No,No,Yes
 Ordinance Violation,In Progress,Yes,No,No,Yes
 Other - Not Listed,Not In Progress,Yes,No,No,Yes
 Overdose,In Progress,Yes,No,No,Yes
-Overdose - Scene is Not Safe,In Progress,No,Yes,No,Yes
-Overdose - Scene is Safe,In Progress,No,Yes,No,Yes
 Patrol Check,In Progress,Yes,No,No,Yes
 Police Assist EMS,In Progress,Yes,No,No,Yes
 Property - Found,In Progress,Yes,No,No,Yes
@@ -115,33 +128,21 @@ Property Damage,Not In Progress,Yes,No,No,Yes
 Pursuit,In Progress,Yes,No,No,Yes
 Rape,Just Occurred,Yes,No,No,Yes
 Repossession,Not In Progress,Yes,No,No,Yes
-Road Hazard,Routine,Yes,No,No,Yes
+Road Hazard,Routine,Yes,Yes,No,Yes
 Robbery,Just Occurred,Yes,No,No,Yes
 Runaway,Just Occurred,Yes,No,No,Yes
-Seizure,In Progress,No,Yes,No,Yes
 Shooting,In Progress,Yes,No,No,Yes
-Shooting - Scene is Not Safe,In Progress,No,Yes,No,Yes
-Shooting - Scene is Safe,In Progress,No,Yes,No,Yes
 Shoplifting,In Progress,Yes,No,No,Yes
-Sick Person - Flu Like,In Progress,No,Yes,No,Yes
-Sick Person - Not Flu Like,In Progress,No,Yes,No,Yes
 SOR - Sex Offender Reg,In Progress,Yes,No,No,Yes
 Stabbing,In Progress,Yes,No,No,Yes
-Stabbing - Scene is Not Safe,In Progress,No,Yes,No,Yes
-Stabbing - Scene is Safe,In Progress,No,Yes,No,Yes
 Standby,In Progress,Yes,No,No,Yes
-Stroke,In Progress,No,Yes,No,Yes
 Suicide - Attempted or Threatene,In Progress,Yes,No,No,Yes
 Suspicious Activity,In Progress,Yes,No,No,Yes
 Theft,In Progress,Yes,No,No,Yes
 Traffic Stop,In Progress,Yes,No,No,Yes
 Transport,Routine,Yes,No,No,Yes
 Trespassing,In Progress,Yes,No,No,Yes
-Trouble Breathing,In Progress,No,Yes,No,Yes
 Trouble With,In Progress,Yes,No,No,Yes
-Unconscious Person,In Progress,No,Yes,No,Yes
-Unknown Medical ALS,In Progress,No,Yes,No,Yes
-Unknown Medical BLS,In Progress,No,Yes,No,Yes
 Vehicle Theft,Just Occurred,Yes,No,No,Yes
 Warrant Service,In Progress,Yes,No,No,Yes
 Welfare Check,In Progress,Yes,No,No,Yes
