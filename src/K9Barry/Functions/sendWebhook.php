@@ -33,7 +33,7 @@ function sendWebhook($db_conn, $db_incident, $xml)
     $card = new \Sebbmyr\Teams\Cards\CustomCard('' . $db_CallNumber . ' ' . $db_CallType, '' . $db_FullAddress . '');
     // add information
     $card->setColor('01BC36')
-        ->addFacts($db_CommonName, ['Nature of Call:' => $db_NatureOfCall, 'Narrative:' => $db_Narrative_Text, 'Units:' => $db_UnitNumber, 'Fire Quad:' => $db_FireQuadrant, 'Cross Street:' => $db_NearestCrossStreets]);
+        ->addFacts($db_CommonName, ['Nature of Call:' => $db_NatureOfCall, 'Narrative:' => $db_Narrative_Text, 'Units:' => $db_UnitNumber, 'Fire Quad:' => $db_FireQuadrant, 'Cross Street:' => $db_NearestCrossStreets, 'Call DateTime:' => $db_CreateDateTime]);
     // send card via connector
     $connector->send($card);
 
