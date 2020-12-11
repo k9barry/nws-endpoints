@@ -195,7 +195,7 @@ function insertRecord($db_conn, $db_incident, $xml, $send)
     $db_conn->exec($sql);
     $logger->info("Record inserted into DB");
 
-    if (fcn_TimeOver15Minutes($db_CreateDateTime)) { // if return true then do not send
+    if (fcn_TimeOver15Minutes($CreateDateTime)) { // if return true then do not send
         $send = 0;
     } else {
         $send = 1; // Send the incident to the endpoints
