@@ -6,7 +6,7 @@
  * @param  mixed $db_CreateDateTime
  * @return $send
  */
-function fcn_TimeOver15Minutes(2020-12-11 15:48:50Z)
+function fcn_TimeOver15Minutes(db_CreateDateTime)
 {
     global $logger;
     $Now = strtotime("now");
