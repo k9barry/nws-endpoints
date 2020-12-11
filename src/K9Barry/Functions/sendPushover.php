@@ -33,7 +33,7 @@ function sendPushover($db_conn, $db_incident, $xml)
             "user" => "$pushoverUser",
             "title" => "MCCD Call: $db_CallNumber $db_CallType",
             "message" => "
-            Time: $db_CreateDateTime
+            Type: $db_AgencyType
             C-Name: $db_CommonName
             Loc: $db_FullAddress
             Inc: $db_CallType
