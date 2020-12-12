@@ -12,12 +12,11 @@ function fcn_TimeOver15Minutes($CreateDateTime)
     $Now = strtotime("now");
     $IncidentTime = strtotime($CreateDateTime);
     $TimeAdjust = 900; // 15 minutes x 60 seconds
-    $Difference = ($Now - $IncidentTime);
-    if ($Difference > $TimeAdjust) {
-        $logger->info("Incident time is over 15 minutes ($Difference) - do not send to endpoints");
-        return false;
+    $delta = ($Now - $IncidentTime);
+    if ($delta > $TimeAdjust) {
+        $logger->info("Incident time is over 15 minutes ($delta) - do not send to endpoints");
     } else {
-        $logger->info("Incident time is less than 15 minutes ($Difference) - Send to endpoints");
-        return true;
+        $logger->info("Incident time is less than 15 minutes ($delta) - Send to endpoints");
     }
+    return $delta;
 }

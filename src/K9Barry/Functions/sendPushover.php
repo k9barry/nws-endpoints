@@ -6,9 +6,10 @@
  * @param  mixed $db_conn
  * @param  mixed $db_incident
  * @param  mixed $xml
+ * @param  mixed $delta
  * @return void
  */
-function sendPushover($db_conn, $db_incident, $xml)
+function sendPushover($db_conn, $db_incident, $xml, $delta)
 {
     global $logger, $pushoverUrl, $pushoverToken, $pushoverUser, $googleApiKey;
     $CallId = $xml->CallId;
@@ -31,9 +32,8 @@ function sendPushover($db_conn, $db_incident, $xml)
         CURLOPT_POSTFIELDS => array(
             "token" => "$pushoverToken",
             "user" => "$pushoverUser",
-            "title" => "MCCD Call: $db_CallNumber $db_CallType",
+            "title" => "MCCD Call: $db_CallNumber $db_CallType ($delta)",
             "message" => "
-            Time: $db_CreateDateTime
             C-Name: $db_CommonName
             Loc: $db_FullAddress
             Inc: $db_CallType
@@ -42,6 +42,7 @@ function sendPushover($db_conn, $db_incident, $xml)
             Beat: $db_PoliceBeat
             Quad: $db_FireQuadrant
             Unit: $db_UnitNumber
+            Time: $db_CreateDateTime
             Narr: $db_Narrative_Text",
             "sound" => "bike",
             "html" => "1",

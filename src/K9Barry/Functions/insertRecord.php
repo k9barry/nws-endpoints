@@ -24,6 +24,7 @@ function insertRecord($db_conn, $db_incident, $xml, $send)
         $db_AlarmLevel = "";
         $db_FullAddress = "";
         $db_UnitNumber = "";
+        $delta = "";
     }
     $CallId = $xml->CallId;
     $CallNumber = $xml->CallNumber;
@@ -196,21 +197,23 @@ function insertRecord($db_conn, $db_incident, $xml, $send)
     $db_conn->exec($sql);
     $logger->info("Record inserted into DB");
 
-    if (fcn_TimeOver15Minutes($CreateDateTime)) { // if return true then do not send
-        $send = 0;
+    $delta = fcn_TimeOver15Minutes($CreateDateTime);
+
+    if ($delta > 900) { // if return true then do not send
+        $send == 0;
     } else {
-        $send = 1; // Send the incident to the endpoints
+        $send == 1; // Send the incident to the endpoints
     }
 
     if (sendActiveIncident($db_conn, $CfsTableName, $AgencyContexts_AgencyContext_CallType)) {
         if ($send == 1) {
             if ($webhookSend) {
                 $logger->info("Sending xml file to webhook");
-                sendWebhook($db_conn, $db_incident, $xml); // Webhook
+                sendWebhook($db_conn, $db_incident, $xml, $delta); // Webhook
             }
             if ($pushoverSend) {
                 $logger->info("Sending xml file to pushover");
-                sendPushover($db_conn, $db_incident, $xml); // Pushover
+                sendPushover($db_conn, $db_incident, $xml, $delta); // Pushover
             }
             if ($snppSend) {
                 $logger->info("Sending xml file to snpp");

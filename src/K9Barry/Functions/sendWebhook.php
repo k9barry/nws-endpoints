@@ -6,9 +6,10 @@
  * @param  mixed $db_conn
  * @param  mixed $db_incident
  * @param  mixed $xml
+ * @param  mixed $delta
  * @return void
  */
-function sendWebhook($db_conn, $db_incident, $xml)
+function sendWebhook($db_conn, $db_incident, $xml, $delta)
 {
     global $logger, $googleApiKey, $webhookUrl;
     $CallId = $xml->CallId;
@@ -30,7 +31,7 @@ function sendWebhook($db_conn, $db_incident, $xml)
     // create connector instance
     $connector = new \Sebbmyr\Teams\TeamsConnector($webhookUrl);
     // create a custom card
-    $card = new \Sebbmyr\Teams\Cards\CustomCard('' . $db_CallNumber . ' ' . $db_CallType, '' . $db_FullAddress . '');
+    $card = new \Sebbmyr\Teams\Cards\CustomCard('' . $db_CallNumber . ' ' . $db_CallType, '' . $db_FullAddress . '(' . $delta . ')');
     // add information
     $card->setColor('01BC36')
         ->addFacts($db_CommonName, ['Nature of Call:' => $db_NatureOfCall, 'Narrative:' => $db_Narrative_Text, 'Units:' => $db_UnitNumber, 'Fire Quad:' => $db_FireQuadrant, 'Cross Street:' => $db_NearestCrossStreets, 'Call DateTime:' => $db_CreateDateTime]);
