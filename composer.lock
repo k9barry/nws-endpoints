@@ -150,12 +150,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/k9barry/php-microsoft-teams-connector.git",
-                "reference": "862fff5ba21c443f2cb039168e2a75fb92f16cb8"
+                "reference": "6965d9a868ee137bc5d3615cd41497f204e85919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/k9barry/php-microsoft-teams-connector/zipball/862fff5ba21c443f2cb039168e2a75fb92f16cb8",
-                "reference": "862fff5ba21c443f2cb039168e2a75fb92f16cb8",
+                "url": "https://api.github.com/repos/k9barry/php-microsoft-teams-connector/zipball/6965d9a868ee137bc5d3615cd41497f204e85919",
+                "reference": "6965d9a868ee137bc5d3615cd41497f204e85919",
                 "shasum": ""
             },
             "require": {
@@ -188,7 +188,7 @@
             "support": {
                 "source": "https://github.com/k9barry/php-microsoft-teams-connector/tree/bugfix"
             },
-            "time": "2020-11-18T22:52:25+00:00"
+            "time": "2020-12-18T14:50:43+00:00"
         }
     ],
     "packages-dev": [],
