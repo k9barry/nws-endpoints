@@ -17,13 +17,7 @@
         "ext-mysqli": "*",
         "ext-pdo_mysql": "*",
         "ext-pdo_sqlite": "*",
-        "sebbmeyer/php-microsoft-teams-connector": "dev-bugfix",
+        "sebbmeyer/php-microsoft-teams-connector": "*",
         "monolog/monolog": "^2.1"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "git@github.com:k9barry/php-microsoft-teams-connector"
-        }
-    ]
+    }
 }
