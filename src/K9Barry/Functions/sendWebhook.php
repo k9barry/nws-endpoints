@@ -36,7 +36,9 @@ function sendWebhook($db_conn, $db_incident, $xml, $delta)
     $card->setColor('01BC36')
         ->addFacts($db_CommonName, ['Nature of Call:' => $db_NatureOfCall, 'Narrative:' => $db_Narrative_Text, 'Units:' => $db_UnitNumber, 'Fire Quad:' => $db_FireQuadrant, 'Cross Street:' => $db_NearestCrossStreets, 'Call DateTime:' => $db_CreateDateTime]);
     // send card via connector
-    $connector->send($card);
+    $curlOptTimeout = 30;
+    $curlOptConnectTimeout = 10;
+    $connector->send($card, $curlOptTimeout, $curlOptConnectTimeout);
 
     $logger->info("Webhook message sent");
 }
