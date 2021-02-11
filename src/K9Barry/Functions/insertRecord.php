@@ -200,7 +200,7 @@ function insertRecord($db_conn, $db_incident, $xml, $send)
     $delta = fcn_TimeOver15Minutes($CreateDateTime);
 
     if ($delta < $TimeAdjust) { // if return true then send
-        $logger->info("Time delta is below limit - SENDING record");       
+        $logger->info("Time delta is ".$delta." - SENDING record");       
         if (sendActiveIncident($db_conn, $CfsTableName, $AgencyContexts_AgencyContext_CallType)) {
             if ($send == 1) {
                 if ($webhookSend) {
@@ -220,6 +220,6 @@ function insertRecord($db_conn, $db_incident, $xml, $send)
             }
         }
     } else {
-        $logger->info("Time delta is too high - NOT sending record");
+        $logger->info("Time delta is too high ".$delta." - NOT sending record");
     }
 }
