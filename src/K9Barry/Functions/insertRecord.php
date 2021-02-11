@@ -199,28 +199,27 @@ function insertRecord($db_conn, $db_incident, $xml, $send)
 
     $delta = fcn_TimeOver15Minutes($CreateDateTime);
 
-    if ($delta > 900) { // if return true then do not send
-        $send == 0;
-    } else {
-        $send == 1; // Send the incident to the endpoints
-    }
-
-    if (sendActiveIncident($db_conn, $CfsTableName, $AgencyContexts_AgencyContext_CallType)) {
-        if ($send == 1) {
-            if ($webhookSend) {
-                $logger->info("Sending xml file to webhook");
-                sendWebhook($db_conn, $db_incident, $xml, $delta); // Webhook
+    if ($delta < 900) { // if return true then send
+        $logger->info("Time delta is below limit - SENDING record");       
+        if (sendActiveIncident($db_conn, $CfsTableName, $AgencyContexts_AgencyContext_CallType)) {
+            if ($send == 1) {
+                if ($webhookSend) {
+                    $logger->info("Sending xml file to webhook");
+                    sendWebhook($db_conn, $db_incident, $xml, $delta); // Webhook
+                }
+                if ($pushoverSend) {
+                    $logger->info("Sending xml file to pushover");
+                    sendPushover($db_conn, $db_incident, $xml, $delta); // Pushover
+                }
+                if ($snppSend) {
+                    $logger->info("Sending xml file to snpp");
+                    sendSNPP($db_conn, $db_incident, $xml); // Active911 via snpp
+                }
+            } else {
+                $logger->info("Send flag not set - nothing sent to endpoint(s)");
             }
-            if ($pushoverSend) {
-                $logger->info("Sending xml file to pushover");
-                sendPushover($db_conn, $db_incident, $xml, $delta); // Pushover
-            }
-            if ($snppSend) {
-                $logger->info("Sending xml file to snpp");
-                sendSNPP($db_conn, $db_incident, $xml); // Active911 via snpp
-            }
-        } else {
-            $logger->info("Send flag not set - nothing sent to endpoint(s)");
         }
+    } else {
+        $logger->info("Time delta is too high - NOT sending record");
     }
 }
