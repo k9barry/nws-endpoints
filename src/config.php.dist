@@ -42,6 +42,9 @@ $CfsCsvFilePath = "./src/nwscfstype.csv";
 // Table name for active incidnets to be sent nwscfstypecsv
 $CfsTableName = "nwscfstypecsv";
 
+// Incidents older than this time will not be sent
+$TimeAdjust = 900; // 15 minutes x 60 seconds
+
 /**
  * sendSNPP
  *

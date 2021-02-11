@@ -12,7 +12,7 @@
  */
 function insertRecord($db_conn, $db_incident, $xml, $send)
 {
-    global $logger, $CfsTableName, $webhookSend, $pushoverSend, $snppSend;
+    global $logger, $CfsTableName, $webhookSend, $pushoverSend, $snppSend, $TimeAdjust;
     if ($send == 0) { // checking for changes between old and new
         $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$xml->CallId'";
         $row = $db_conn->prepare($sql);
@@ -199,7 +199,7 @@ function insertRecord($db_conn, $db_incident, $xml, $send)
 
     $delta = fcn_TimeOver15Minutes($CreateDateTime);
 
-    if ($delta < 900) { // if return true then send
+    if ($delta < $TimeAdjust) { // if return true then send
         $logger->info("Time delta is below limit - SENDING record");       
         if (sendActiveIncident($db_conn, $CfsTableName, $AgencyContexts_AgencyContext_CallType)) {
             if ($send == 1) {
