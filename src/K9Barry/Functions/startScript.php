@@ -45,6 +45,12 @@ foreach (glob('./src/K9Barry/Functions/*.php') as $filename) {
 }
 
 /**
+ *  Remove files from input folder older than $TimeAdjust
+ * 
+ */
+unlinkArchiveOld($strInFolder, $TimeAdjust);
+ 
+/**
  * Setup file structure and start script
  *
  */
