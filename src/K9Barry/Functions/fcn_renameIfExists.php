@@ -12,8 +12,8 @@ function fcn_renameIfExists($filename)
         return $filename;
     }
     $arrayParts = pathinfo($filename);
-    $strFolder = get_value($arrayParts, 'dirname');
-    $strNewFileName = $strFolder . '//' . fcn_fileNewname($strFolder, get_value($arrayParts, 'basename'));
+    $strFolder = fcn_get_value($arrayParts, 'dirname');
+    $strNewFileName = $strFolder . '//' . fcn_fileNewname($strFolder, fcn_get_value($arrayParts, 'basename'));
     $strNewFileName = str_replace('//', '/', $strNewFileName);
     return $strNewFileName;
 }

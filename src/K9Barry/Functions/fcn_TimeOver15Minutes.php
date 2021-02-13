@@ -8,7 +8,7 @@
  */
 function fcn_TimeOver15Minutes($CreateDateTime)
 {
-    global $logger, $TimeAdjust;
+    global $TimeAdjust;
     $Now = strtotime("now");
     $IncidentTime = strtotime($CreateDateTime);
     $delta = ($Now - $IncidentTime);

@@ -19,14 +19,15 @@ function fcn_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBackup
     $logger->info("RelativeFileName=$strRelativeFileName");
     $strOutFile = $strOutFolder . '/' . $strRelativeFileName;
     $strOutFile = str_replace('//', '/', $strOutFile);
-    fcn_recursiveMkdir(dirname($strOutFile), $logger);
+    fcn_recursiveMkdir(dirname($strOutFile), 0755, true, $logger);
     $strOutFile = fcn_renameIfExists($strOutFile);
 
     /*************************************************************************************************************************************
      * Add my custom functions to be preformed when new file is added to monitor folder
     /*************************************************************************************************************************************/
-    $db_conn = new PDO("sqlite:$db");
-    $logger->info("Connection opened to database $db");
+    $db_conn = fcn_openConnection($db, $logger);
+//   $db_conn = new PDO("sqlite:$db");
+ //   $logger->info("Connection opened to database $db");
     if (!fcn_tableExists($db_conn, $db_table, $logger)) {
         fcn_createIncidentsTable($db_conn, $db_table, $logger); // Create incidents table in DB if it does not exist
     }
@@ -43,7 +44,7 @@ function fcn_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBackup
     //Move original file to Archive folder
     $strBackupFile = $strBackupFolder . '/' . $strRelativeFileName;
     $strBackupFile = str_replace('//', '/', $strBackupFile);
-    fcn_recursiveMkdir(dirname($strBackupFile), $logger);
+    fcn_recursiveMkdir(dirname($strBackupFile), 0755, true, $logger);
     $strBackupFile = fcn_renameIfExists($strBackupFile);
     rename($strInFile, $strBackupFile);
     $logger->info("MoveFile: $strInFile => $strBackupFile");
