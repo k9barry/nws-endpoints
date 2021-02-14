@@ -48,7 +48,7 @@ foreach (glob('./src/K9Barry/Functions/*.php') as $filename) {
  *  Remove files from input folder older than $TimeAdjust
  * 
  */
-fcn_unlinkArchiveOld($strInFolder, $TimeAdjust);
+fcn_unlinkMonitoredOld($strInFolder, $TimeAdjust, $logger);
  
 /**
  * Setup file structure and start script

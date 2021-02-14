@@ -5,12 +5,12 @@
  *
  * @param  mixed $path
  * @param  mixed $TimeAdjust
+ * @param  mixed $logger
  * @return void
  */
-function fcn_unlinkMonitoredOld($path, $TimeAdjust) // $strInFolder, $TimeAdjust
+function fcn_unlinkMonitoredOld($path, $TimeAdjust, $logger) // $strInFolder, $TimeAdjust
 
 {
-    global $logger;
     if ($handle = opendir($path)) {
         while (false !== ($file = readdir($handle))) {
             $filelastmodified = filemtime($path . "/" . $file);
