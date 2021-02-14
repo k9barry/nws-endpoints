@@ -9,7 +9,6 @@
  * @return void
  */
 function fcn_unlinkInputOld($path, $TimeAdjust, $logger) // $strInFolder, $TimeAdjust
-
 {
     if ($handle = opendir($path)) {
         while (false !== ($file = readdir($handle))) {
@@ -17,10 +16,9 @@ function fcn_unlinkInputOld($path, $TimeAdjust, $logger) // $strInFolder, $TimeA
             if ((time() - $filelastmodified) > $TimeAdjust) {
                 unlink($path . "/" . $file);
                 $logger->info("File " . $file . " removed from " . $path . "");
-            } else {
-                $logger->info("No files to remove from Input folder " . $path . "");
             }
         }
         closedir($handle);
     }
+    $logger->info("All files older than ".$TimeAdjust." removed from Input folder " . $path . "");
 }
