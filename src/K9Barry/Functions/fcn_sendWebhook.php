@@ -39,7 +39,12 @@ function fcn_sendWebhook($db_conn, $db_incident, $xml, $delta, $logger)
     // send card via connector
     $curlOptTimeout = 30;
     $curlOptConnectTimeout = 10;
-    $connector->send($card, $curlOptTimeout, $curlOptConnectTimeout);
-
-    $logger->info("Webhook message sent");
+    try {
+        $connector->send($card, $curlOptTimeout, $curlOptConnectTimeout);
+    } catch (Exception $e) {
+        // exception is raised and it'll be handled here
+        // $e->getMessage() contains the error message
+        $logger->Error("ERROR". $e->getMessage() ."");
+    }
+      $logger->info("Webhook message sent");
 }

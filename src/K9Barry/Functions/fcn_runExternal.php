@@ -27,7 +27,7 @@ function fcn_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBackup
     /*************************************************************************************************************************************/
     $db_conn = fcn_openConnection($db, $logger);
 //   $db_conn = new PDO("sqlite:$db");
- //   $logger->info("Connection opened to database $db");
+//   $logger->info("Connection opened to database $db");
     if (!fcn_tableExists($db_conn, $db_table, $logger)) {
         fcn_createIncidentsTable($db_conn, $db_table, $logger); // Create incidents table in DB if it does not exist
     }
