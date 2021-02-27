@@ -13,7 +13,7 @@
  */
 function fcn_recursiveGlob($dir, $ext, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger)
 {
-    $logger->info("Looking for: " . $dir . "/" . $ext . "");
+    //$logger->info("Looking for: " . $dir . "/" . $ext . "");
     $globFiles = glob("$dir/$ext");
     $globDirs = glob("$dir/*", GLOB_ONLYDIR);
     if (is_array($globDirs)) {
@@ -21,7 +21,7 @@ function fcn_recursiveGlob($dir, $ext, $strInRootFolder, $strOutFolder, $strBack
             fcn_recursiveGlob($_dir, $ext, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger);
         }
     }
-    $logger->info("Found " . count($globFiles) . " files in [" . $dir . "]...");
+    //$logger->info("Found " . count($globFiles) . " files in [" . $dir . "]...");
     if (is_array($globFiles)) {
         foreach ($globFiles as $file) {
             if (!is_file($file)) {
@@ -31,6 +31,7 @@ function fcn_recursiveGlob($dir, $ext, $strInRootFolder, $strOutFolder, $strBack
             if ($nFileSize <= 0) {
                 continue;
             }
+            $logger->info("=====================================================");
             $logger->info("Found file: " . $file . "");
             fcn_runExternal($file, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger);
         }

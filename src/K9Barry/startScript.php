@@ -67,6 +67,6 @@ if (!is_dir($strBackupFolder)) {
 }
 while (true) {
     fcn_monitorFolder($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder, $logger);
-    $logger->info("=====================================================");
+    // $logger->info("=====================================================");
     sleep($sleep); //Waiting for XXX seconds
 }
