@@ -200,7 +200,7 @@ function fcn_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     $delta = fcn_TimeOver15Minutes($CreateDateTime);
 
     if ($delta < $TimeAdjust) { // if return true then send
-        $logger->info("Time delta is ".$delta." passing record to endpoint(s)");       
+        $logger->info("Time delta is ".$delta." passing record to see if whitelisted at fcn_sendActiveIncident");       
         if (fcn_sendActiveIncident($db_conn, $CfsTableName, $AgencyContexts_AgencyContext_CallType, $logger)) {
             if ($send == 1) {
                 if ($webhookSend) {
