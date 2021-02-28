@@ -55,13 +55,13 @@ function fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
         if (curl_error($ch)) {
             throw new \Exception(curl_error($ch), curl_errno($ch));
         }
-        if ($result !== "1") {
-            throw new \Exception('Error response: ' . $result);
+        if ($result->status !== "1") {
+            throw new \Exception('Response: ' . $result);
         }
     } catch (Exception $e) {
         // exception is raised and it'll be handled here
         // $e->getMessage() contains the error message
-        $logger->Error("ERROR". $e->getMessage() ."");
+        $logger->Error("ERROR ". $e->getMessage() ."");
     }
     curl_close($ch);
     $logger->info("Pushover message sent - " . $result . "");
