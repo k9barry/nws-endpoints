@@ -50,7 +50,15 @@ function fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
             "attachment" => curl_file_create("$mapUrl", "image/jpeg"),
         ),
     ));
-    $result = curl_exec($ch);
+    try {
+        $result = curl_exec($ch);
+    if (curl_error($ch)) {
+        throw new \Exception(curl_error($ch), curl_errno($ch));
+    }
+    if ($result !== "1") {
+        throw new \Exception('Error response: ' . $result);
+    }
     curl_close($ch);
     $logger->info("Pushover message sent - " . $result . "");
+    }
 }
