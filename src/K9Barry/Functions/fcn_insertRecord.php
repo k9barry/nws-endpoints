@@ -200,26 +200,26 @@ function fcn_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     $delta = fcn_TimeOver15Minutes($CreateDateTime);
 
     if ($delta < $TimeAdjust) { // if return true then send
-        $logger->info("Time delta is ".$delta." passing record to endpoints");       
+        $logger->info("Time delta is ".$delta." passing record to endpoint(s)");       
         if (fcn_sendActiveIncident($db_conn, $CfsTableName, $AgencyContexts_AgencyContext_CallType, $logger)) {
             if ($send == 1) {
                 if ($webhookSend) {
-                    $logger->info("Sending xml file to webhook");
+                    $logger->info("Passing xml file to fcn_sendWebhookbhook");
                     fcn_sendWebhook($db_conn, $db_incident, $xml, $delta, $logger); // Webhook
                 }
                 if ($pushoverSend) {
-                    $logger->info("Sending xml file to pushover");
+                    $logger->info("Passing xml file to fcn_sendPushover");
                     fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger); // Pushover
                 }
                 if ($snppSend) {
-                    $logger->info("Sending xml file to snpp");
+                    $logger->info("Passing xml file to fcn_sendSNPP");
                     fcn_sendSNPP($db_conn, $db_incident, $xml, $logger); // Active911 via snpp
                 }
             } else {
-                $logger->info("Send flag not set - nothing sent to endpoint(s)");
+                $logger->info("Send flag not set - nothing passed to endpoint(s)");
             }
         }
     } else {
-        $logger->info("Time delta is too high ".$delta." - NOT passing record to endpoints");
+        $logger->info("Time delta is too high ".$delta." - NOT passing record to endpoint(s)");
     }
 }
