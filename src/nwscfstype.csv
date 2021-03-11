@@ -93,6 +93,7 @@ F - Station Coverage,In Progress,No,Yes,No,Yes
 F - Structure Collapse,In Progress,No,No,No,Yes
 F - Structure Fire - Commercial,In Progress,No,Yes,No,Yes
 F - Structure Fire - Residential,In Progress,No,Yes,No,Yes
+F - Structure Fire - Outbuilding,In Progress,No,Yes,No,Yes
 F - Train Incident,In Progress,Yes,Yes,No,Yes
 F - Trash Fire,In Progress,No,Yes,No,Yes
 F - Vehicle Fire,In Progress,No,Yes,No,Yes
