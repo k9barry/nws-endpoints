@@ -1,9 +1,11 @@
-﻿CFS Type,Default Status,Police,Fire,EMS,Active
+CFS Type,Default Status,Police,Fire,EMS,Active
 ================================,===============,======,====,===,======
 911 Hangup,In Progress,Yes,No,No,Yes
 Abandoned Vehicle,In Progress,Yes,No,No,Yes
 Accident - Check Out,In Progress,No,Yes,No,Yes
+Accident - Motorcycle PI,In Progress,No,Yes,No,Yes
 Accident - PD,In Progress,Yes,No,No,Yes
+Accident - Pedestrian Struck,In Progress,No,Yes,No,Yes
 Accident - PI,In Progress,No,Yes,No,Yes
 Alarm,In Progress,Yes,No,No,Yes
 Alarm - Bank,In Progress,Yes,No,No,Yes
@@ -14,6 +16,7 @@ Assist Motorist,In Progress,Yes,No,No,Yes
 Assist Other Agency,In Progress,Yes,No,No,Yes
 Battery - Non Domestic,In Progress,Yes,No,No,Yes
 BI Alert,In Progress,Yes,No,No,Yes
+Bomb Threat,In Progress,Yes,No,No,Yes
 Burglary,Not In Progress,Yes,No,No,Yes
 Child Offense,Not In Progress,Yes,No,No,Yes
 Civil - Civil Process,Not In Progress,Yes,No,No,Yes
@@ -28,11 +31,12 @@ Domestic Dispute,In Progress,Yes,No,No,Yes
 Drug Violation,Just Occurred,Yes,No,No,Yes
 E - Abdominal Pain,In Progress,No,Yes,No,Yes
 E - Allergic Reaction,In Progress,No,Yes,No,Yes
+E - Altered Mental Status,In Progress,No,Yes,No,Yes
 E - Animal Bite,In Progress,No,Yes,No,Yes
-E - Assault - Scene Not Secure,In Progress,No,Yes,No,Yes
-E - Assault - Scene Secure,In Progress,No,Yes,No,Yes
 E - Assist Person,In Progress,Yes,Yes,No,Yes
 E - Back Pain,In Progress,No,Yes,No,Yes
+E - Battery - Scene Not Secure,In Progress,No,Yes,No,Yes
+E - Battery - Scene Secure,In Progress,No,Yes,No,Yes
 E - Bleeding - Nontraumatic,In Progress,No,Yes,No,Yes
 E - Bleeding - Traumatic,In Progress,No,Yes,No,Yes
 E - Burns,In Progress,No,Yes,No,Yes
@@ -47,8 +51,8 @@ E - Head Injury - Unconscious,In Progress,No,Yes,No,Yes
 E - Headache,In Progress,No,Yes,No,Yes
 E - Hyperthermia,In Progress,No,Yes,No,Yes
 E - Hypothermia,In Progress,No,Yes,No,Yes
-E - Injured in Fall,In Progress,No,Yes,No,Yes
-E - Injured Person - Traumatic,In Progress,No,Yes,No,Yes
+E - Injured Person - ALS,In Progress,No,Yes,No,Yes
+E - Injured Person - BLS,In Progress,No,Yes,No,Yes
 E - Medical Alarm,In Progress,No,Yes,No,Yes
 E - Mental Emot -Scene Not Safe,In Progress,No,Yes,No,Yes
 E - Mental Emotional -Scene Safe,In Progress,No,Yes,No,Yes
@@ -74,14 +78,19 @@ F - Aircraft Incident,In Progress,Yes,Yes,No,Yes
 F - Arson,Not In Progress,Yes,Yes,No,Yes
 F - Bomb Incident,In Progress,Yes,Yes,No,Yes
 F - Brush Fire,In Progress,No,Yes,No,Yes
+F - Brush Fire - Working,In Progress,No,Yes,No,Yes
 F - CO Check,In Progress,No,Yes,No,Yes
+F - Commercial Vehicle Fire,In Progress,No,Yes,No,Yes
+F - Commercial Vehicle Working,In Progress,No,Yes,No,Yes
 F - Elevator Rescue,In Progress,No,Yes,No,Yes
 F - EMA Assist,In Progress,No,Yes,No,Yes
+F - Farm Implement Fire,In Progress,No,Yes,No,Yes
 F - Fire Alarm - Commercial,In Progress,No,Yes,No,Yes
 F - Fire Alarm - Residential,In Progress,No,Yes,No,Yes
 F - Fire Investigation,In Progress,No,Yes,No,Yes
 F - Fuel Spill,In Progress,No,Yes,No,Yes
-F - Gas Odor/Leak,In Progress,No,Yes,No,Yes
+F - Gas Odor Inside,In Progress,No,No,No,Yes
+F - Gas Odor Outside,In Progress,No,Yes,No,Yes
 F - Hazmat Incident,In Progress,Yes,Yes,No,Yes
 F - Hazmat WORKING,In Progress,No,Yes,No,Yes
 F - MAYDAY,In Progress,No,Yes,No,Yes
@@ -91,13 +100,17 @@ F - Serious PI,In Progress,No,Yes,No,Yes
 F - Special Rescue,In Progress,No,Yes,No,Yes
 F - Station Coverage,In Progress,No,Yes,No,Yes
 F - Structure Collapse,In Progress,No,No,No,Yes
+F - Structure Fire - Apartment,In Progress,No,Yes,No,Yes
 F - Structure Fire - Commercial,In Progress,No,Yes,No,Yes
+F - Structure Fire - Outbuilding,In Progress,No,Yes,No,Yes
 F - Structure Fire - Residential,In Progress,No,Yes,No,Yes
 F - Train Incident,In Progress,Yes,Yes,No,Yes
 F - Trash Fire,In Progress,No,Yes,No,Yes
+F - Trench Rescue,In Progress,No,Yes,No,Yes
 F - Vehicle Fire,In Progress,No,Yes,No,Yes
 F - Water Rescue,In Progress,No,Yes,No,Yes
 F - Working - Comm,In Progress,No,Yes,No,Yes
+F - Working - Outbuilding,In Progress,Yes,Yes,No,Yes
 F - Working - Resd,In Progress,No,Yes,No,Yes
 Fight - Non Domestic,In Progress,Yes,No,No,Yes
 Follow Up,In Progress,Yes,No,No,Yes
