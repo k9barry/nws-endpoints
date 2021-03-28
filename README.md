@@ -9,7 +9,7 @@ REQUIREMENTS
 
 OPTIONAL (Endpoints)
 - 1-Microsoft Teams account
-- 2-Active911.com account
+- 2-Active911.com account (SNPP)
 - 3-Pushover.net account
 
 This PHP project runs on any php server or client (Windows, Linux, Mac OS) that supports PHP (coded using php v7.4) and cURL.
