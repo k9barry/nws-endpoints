@@ -12,7 +12,7 @@
  */
 function fcn_sendSignl4($db_conn, $db_incident, $xml, $delta, $logger)
 {
-    global $signl4Url;
+    global $signl4Url, $signl4Token;
     $CallId = $xml->CallId;
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
     $row = $db_conn->prepare($sql);
@@ -24,19 +24,22 @@ function fcn_sendSignl4($db_conn, $db_incident, $xml, $delta, $logger)
         $sep = '';
     }
     extract($pushoverMessage[0]);
-    //$urlEncFullAddress = urlencode($db_FullAddress);
-    //$mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
-    
+
+    // User cURL
+    $Url = "" . $signl4Url . "/" . $signl4Token ."";
+    $ch = curl_init($Url);
+
     //Alert Data
     $s4data = array(
         "Title"=>"$db_CallType",
         "Message"=>"$db_FullAddress",
-        "X-S4-Service"=>"$db_AgencyType",
+        #"X-S4-Service"=>"$db_AgencyType",
+        "X-S4-Service"=>"Fire",
         "X-S4-Location"=>"$db_LatitudeY, $db_LongitudeX",  #'latitude','longitude'
         "X-S4-Filtering"=>"False",  #True|False If set to true, the event will only trigger a notification to the team, if it contains at least one keyword from one of your services
-        "X-S4-AlertingScenario"=>"single_ack",  #single_ack|multi_ack|emergency
+        #"X-S4-AlertingScenario"=>"single_ack",  #single_ack|multi_ack|emergency
         "X-S4-ExternalID"=>"$db_CallId",  #Record ID from 3rd party system - possibly incident number
-        "X-S4-Status"=>"new",  #new|acknowledged|resolved
+        "X-S4-Status"=>"acknowledged",  #new|acknowledged|resolved
         "Common Name"=>"$db_CommonName",
         "TalkGroup"=>"$db_RadioChannel",
         "Beat"=>"$db_PoliceBeat",
@@ -61,21 +64,18 @@ function fcn_sendSignl4($db_conn, $db_incident, $xml, $delta, $logger)
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($http_code == 201) {
             // Success
-            echo $result . 'rn';
+            $logger->info("Signl4 message sent - " . $result ."");
         }
         else {
             // Error
-            $logger->error("Error: ' . $http_code . 'rn'");
-            echo 'Error: ' . $http_code . 'rn';
+            $logger->error("Error: " . $http_code ."");
         }
     }
     else {
         // Error
         $logger->error("Error");
-        echo 'Errorrn';
     }
 
     curl_close($ch);
 
-    $logger->info("Signl4 message sent - " . $result . "");
 }

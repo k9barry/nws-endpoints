@@ -12,7 +12,7 @@
  */
 function fcn_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
 {
-    global $CfsTableName, $webhookSend, $pushoverSend, $snppSend, $TimeAdjust;
+    global $CfsTableName, $signl4Send, $webhookSend, $pushoverSend, $snppSend, $TimeAdjust;
     if ($send == 0) { // checking for changes between old and new
         $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$xml->CallId'";
         $row = $db_conn->prepare($sql);
@@ -203,6 +203,10 @@ function fcn_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
         $logger->info("Time delta is ".$delta." passing record to see if whitelisted at fcn_sendActiveIncident");       
         if (fcn_sendActiveIncident($db_conn, $CfsTableName, $AgencyContexts_AgencyContext_CallType, $logger)) {
             if ($send == 1) {
+                if ($signl4Send) {
+                    $logger->info("Passing xml file to fcn_sendSignl4");
+                    fcn_sendSignl4($db_conn, $db_incident, $xml, $delta, $logger); // Signl4
+                }
                 if ($webhookSend) {
                     $logger->info("Passing xml file to fcn_sendWebhookbhook");
                     fcn_sendWebhook($db_conn, $db_incident, $xml, $delta, $logger); // Webhook
