@@ -39,7 +39,7 @@ function fcn_sendSignl4($db_conn, $db_incident, $xml, $delta, $logger)
         "X-S4-Filtering"=>"False",  #True|False If set to true, the event will only trigger a notification to the team, if it contains at least one keyword from one of your services
         #"X-S4-AlertingScenario"=>"single_ack",  #single_ack|multi_ack|emergency
         "X-S4-ExternalID"=>"$db_CallId",  #Record ID from 3rd party system - possibly incident number
-        "X-S4-Status"=>"acknowledged",  #new|acknowledged|resolved
+        "X-S4-Status"=>"new",  #new|acknowledged|resolved
         "Common Name"=>"$db_CommonName",
         "TalkGroup"=>"$db_RadioChannel",
         "Beat"=>"$db_PoliceBeat",
