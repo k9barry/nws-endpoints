@@ -28,9 +28,10 @@ function fcn_sendApprise($db_conn, $db_incident, $xml, $delta, $logger)
     $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
     $logger->info("Open connection to Apprise using Google Url " . $mapUrl . "");
     curl_setopt_array($ch = curl_init(), array(
-        CURLOPT_URL => "$appriseUrl/$appriseKey",
-        CURLOPT_RETURNTRANSFER => false,
+        CURLOPT_URL => "$appriseUrl"."/"."$appriseKey",
+        CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POSTFIELDS => array(
+            "tag" => "all",
             "title" => "MCCD Call: $db_CallNumber $db_CallType ($delta)",
             "body" => "
             C-Name: $db_CommonName
