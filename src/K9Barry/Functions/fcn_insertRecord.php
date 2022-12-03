@@ -12,7 +12,7 @@
  */
 function fcn_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
 {
-    global $CfsTableName, $signl4Send, $webhookSend, $pushoverSend, $snppSend, $TimeAdjust;
+    global $CfsTableName, $appriseSend, $signl4Send, $webhookSend, $pushoverSend, $snppSend, $TimeAdjust;
     if ($send == 0) { // checking for changes between old and new
         $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$xml->CallId'";
         $row = $db_conn->prepare($sql);
