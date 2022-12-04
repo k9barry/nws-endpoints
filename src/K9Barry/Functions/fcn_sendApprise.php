@@ -34,16 +34,16 @@ function fcn_sendApprise($db_conn, $db_incident, $xml, $delta, $logger)
             "tag" => "all",
             "title" => "MCCD Call: $db_CallNumber $db_CallType ($delta)",
             "body" => "
-            C-Name: $db_CommonName
-            Loc: $db_FullAddress
-            Inc: $db_CallType
-            Nature: $db_NatureOfCall
-            Cross Rd: $db_NearestCrossStreets
-            Beat: $db_PoliceBeat
-            Quad: $db_FireQuadrant
-            Unit: $db_UnitNumber
-            Time: $db_CreateDateTime
-            Narr: $db_Narrative_Text",
+C-Name: $db_CommonName
+Loc: $db_FullAddress
+Inc: $db_CallType
+Nature: $db_NatureOfCall
+Cross Rd: $db_NearestCrossStreets
+Beat: $db_PoliceBeat
+Quad: $db_FireQuadrant
+Unit: $db_UnitNumber
+Time: $db_CreateDateTime
+Narr: $db_Narrative_Text",
             "sound" => "bike",
             "html" => "1",
             "attachment" => curl_file_create("$mapUrl", "image/jpeg"),
