@@ -45,8 +45,8 @@ Unit: $db_UnitNumber
 Time: $db_CreateDateTime
 Narr: $db_Narrative_Text",
             "sound" => "bike",
-            "html" => "1",
-            "attachment" => curl_file_create("$mapUrl", "image/jpeg"),
+            "url" => $mapUrl,
+            "attach" => curl_file_create("$mapUrl", "image/jpeg"),
         ),
     ));
     //Encode the array into JSON.
