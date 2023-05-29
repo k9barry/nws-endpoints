@@ -31,7 +31,7 @@ function fcn_sendApprise($db_conn, $db_incident, $xml, $delta, $logger)
         CURLOPT_URL => "$appriseUrl"."/"."$appriseKey",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POSTFIELDS => array(
-            "tag" => "ntfy",
+            "tag" => "all",
             "title" => "MCCD Call: $db_CallNumber $db_CallType ($delta)",
             "body" => "
 C-Name: $db_CommonName
