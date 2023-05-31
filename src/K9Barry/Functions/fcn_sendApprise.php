@@ -60,7 +60,7 @@ Narr: $db_Narrative_Text",
     //curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     try {
         $result = curl_exec($ch);
-        var_dump($result);
+        #var_dump($result);
         if (curl_error($ch)) {
             throw new \Exception(curl_error($ch), curl_errno($ch));
         }
