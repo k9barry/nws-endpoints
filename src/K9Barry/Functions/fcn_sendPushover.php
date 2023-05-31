@@ -57,8 +57,7 @@ function fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
         }
         // Decode JSON data to PHP object
         $obj = json_decode($result, true);
-        var_dump($obj);
-        if ($obj[1]->status <> "1") {
+        if ($obj->{'status'} <> "1") {
             throw new \Exception('Response: ' . $result);
         }
     } catch (Exception $e) {
