@@ -46,8 +46,7 @@ Time: $db_CreateDateTime
 Narr: $db_Narrative_Text",
 "sound" => "bike",
 "url" => $mapUrl,
-"click" => $mapUrl,
-"attach" => curl_file_create("$mapUrl", "image/jpeg")
+"click" => $mapUrl
         ),
     ));
     //Encode the array into JSON.
