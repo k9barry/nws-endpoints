@@ -44,10 +44,7 @@ Quad: $db_FireQuadrant
 Unit: $db_UnitNumber
 Time: $db_CreateDateTime
 Narr: $db_Narrative_Text",
-"sound" => "bike",
-"url" => $mapUrl,
-"click" => $mapUrl,
-"attach" => curl_file_create("$mapUrl", "image/jpeg")
+"sound" => "bike"
         ),
     ));
     //Encode the array into JSON.
