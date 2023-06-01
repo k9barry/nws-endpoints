@@ -47,7 +47,7 @@ function fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
             Narr: $db_Narrative_Text",
             "sound" => "bike",
             "html" => "1",
-            "attachment" => curl_file_create("$mapUrl", "image/jpeg"),
+            "attachment" => curl_file_create("$mapUrl", "image/jpeg")
         ),
     ));
     try {
@@ -56,14 +56,15 @@ function fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
             throw new \Exception(curl_error($ch), curl_errno($ch));
         }
         // Decode JSON data to PHP object
-        $obj = json_decode($result);
-        if ($obj->status <> "1") {
+        $obj = json_decode($result, true);
+        $status = $obj["status"];
+        if ($status <> "1") {
             throw new \Exception('Response: ' . $result);
         }
     } catch (Exception $e) {
         // exception is raised and it'll be handled here
         // $e->getMessage() contains the error message
-        $logger->Error("ERROR ". $e->getMessage() ."");
+        $logger->Error("ERROR " . $e->getMessage() . "");
     }
     curl_close($ch);
     $logger->info("Pushover message sent - " . $result . "");

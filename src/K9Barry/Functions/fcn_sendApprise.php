@@ -44,9 +44,7 @@ Quad: $db_FireQuadrant
 Unit: $db_UnitNumber
 Time: $db_CreateDateTime
 Narr: $db_Narrative_Text",
-            "sound" => "bike",
-            "url" => $mapUrl,
-            "attach" => $mapUrl,
+"sound" => "bike"
         ),
     ));
     //Encode the array into JSON.
@@ -62,6 +60,7 @@ Narr: $db_Narrative_Text",
     //curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     try {
         $result = curl_exec($ch);
+        #var_dump($result);
         if (curl_error($ch)) {
             throw new \Exception(curl_error($ch), curl_errno($ch));
         }
