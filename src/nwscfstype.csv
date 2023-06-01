@@ -1,4 +1,5 @@
-﻿Name,Default Status,Police Flag,Fire Flag,EMS Flag,Active
+﻿cfstype,defaultstatus,police,fire,ems,active
+================================,===============,======,====,===,======
 911 Hangup,In Progress,True,False,False,Yes
 Abandoned Vehicle,In Progress,True,False,False,Yes
 Accident - Check Out,In Progress,False,True,False,Yes
