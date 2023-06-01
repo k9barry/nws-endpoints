@@ -89,7 +89,7 @@ F - Fire Alarm - Commercial,In Progress,False,True,False,Yes
 F - Fire Alarm - Residential,In Progress,False,True,False,Yes
 F - Fire Investigation,In Progress,False,True,False,Yes
 F - Fuel Spill,In Progress,False,True,False,Yes
-F - Gas Odor Inside,In Progress,False,False,False,Yes
+F - Gas Odor Inside,In Progress,False,True,False,Yes
 F - Gas Odor Outside,In Progress,False,True,False,Yes
 F - Hazmat Incident,In Progress,True,True,False,Yes
 F - Hazmat WORKING,In Progress,False,True,False,Yes
