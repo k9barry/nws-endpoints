@@ -34,7 +34,19 @@ function fcn_sendWebhook($db_conn, $db_incident, $xml, $delta, $logger)
     $card = new \Sebbmyr\Teams\Cards\CustomCard('' . $db_CallNumber . ' ' . $db_CallType, '' . $db_FullAddress . '(' . $delta . ')');
     // add information
     $card->setColor('01BC36')
-        ->addFacts($db_CommonName, ['Nature of Call:' => $db_NatureOfCall, 'Narrative:' => $db_Narrative_Text, 'Units:' => $db_UnitNumber, 'Fire Quad:' => $db_FireQuadrant, 'Map Link:' => $mapUrl, 'Cross Street:' => $db_NearestCrossStreets, 'Call DateTime:' => $db_CreateDateTime]);
+        #->addFacts($db_CommonName, ['Nature of Call:' => $db_NatureOfCall, 'Narrative:' => $db_Narrative_Text, 'Units:' => $db_UnitNumber, 'Fire Quad:' => $db_FireQuadrant, 'Map Link:' => $mapUrl, 'Cross Street:' => $db_NearestCrossStreets, 'Call DateTime:' => $db_CreateDateTime]);
+        ->addFacts($db_CommonName, ['Common Name:' => $db_CommonName])
+        ->addFacts($db_NatureOfCall, ['Nature of Call:' => $db_NatureOfCall])
+        ->addFacts($db_Narrative_Text, ['Narrative:' => $db_Narrative_Text])
+        ->addFacts($db_UnitNumber, ['Units:' => $db_UnitNumber])
+        ->addFacts($db_FireQuadrant, ['Fire Quad:' => $db_FireQuadrant])
+        ->addFacts($mapUrl, ['Map Link:' => $mapUrl])
+        ->addFacts($db_NearestCrossStreets, ['Cross Street:' => $db_NearestCrossStreets])
+        ->addFacts($db_CreateDateTime, ['Call DateTime:' => $db_CreateDateTime])
+        ->addImage($mapUrl);
+
+    
+    
     // send card via connector
     $curlOptTimeout = 30;
     $curlOptConnectTimeout = 10;
