@@ -25,7 +25,8 @@ function fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
     }
     extract($pushoverMessage[0]);
     $urlEncFullAddress = urlencode($db_FullAddress);
-    $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
+    $mapUrl = "<a href=\"https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey\">CLICK FOR MAP</a>";
+####$mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
     $logger->info("Open connection to Pushover using Google Url " . $mapUrl . "");
     curl_setopt_array($ch = curl_init(), array(
         CURLOPT_URL => "$pushoverUrl",
@@ -40,6 +41,7 @@ function fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
             Inc: $db_CallType
             Nature: $db_NatureOfCall
             Cross Rd: $db_NearestCrossStreets
+            Map Link: $mapUrl
             Beat: $db_PoliceBeat
             Quad: $db_FireQuadrant
             Unit: $db_UnitNumber
