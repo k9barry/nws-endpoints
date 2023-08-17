@@ -25,8 +25,8 @@ function fcn_sendWebhook($db_conn, $db_incident, $xml, $delta, $logger)
     }
     extract($webhookMessage[0]);
     $urlEncFullAddress = urlencode($db_FullAddress);
-    $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&
-    maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
+    $mapUrl = "<a href=\"https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&
+    maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey\">CLICK FOR MAP</a>";
     $logger->info("Open connection to Webhook");
 
     // create connector instance
