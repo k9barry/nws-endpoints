@@ -1,7 +1,7 @@
 <?php
 
 /**
- * fcn_sendNtfy
+ * fcn_21_sendNtfy
  *
  * @param  mixed $db_conn
  * @param  mixed $db_incident
@@ -10,30 +10,30 @@
  * @param  mixed $logger
  * @return void
  */
-function fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
+function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
 {
-    global $pushoverUrl, $pushoverToken, $pushoverUser, $googleApiKey;
+    global $ntfyUrl, $ntfyToken, $ntfyUser, $googleApiKey;
     $CallId = $xml->CallId;
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
     $row = $db_conn->prepare($sql);
     $row->execute();
-    $pushoverMessage = $row->fetchAll(PDO::FETCH_ASSOC);
+    $ntfyMessage = $row->fetchAll(PDO::FETCH_ASSOC);
     $out = $sep = '';
-    foreach ($pushoverMessage[0] as $key => $value) {
+    foreach ($ntfyMessage[0] as $key => $value) {
         $out .= $sep . $key . ":" . $value . "\n";
         $sep = '';
     }
-    extract($pushoverMessage[0]);
+    extract($ntfyMessage[0]);
     $urlEncFullAddress = urlencode($db_FullAddress);
     #$mapUrl = "<a href=\"https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey\">CLICK FOR MAP</a>";
     $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
-    $logger->info("Open connection to Pushover using Google Url " . $mapUrl . "");
+    $logger->info("Open connection to NTFY and set Google Url " . $mapUrl . "");
     curl_setopt_array($ch = curl_init(), array(
-        CURLOPT_URL => "$pushoverUrl",
+        CURLOPT_URL => "$ntfyUrl",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POSTFIELDS => array(
-            "token" => "$pushoverToken",
-            "user" => "$pushoverUser",
+            "token" => "$ntfyToken",
+            "user" => "$ntfyUser",
             "title" => "MCCD Call: $db_CallNumber $db_CallType ($delta)",
             "message" => "
             C-Name: $db_CommonName
@@ -68,5 +68,5 @@ function fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
         $logger->Error("ERROR " . $e->getMessage() . "");
     }
     curl_close($ch);
-    $logger->info("Pushover message sent - " . $result . "");
+    $logger->info("Ntfy message sent - " . $result . "");
 }
