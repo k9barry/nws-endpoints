@@ -197,7 +197,7 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     $db_conn->exec($sql);
     $logger->info("Record inserted into DB");
 
-    $delta = fcn_20_TimeOver15Minutes($CreateDateTime);
+    $delta = fcn_20_DeltaTime($CreateDateTime);
 
     if ($delta < $TimeAdjust) { // if return true then send
         $logger->info("Time delta is ".$delta." passing record to see if whitelisted at fcn_sendActiveIncident");       
