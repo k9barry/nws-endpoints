@@ -29,7 +29,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
     $logger->info("Open connection to NTFY and set Google Url " . $mapUrl . "");
 
     $ch = curl_init();
-    $options = aray(CURLOPT_URL => "$ntfyUrl",
+    $options = array(CURLOPT_URL => "$ntfyUrl",
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POSTFIELDS => array(
                             "X-Priority" => "default",  # urgent|high|default|low|min   https://docs.ntfy.sh/publish/#message-priority
