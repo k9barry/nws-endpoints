@@ -45,7 +45,7 @@ foreach (glob('./src/K9Barry/Functions/*.php') as $filename) {
 /**
  *  Remove files from input folder older than $TimeAdjust
  */
-fcn_unlinkInputOld($strInFolder, $TimeAdjust, $logger);
+fcn_1_unlinkInputOld($strInFolder, $TimeAdjust, $logger);
 
 
 /**
@@ -62,7 +62,7 @@ if (!is_dir($strBackupFolder)) {
     mkdir($strBackupFolder);
 }
 while (true) {
-    fcn_monitorFolder($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder, $logger);
+    fcn_2_monitorFolder($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder, $logger);
     // $logger->info("=====================================================");
     sleep($sleep); //Waiting for XXX seconds
 }
