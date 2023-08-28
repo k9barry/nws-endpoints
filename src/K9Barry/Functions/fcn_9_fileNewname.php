@@ -1,13 +1,13 @@
 <?php
 
 /**
- * fcn_fileNewname
+ * fcn_9_fileNewname
  *
  * @param  mixed $path
  * @param  mixed $filename
  * @return void
  */
-function fcn_fileNewname($path, $filename)
+function fcn_9_fileNewname($path, $filename)
 {
     if ($pos = strrpos($filename, '.')) {
         $name = substr($filename, 0, $pos);
