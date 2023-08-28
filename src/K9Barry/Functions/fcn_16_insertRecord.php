@@ -1,7 +1,7 @@
 <?php
 
 /**
- * fcn_insertRecord
+ * fcn_16_insertRecord
  *
  * @param  mixed $db_conn
  * @param  mixed $db_incident
@@ -10,7 +10,7 @@
  * @param  mixed $logger
  * @return void
  */
-function fcn_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
+function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
 {
     global $CfsTableName, $appriseSend, $signl4Send, $webhookSend, $pushoverSend, $snppSend, $TimeAdjust;
     if ($send == 0) { // checking for changes between old and new
@@ -197,35 +197,17 @@ function fcn_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     $db_conn->exec($sql);
     $logger->info("Record inserted into DB");
 
-    $delta = fcn_TimeOver15Minutes($CreateDateTime);
+    $delta = fcn_20_TimeOver15Minutes($CreateDateTime);
 
     if ($delta < $TimeAdjust) { // if return true then send
         $logger->info("Time delta is ".$delta." passing record to see if whitelisted at fcn_sendActiveIncident");       
-        if (fcn_sendActiveIncident($db_conn, $CfsTableName, $AgencyContexts_AgencyContext_CallType, $logger)) {
-            if ($send == 1) {
-                if ($appriseSend) {
-                    $logger->info("Passing xml file to fcn_sendApprise");
-                    fcn_sendApprise($db_conn, $db_incident, $xml, $delta, $logger); // Apprise
-                }
-                if ($signl4Send) {
-                    $logger->info("Passing xml file to fcn_sendSignl4");
-                    fcn_sendSignl4($db_conn, $db_incident, $xml, $delta, $logger); // Signl4
-                }
-                if ($webhookSend) {
-                    $logger->info("Passing xml file to fcn_sendWebhookbhook");
-                    fcn_sendWebhook($db_conn, $db_incident, $xml, $delta, $logger); // Webhook
-                }
-                if ($pushoverSend) {
-                    $logger->info("Passing xml file to fcn_sendPushover");
-                    fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger); // Pushover
-                }
-                if ($snppSend) {
-                    $logger->info("Passing xml file to fcn_sendSNPP");
-                    fcn_sendSNPP($db_conn, $db_incident, $xml, $logger); // Active911 via snpp
-                }
-            } else {
-                $logger->info("Send flag not set - nothing passed to endpoint(s)");
+        if ($send == 1) {
+            if ($ntfySend) {
+                $logger->info("Passing xml file to fcn_21_sendNtfy");
+                fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger); // Ntfy
             }
+        } else {
+            $logger->info("Send flag not set - nothing passed to endpoint(s)");
         }
     } else {
         $logger->info("Time delta is too high ".$delta." - NOT passing record to endpoint(s)");
