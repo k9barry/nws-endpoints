@@ -1,7 +1,7 @@
 <?php
 
 /**
- * fcn_sendPushover
+ * fcn_sendNtfy
  *
  * @param  mixed $db_conn
  * @param  mixed $db_incident
