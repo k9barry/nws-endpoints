@@ -11,7 +11,6 @@ require_once "./vendor/autoload.php";
  * Load Monolog and Initialize
  *
  */
-
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Monolog\Processor\IntrospectionProcessor;
@@ -25,7 +24,6 @@ $logger->info('Endpoint logger is now ready'); // You can now use your logger
  * Require config file
  *
  */
-
 $configfile = "./src/config.php";
 if (file_exists($configfile)) {
     require_once $configfile;
@@ -37,24 +35,22 @@ if (file_exists($configfile)) {
 
 /**
  * Require functions
- *
  */
 foreach (glob('./src/K9Barry/Functions/*.php') as $filename) {
     include_once $filename;
     $logger->info("include_once $filename \r\n");
 }
 
+
 /**
  *  Remove files from input folder older than $TimeAdjust
- * 
  */
 fcn_unlinkInputOld($strInFolder, $TimeAdjust, $logger);
- 
+
+
 /**
  * Setup file structure and start script
- *
  */
-
 ini_set('memory_limit', '-1');
 ini_set("max_execution_time", 0);
 set_time_limit(0);
