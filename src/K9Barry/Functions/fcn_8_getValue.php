@@ -1,14 +1,14 @@
 <?php
 
 /**
- * fcn_get_value
+ * fcn_8_getValue
  *
  * @param  mixed $array
  * @param  mixed $index
  * @param  mixed $default
  * @return void
  */
-function fcn_get_value($array, $index, $default = '')
+function fcn_8_getValue($array, $index, $default = '')
 {
     if (!isset($array[$index])) {
         return $default;
