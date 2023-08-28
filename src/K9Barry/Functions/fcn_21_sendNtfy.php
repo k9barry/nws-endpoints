@@ -25,32 +25,37 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
     }
     extract($ntfyMessage[0]);
     $urlEncFullAddress = urlencode($db_FullAddress);
-    #$mapUrl = "<a href=\"https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey\">CLICK FOR MAP</a>";
     $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
     $logger->info("Open connection to NTFY and set Google Url " . $mapUrl . "");
-    curl_setopt_array($ch = curl_init(), array(
-        CURLOPT_URL => "$ntfyUrl",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POSTFIELDS => array(
-            "token" => "$ntfyToken",
-            "user" => "$ntfyUser",
-            "title" => "MCCD Call: $db_CallNumber $db_CallType ($delta)",
-            "message" => "
-            C-Name: $db_CommonName
-            Loc: $db_FullAddress
-            Inc: $db_CallType
-            Nature: $db_NatureOfCall
-            Cross Rd: $db_NearestCrossStreets
-            Beat: $db_PoliceBeat
-            Quad: $db_FireQuadrant
-            Unit: $db_UnitNumber
-            Time: $db_CreateDateTime
-            Narr: $db_Narrative_Text",
-            "sound" => "bike",
-            "html" => "1",
-            "attachment" => curl_file_create("$mapUrl", "image/jpeg")
-        ),
-    ));
+
+    $ch = curl_init();
+    $options = aray(CURLOPT_URL => "$ntfyUrl",
+                    CURLOPT_RETURNTRANSFER => true,)
+                    CURLOPT_POSTFIELDS => array(
+                            "X-Priority" => "default",  # urgent|high|default|low|min   https://docs.ntfy.sh/publish/#message-priority
+                            "X-Tags" => "fire_engine | police_car",  # https://docs.ntfy.sh/publish/#tags-emojis
+                            "X-Title" => "Call: $db_CallNumber $db_CallType ($delta)",  # https://docs.ntfy.sh/publish/#message-title
+                            "X-Message" => "
+                                C-Name: $db_CommonName
+                                Loc: $db_FullAddress
+                                Inc: $db_CallType
+                                Nature: $db_NatureOfCall
+                                Cross Rd: $db_NearestCrossStreets
+                                Beat: $db_PoliceBeat
+                                Quad: $db_FireQuadrant
+                                Unit: $db_UnitNumber
+                                Time: $db_CreateDateTime
+                                Narr: $db_Narrative_Text",
+                            "X-Actions" => "",  # https://docs.ntfy.sh/publish/#click-action
+                            "X-Click" => "",  # https://docs.ntfy.sh/publish/#click-action
+                            "X-Attach" => "$mapUrl",  # https://docs.ntfy.sh/publish/#attachments
+                            "X-Filename" => "",  # https://docs.ntfy.sh/publish/#attachments
+                            "X-Email" => "",  # https://docs.ntfy.sh/publish/#e-mail-notifications
+                            "X-Markdown" => "1"  #Markdown is supported 1|0 https://www.markdownguide.org/basic-syntax/
+                        ),
+                    ));
+    curl_setopt_array($ch, $options);
+
     try {
         $result = curl_exec($ch);
         if (curl_error($ch)) {
