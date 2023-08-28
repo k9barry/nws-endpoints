@@ -36,58 +36,17 @@ $db = "" . $strDataFolder . "/Database.sqlite";
 // Set the database table name to store incidents into
 $db_table = 'incidents';
 
-//Set the location for the csv file of active whitelist of incidents to send
-$CfsCsvFilePath = "./src/nwscfstype.csv";
-
-// Table name for active incidnets to be sent nwscfstypecsv
-$CfsTableName = "nwscfstypecsv";
-
 // Incidents older than this time will not be sent
 $TimeAdjust = 900; // 15 minutes x 60 seconds
 
 /**
- * sendApprise
+ * sendNtfy
  *
  */
-$appriseSend = true;
-$appriseUrl = "https://{servername}/notify";  #Do not put trailing slash
-$appriseKey = "{configuration_name}";  #The KEY you plan to associate your configuration with
-#Can not have spaces and/or special characters in it. Both a dash (-) and underscore (_) are the only exceptions to this rule.
-#Must start with at least 2 alpha/numeric characters.
-#Can not exceed 64 characters in total length.
-
-/**
- * sendSNPP
- *
- */
-$snppSend = true;
-$snppUrl = "snpp.active911.com";
-$snppPort = "444";
-$snppPage = "{Active911PageID}";
-
-/**
- * sendPushover
- *
- */
-$pushoverSend = true;
-$pushoverUrl = "https://api.pushover.net/1/messages.json";
-$pushoverToken = "{PushoverToken}";
-$pushoverUser = "{PushoverUserId}";
-
-/**
- * sendSignl4
- *
- */
-$signl4Send = false;
-$signl4Url = "https://connect.signl4.com/webhook";  #Do not put trailing slash
-$signl4Token = "{Signl4Token}";
-
-/**
- * sendWebhook
- *
- */
-$webhookSend = true;
-$webhookUrl = "https://{CompanySubdomain}.webhook.office.com/webhookb2/{InfoHere}@{InfoHere}2/IncomingWebhook/{InfoHere}/{InfoHere}";
+$ntfySend = true; #true|false
+$ntfyUrl = "{serverUrl}";
+$ntfyToken = "{ntfyToken}";
+$ntfyUser = "{ntfyUser}";
 
 /**
  * Google API key
