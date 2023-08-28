@@ -1,7 +1,7 @@
 <?php
 
 /**
- * fcn_callIdExist
+ * fcn_15_callIdExist
  *
  * @param  mixed $db_conn
  * @param  mixed $db_incident
@@ -9,7 +9,7 @@
  * @param  mixed $logger
  * @return $RowExists (true) if row exists
  */
-function fcn_callIdExist($db_conn, $db_incident, $CallId, $logger)
+function fcn_15_callIdExist($db_conn, $db_incident, $CallId, $logger)
 {
     $sql = "SELECT count(1) FROM $db_incident WHERE db_CallId = $CallId LIMIT 1";
     $result = $db_conn->query($sql);
