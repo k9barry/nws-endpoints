@@ -1,14 +1,14 @@
 <?php
 
 /**
- * fcn_createIncidentsTable
+ * fcn_12_createIncidentsTable
  *
  * @param  mixed $db_conn
  * @param  mixed $db_incident
  * @param  mixed $logger
  * @return void
  */
-function fcn_createIncidentsTable($db_conn, $db_incident, $logger)
+function fcn_12_createIncidentsTable($db_conn, $db_incident, $logger)
 {
     $sql = "CREATE TABLE IF NOT EXISTS $db_incident
 		(
@@ -38,5 +38,5 @@ function fcn_createIncidentsTable($db_conn, $db_incident, $logger)
         db_Narrative_Text TEXT
         )";
     $db_conn->exec($sql);
-    $logger->info("[fcn_CreateIncidentsTable] Create table " . $db_incident . " if it does not exist");
+    $logger->info("[fcn_12_CreateIncidentsTable] Create table " . $db_incident . " if it does not exist");
 }
