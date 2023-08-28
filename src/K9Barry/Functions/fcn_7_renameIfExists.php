@@ -1,19 +1,19 @@
 <?php
 
 /**
- * fcn_renameIfExists
+ * fcn_7_renameIfExists
  *
  * @param  mixed $filename
  * @return void
  */
-function fcn_renameIfExists($filename)
+function fcn_7_renameIfExists($filename)
 {
     if (!file_exists($filename)) {
         return $filename;
     }
     $arrayParts = pathinfo($filename);
-    $strFolder = fcn_get_value($arrayParts, 'dirname');
-    $strNewFileName = $strFolder . '//' . fcn_fileNewname($strFolder, fcn_get_value($arrayParts, 'basename'));
+    $strFolder = fcn_8_getValue($arrayParts, 'dirname');
+    $strNewFileName = $strFolder . '//' . fcn_9_fileNewname($strFolder, fcn_8_getValue($arrayParts, 'basename'));
     $strNewFileName = str_replace('//', '/', $strNewFileName);
     return $strNewFileName;
 }
