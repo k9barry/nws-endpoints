@@ -8,7 +8,7 @@
  * @param  mixed $logger
  * @return void
  */
-function fcn_unlinkInputOld($path, $TimeAdjust, $logger) // $strInFolder, $TimeAdjust
+function fcn_1_unlinkInputOld($path, $TimeAdjust, $logger) // $strInFolder, $TimeAdjust
 {
     if ($handle = opendir($path)) {
         while (false !== ($file = readdir($handle))) {
