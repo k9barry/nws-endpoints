@@ -1,7 +1,7 @@
 <?php
 
 /**
- * fcn_recursiveGlob
+ * fcn_4_recursiveGlob
  *
  * @param  mixed $dir
  * @param  mixed $ext
@@ -11,14 +11,14 @@
  * @param  mixed $logger
  * @return void
  */
-function fcn_recursiveGlob($dir, $ext, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger)
+function fcn_4_recursiveGlob($dir, $ext, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger)
 {
     //$logger->info("Looking for: " . $dir . "/" . $ext . "");
     $globFiles = glob("$dir/$ext");
     $globDirs = glob("$dir/*", GLOB_ONLYDIR);
     if (is_array($globDirs)) {
         foreach ($globDirs as $_dir) {
-            fcn_recursiveGlob($_dir, $ext, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger);
+            fcn_4_recursiveGlob($_dir, $ext, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger);
         }
     }
     //$logger->info("Found " . count($globFiles) . " files in [" . $dir . "]...");
@@ -33,7 +33,7 @@ function fcn_recursiveGlob($dir, $ext, $strInRootFolder, $strOutFolder, $strBack
             }
             $logger->info("=====================================================");
             $logger->info("Found file: " . $file . "");
-            fcn_runExternal($file, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger);
+            fcn_5_runExternal($file, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger);
         }
     }
 }
