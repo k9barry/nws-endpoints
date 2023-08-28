@@ -1,12 +1,12 @@
 <?php
 
 /**
- * fcn_TimeOver15Minutes
+ * fcn_2TimeOver15Minutes
  *
  * @param  mixed $db_CreateDateTime
  * @return $send
  */
-function fcn_TimeOver15Minutes($CreateDateTime)
+function fcn_20_DeltaTime($CreateDateTime)
 {
     global $TimeAdjust;
     $Now = strtotime("now");
