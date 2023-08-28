@@ -30,7 +30,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
 
     $ch = curl_init();
     $options = aray(CURLOPT_URL => "$ntfyUrl",
-                    CURLOPT_RETURNTRANSFER => true,)
+                    CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POSTFIELDS => array(
                             "X-Priority" => "default",  # urgent|high|default|low|min   https://docs.ntfy.sh/publish/#message-priority
                             "X-Tags" => "fire_engine | police_car",  # https://docs.ntfy.sh/publish/#tags-emojis
@@ -53,7 +53,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
                             "X-Email" => "",  # https://docs.ntfy.sh/publish/#e-mail-notifications
                             "X-Markdown" => "1"  #Markdown is supported 1|0 https://www.markdownguide.org/basic-syntax/
                         ),
-                    ));
+                    );
     curl_setopt_array($ch, $options);
 
     try {
