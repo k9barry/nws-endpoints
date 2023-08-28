@@ -1,15 +1,15 @@
 <?php
 
 /**
- * fcn_globCaseInsensitivePattern
- * * create case insensitive patterns for glob or simular functions
+ * fcn_3_globCaseInsensitivePattern
+ *  create case insensitive patterns for glob or simular functions
  * ['jpg','gif'] as input
  * converted to: *.{[Jj][Pp][Gg],[Gg][Ii][Ff]}
  *
  * @param  mixed $arr_extensions
  * @return void
  */
-function fcn_globCaseInsensitivePattern($arr_extensions)
+function fcn_3_globCaseInsensitivePattern($arr_extensions)
 {
     $opbouw = '';
     $comma = '';
