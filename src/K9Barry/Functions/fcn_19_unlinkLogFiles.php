@@ -1,13 +1,13 @@
 <?php
 
 /**
- * fcn_unlinkLogFiles
+ * fcn_19_unlinkLogFiles
  *
  * @param  mixed $strLogFolder
  * @param  mixed $logger
  * @return void
  */
-function fcn_unlinkLogFiles($strLogFolder, $logger)
+function fcn_19_unlinkLogFiles($strLogFolder, $logger)
 {
     $files = glob("$strLogFolder/*.log");
     $now = time();
