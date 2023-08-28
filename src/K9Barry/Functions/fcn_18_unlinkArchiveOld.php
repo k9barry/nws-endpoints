@@ -1,12 +1,12 @@
 <?php
 
 /**
- * fcn_unlinkArchiveOld
+ * fcn_18_unlinkArchiveOld
  *
  * @param  mixed $path
  * @return void
  */
-function fcn_unlinkArchiveOld($path) // $strBackupFolder
+function fcn_18_unlinkArchiveOld($path) // $strBackupFolder
 
 {
     global $logger;
