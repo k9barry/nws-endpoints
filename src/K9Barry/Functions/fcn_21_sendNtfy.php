@@ -62,11 +62,11 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
             throw new \Exception(curl_error($ch), curl_errno($ch));
         }
         // Decode JSON data to PHP object
-        $obj = json_decode($result, true);
-        $status = $obj["status"];
-        if ($status <> "1") {
-            throw new \Exception('Response: ' . $result);
-        }
+        #$obj = json_decode($result, true);
+        #$status = $obj["status"];
+        #if ($status <> "1") {
+        #    throw new \Exception('Response: ' . $result);
+        #}
     } catch (Exception $e) {
         // exception is raised and it'll be handled here
         // $e->getMessage() contains the error message
