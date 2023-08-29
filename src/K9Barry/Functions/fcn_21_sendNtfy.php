@@ -28,13 +28,13 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
     $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
     $logger->info("Open connection to NTFY and set Google Url " . $mapUrl . "");
     ##Set tag
-    $tags = "fire_engine,police_car"
+    $tags = "fire_engine,police_car";
     ##Add alarm level to tag
-    if ($db_AlarmLevel = 1) {
+    if ($db_AlarmLevel = "1") {
         $tags = "1st_place_medal,". $tags;
-    } else if ($db_AlarmLevel = 2) {
+    } else if ($db_AlarmLevel = "2") {
         $tags = "2nd_place_medal,". $tags;
-    } else if ($db_AlarmLevel = 3) {
+    } else if ($db_AlarmLevel = "3") {
         $tags = "3rd_place_medal,". $tags;
     }
 
