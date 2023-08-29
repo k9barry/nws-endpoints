@@ -43,7 +43,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
             'method' => 'POST',
             'header' => "Content-Type: application/json",
             'content' => json_encode([
-                "topic": [$tags],  # ["tag1","tag2"]
+                "topic": [test],
                 "title": "Call: $db_CallNumber $db_CallType ($delta)",
                 "tags": ["$tags"],
                 "priority": "4",
