@@ -38,31 +38,62 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
         $tags = "3rd_place_medal,". $tags;
     }
 
+    file_get_contents("".$ntfyUrl."/test", false, stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' =>
+                "Content-Type: text/plain\r\n" .
+                "Title: Call: $db_CallNumber $db_CallType ($delta)\r\n" .
+                "Priority: 5",
+            'content' => "C-Name: $db_CommonName
+            C-Name: $db_CommonName
+            Loc: $db_FullAddress
+            Inc: $db_CallType
+            Nature: $db_NatureOfCall
+            Cross Rd: $db_NearestCrossStreets
+            Beat: $db_PoliceBeat
+            Quad: $db_FireQuadrant
+            Unit: $db_UnitNumber
+            Time: $db_CreateDateTime
+            Narr: $db_Narrative_Text"
+        ]
+    ]));
+}
+
+
+
+
+
+
+/*
+
     file_get_contents("$ntfyUrl", false, stream_context_create([
         'http' => [
             'method' => 'POST',
             'header' => "Content-Type: application/json",
             'content' => json_encode([
-                topic: test,
-                title: Call: $db_CallNumber $db_CallType ($delta),
-                tags: $tags,
-                priority: 4,
-                attach: $mapUrl,
-                filename: "diskspace.jpg",
-                click: "https://ntfy.jafcp.com/",
-                #actions: [["action": "view", "label": "Map", "url": "$mapUrl"]],
-                message: 
+                "topic": "test",
+                "title": "Call- $db_CallNumber $db_CallType ($delta)",
+                "tags": "$tags",
+                "priority": 4,
+                "attach": "$mapUrl",
+                "filename": "diskspace.jpg",
+                "click": "https://ntfy.jafcp.com/"
+                #"actions": [["action": "view", "label": "Map", "url": "$mapUrl"]],
+                "message": 
                     "C-Name: $db_CommonName
                     C-Name: $db_CommonName
                     Loc: $db_FullAddress
-                    Inc: $db_CallType,
+                    Inc: $db_CallType
                     Nature: $db_NatureOfCall
                     Cross Rd: $db_NearestCrossStreets
                     Beat: $db_PoliceBeat
                     Quad: $db_FireQuadrant
                     Unit: $db_UnitNumber
                     Time: $db_CreateDateTime
-                    Narr: $db_Narrative_Text])
+                    Narr: $db_Narrative_Text"
+                ])
         ]
     ]));
 }
+*/
