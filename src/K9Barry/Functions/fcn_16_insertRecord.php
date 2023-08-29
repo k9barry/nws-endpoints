@@ -200,16 +200,16 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     $delta = fcn_20_DeltaTime($CreateDateTime);
 
     if ($delta < $TimeAdjust) { // if return true then send
-        $logger->info("Time delta is ".$delta." passing record to see if whitelisted at fcn_sendActiveIncident");       
+        $logger->info("Time delta is ".$delta." if greater than ".$TimeAdjust. " message will NOT be sent");       
         if ($send == 1) {
             if ($ntfySend) {
                 $logger->info("Passing xml file to fcn_21_sendNtfy");
                 fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger); // Ntfy
             }
         } else {
-            $logger->info("Send flag not set - nothing passed to endpoint(s)");
+            $logger->info("Send flag not set - nothing passed to Ntfy");
         }
     } else {
-        $logger->info("Time delta is too high ".$delta." - NOT passing record to endpoint(s)");
+        $logger->info("Time delta is too high ".$delta." - NOT passing record to Ntfy");
     }
 }
