@@ -29,7 +29,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
     $logger->info("Send messages to NTFY with the Google Map url of " . $mapUrl . "");
     
     ##Set tag
-    $tags = fire_engine,police_car"
+    $tags = "fire_engine,police_car"
     ##Add alarm level to tag
     if ($db_AlarmLevel = 1) {
         $tags = "1st_place_medal,". $tags;
