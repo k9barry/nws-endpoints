@@ -28,6 +28,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
     $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
     $logger->info("Open connection to NTFY and set Google Url " . $mapUrl . "");
 
+    
 
     file_get_contents("$ntfyUrl", false, stream_context_create([
         'http' => 
