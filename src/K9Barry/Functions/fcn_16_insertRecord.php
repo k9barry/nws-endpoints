@@ -54,15 +54,15 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     }
     $AlarmLevel = $xml->AlarmLevel;
     if ($AlarmLevel > $db_AlarmLevel) {
-        #$logger->info("".$AlarmLevel." > ".$db_AlarmLevel." resend because alarm level increased");
-        #$send = 1;
+        $logger->info("".$AlarmLevel." > ".$db_AlarmLevel." resend because alarm level increased");
+        $send = 1;
     }
     $NatureOfCall = $xml->NatureOfCall;
     $Location_CommonName = $xml->Location->CommonName;
     $Location_FullAddress = $xml->Location->FullAddress;
     if ($Location_FullAddress != $db_FullAddress) {
-        #$logger->info("".$Location_FullAddress." <> ".$db_FullAddress." resend because address change");
-        #$send = 1;
+        $logger->info("".$Location_FullAddress." <> ".$db_FullAddress." resend because address change");
+        $send = 1;
     }
     $Location_State = $xml->Location->State;
     $Location_NearestCrossStreets = $xml->Location->NearestCrossStreets;
@@ -86,8 +86,8 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     $arr_xml_UnitNumber = array_filter(explode('|', $str_xml_UnitNumber));
 
     if ($arr_db_UnitNumber != $arr_xml_UnitNumber) {
-        #$logger->info("Resend because unit number was added");
-        #$send = 1;
+        $logger->info("Resend because unit number was added");
+        $send = 1;
     }
     $merge_arr_UnitNumber = array_merge_recursive($arr_db_UnitNumber, $arr_xml_UnitNumber);
     $merge_arr_UnitNumber = array_unique($merge_arr_UnitNumber);
