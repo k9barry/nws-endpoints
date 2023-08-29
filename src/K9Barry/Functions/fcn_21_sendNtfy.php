@@ -43,28 +43,26 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
             'method' => 'POST',
             'header' => "Content-Type: application/json",
             'content' => json_encode([
-                "topic": "test",
-                "title": "Call: $db_CallNumber $db_CallType ($delta)",
-                "tags": ["$tags"],
-                "priority": "4",
-                "attach": "$mapUrl",
-                "filename": "diskspace.jpg",
-                "click": "https://ntfy.jafcp.com/",
-                "actions": [["action": "view", "label": "Map", "url": "$mapUrl"]],
-                "message": [
-                    "C-Name: $db_CommonName",
-                    "C-Name: $db_CommonName",
-                    "Loc: $db_FullAddress",
-                    "Inc: $db_CallType",
-                    "Nature: $db_NatureOfCall",
-                    "Cross Rd: $db_NearestCrossStreets",
-                    "Beat: $db_PoliceBeat",
-                    "Quad: $db_FireQuadrant",
-                    "Unit: $db_UnitNumber",
-                    "Time: $db_CreateDateTime",
-                    "Narr: $db_Narrative_Text"
-                ]
-            ])
+                topic: test,
+                title: Call: $db_CallNumber $db_CallType ($delta),
+                tags: $tags,
+                priority: 4,
+                attach: $mapUrl,
+                filename: "diskspace.jpg",
+                click: "https://ntfy.jafcp.com/",
+                #actions: [["action": "view", "label": "Map", "url": "$mapUrl"]],
+                message: 
+                    "C-Name: $db_CommonName
+                    C-Name: $db_CommonName
+                    Loc: $db_FullAddress
+                    Inc: $db_CallType,
+                    Nature: $db_NatureOfCall
+                    Cross Rd: $db_NearestCrossStreets
+                    Beat: $db_PoliceBeat
+                    Quad: $db_FireQuadrant
+                    Unit: $db_UnitNumber
+                    Time: $db_CreateDateTime
+                    Narr: $db_Narrative_Text])
         ]
     ]));
 }
