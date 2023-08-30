@@ -58,7 +58,7 @@ foreach ($topics as $topic) {
             'method' => 'POST',
             'header' =>
                 "Content-Type: text/plain \r\n" .
-                "Authorization: Bearer tk_9wjn8h9ykxguprswpood1zt8lxnym\r\n" .
+                "Authorization: Bearer $ntfyToken \r\n" .
                 "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
                 "Tags: $tags \r\n" .
                 "Attach: $mapUrl \r\n" .
