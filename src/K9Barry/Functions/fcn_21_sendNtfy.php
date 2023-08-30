@@ -123,7 +123,7 @@ var_dump($topics);
     }
 ####################################################*/
 
-    Gather all topics to send to
+    #Gather all topics to send to
     $topics = "" . $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber . "";
     $logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
     $topics = explode('|',$topics);
