@@ -37,15 +37,35 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
     } else {
         $tags = "fire_engine,police_car";
     }
-
-    ##Add alarm level to tag
-    if ($db_AlarmLevel == "1") {
+    if ($db_AlarmLevel == "1") {  #Add alarm level to tag
         $tags = "1st_place_medal,". $tags;
     } else if ($db_AlarmLevel == "2") {
         $tags = "2nd_place_medal,". $tags;
     } else if ($db_AlarmLevel == "3") {
         $tags = "3rd_place_medal,". $tags;
     }
+
+
+####################################################
+    // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
+    $arr_db_UnitNumber = array_filter(explode('|', $db_UnitNumber));
+    $str_xml_UnitNumber = $sep = '';
+    $nrOfRows = $xml->AssignedUnits->Unit->count();
+    $n = 0;
+    for ($n = 0; $n < $nrOfRows; $n++) {
+        $value = $xml->AssignedUnits->Unit[$n]->UnitNumber;
+        $str_xml_UnitNumber .= $sep . $value;
+        $sep = '|';
+    }
+    $arr_xml_UnitNumber = array_filter(explode('|', $str_xml_UnitNumber));
+
+    if ($arr_db_UnitNumber != $arr_xml_UnitNumber) {
+        $logger->info("Resend because unit number was added");
+        #$send = 1;
+        $db_UnitNumber = array_diff($arr_db_UnitNumber, $arr_xml_UnitNumber);
+        $db_UnitNumber = implode("|", $db_UnitNumber);
+    }
+####################################################
 
     #Gather all topics to send to
     $topics = "" . $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber . "";
