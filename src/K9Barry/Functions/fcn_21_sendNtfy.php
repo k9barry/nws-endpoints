@@ -25,7 +25,9 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
     }
     extract($ntfyMessage[0]);
     $urlEncFullAddress = urlencode($db_FullAddress);
-    $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
+    #$mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
+    $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
+ 
     $logger->info("Open connection to NTFY and set Google Url " . $mapUrl . "");
     
     ##Set tag
@@ -125,19 +127,22 @@ var_dump($topics);
 
     #Gather all topics to send to
     $topics = "" . $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber . "";
+    echo"Topics created for:";
+    var_dump($topics);
     $logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
     $topics = explode('|',$topics);
     
 foreach ($topics as $topic) {
     file_get_contents("".$ntfyUrl."/".$topic, false, stream_context_create([
         'http' => [
-            'method' => 'POST',
+            'method' => 'PUT',
             'header' =>
                 "Content-Type: text/plain \r\n" .
                 "Authorization: Bearer $ntfyToken \r\n" .
                 "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
                 "Tags: $tags \r\n" .
-                "Attach: $mapUrl \r\n" .
+                #"Attach: $mapUrl \r\n" .
+                "Click: $mapUrl \r\n" .
                 #"Icon: https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX37302430.jpg \r\n" .
                 "Priority: 4",
             'content' => "\r\n

@@ -23,13 +23,14 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
         $db_CallType = "";
         $db_AlarmLevel = "";
         $db_FullAddress = "";
+        $db_AgencyType = "";
         $db_UnitNumber = "";
         $delta = "";
     }
     $CallId = $xml->CallId;
     $CallNumber = $xml->CallNumber;
     $ClosedFlag = $xml->ClosedFlag;
-    // $AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
+// $AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
     $AgencyContexts_AgencyContext_AgencyType = $sep = '';
     $nrOfRows = $xml->AgencyContexts->AgencyContext->count();
     $n = 0;
@@ -38,6 +39,12 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
         $AgencyContexts_AgencyContext_AgencyType .= $sep . $value;
         $sep = '|';
     }
+
+$arr_xml_AgencyType = array_filter(explode('|', $AgencyContexts_AgencyContext_AgencyType)); # Get xml info
+$arr_db_AgencyType = array_filter(explode('|', $db_AgencyType)); # Get db info
+$agencyDiff = array_diff($arr_xml_AgencyType, $arr_db_AgencyType);
+echo "Agency Diff: ".var_dump($agencyDiff)."\r\n";
+    
     $CreateDateTime = $xml->CreateDateTime;
     // $AgencyContexts_AgencyContext_CallType = $xml->AgencyContexts->AgencyContext[0]->CallType;
     $AgencyContexts_AgencyContext_CallType = $sep = '';
@@ -73,7 +80,17 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     $Location_PoliceBeat = $xml->Location->PoliceBeat;
     $Location_LatitudeY = $xml->Location->LatitudeY;
     $Location_LongitudeX = $xml->Location->LongitudeX;
-    // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
+
+// $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
+    $Incidents_Incident_Jurisdiction = $sep = '';
+    $nrOfRows = $xml->Incidents->Incident->count();
+    $n = 0;
+    for ($n = 0; $n < $nrOfRows; $n++) {
+        $value = $xml->Incidents->Incident[$n]->Jurisdiction;
+        $Incidents_Incident_Jurisdiction .= $sep . $value;
+        $sep = '|';
+    }   
+// $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
     $arr_db_UnitNumber = array_filter(explode('|', $db_UnitNumber));
     $str_xml_UnitNumber = $sep = '';
     $nrOfRows = $xml->AssignedUnits->Unit->count();
@@ -85,7 +102,28 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     }
     $arr_xml_UnitNumber = array_filter(explode('|', $str_xml_UnitNumber));
 
+echo"#########\r\n";
+echo "xmlUnits: ".var_dump($arr_xml_UnitNumber)."\r\n";
+echo "dbUnits: ".var_dump($arr_db_UnitNumber)."\r\n";
+echo"#########\r\n";
+$unitDiff = array_diff($arr_xml_UnitNumber, $arr_db_UnitNumber);
+#$unitDiff = implode("|", $unitDiff);
+
+echo "Agency Type: ".var_dump($AgencyContexts_AgencyContext_AgencyType)."\r\n";
+echo "Jurisdiction : ".var_dump($Incidents_Incident_Jurisdiction)."\r\n";
+echo "Unit Diff: ".var_dump($unitDiff)."\r\n";
+
+
+
+
     if ($arr_db_UnitNumber != $arr_xml_UnitNumber) {
+
+        /*###########
+        $unitDiff = array_diff($arr_db_UnitNumber, $arr_xml_UnitNumber);
+        $unitDiff = implode("|", $unitDiff);
+        echo"Unit differences: ".""var_dump($unitDiff);
+        ###########*/
+
         #$logger->info("Resend because unit number was added");
         #$send = 1;
     }
@@ -110,15 +148,6 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Incidents->Incident[$n]->Number;
         $Incidents_Incident_Number .= $sep . $value;
-        $sep = '|';
-    }
-    // $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
-    $Incidents_Incident_Jurisdiction = $sep = '';
-    $nrOfRows = $xml->Incidents->Incident->count();
-    $n = 0;
-    for ($n = 0; $n < $nrOfRows; $n++) {
-        $value = $xml->Incidents->Incident[$n]->Jurisdiction;
-        $Incidents_Incident_Jurisdiction .= $sep . $value;
         $sep = '|';
     }
     // $Narratives_Narrative_Text = $xml->Narratives->Narrative->Text;
