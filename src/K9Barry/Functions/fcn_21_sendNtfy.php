@@ -26,7 +26,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger)
     extract($ntfyMessage[0]);
     $urlEncFullAddress = urlencode($db_FullAddress);
     #$mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
-    $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800$scale=2&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
+    $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&scale=2&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
  
     $logger->info("Open connection to NTFY and set Google Url " . $mapUrl . "");
     
@@ -131,14 +131,19 @@ var_dump($topics);
     var_dump($topics);
     $logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
     $topics = explode('|',$topics);
-    
-foreach ($topics as $topic) {
+
+
+#foreach ($topics as $topic) {
+#######
+####### Limit to just test
+$topic = "test";
+#######
     file_get_contents("".$ntfyUrl."/".$topic, false, stream_context_create([
         'http' => [
             'method' => 'PUT',
             'header' =>
                 "Content-Type: text/plain \r\n" .
-                "Authorization: Bearer $ntfyToken \r\n" .
+                #"Authorization: Bearer $ntfyToken \r\n" .
                 "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
                 "Tags: $tags \r\n" .
                 #"Attach: $mapUrl \r\n" .
@@ -158,5 +163,5 @@ Time: $db_CreateDateTime
 Narr: $db_Narrative_Text"
         ]
     ]));
-}
+#}
 }

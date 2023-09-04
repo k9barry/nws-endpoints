@@ -40,10 +40,10 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
         $sep = '|';
     }
 
-$arr_xml_AgencyType = array_filter(explode('|', $AgencyContexts_AgencyContext_AgencyType)); # Get xml info
-$arr_db_AgencyType = array_filter(explode('|', $db_AgencyType)); # Get db info
-$agencyDiff = array_diff($arr_xml_AgencyType, $arr_db_AgencyType);
-echo "Agency Diff: ".var_dump($agencyDiff)."\r\n";
+#$arr_xml_AgencyType = array_filter(explode('|', $AgencyContexts_AgencyContext_AgencyType)); # Get xml info
+#$arr_db_AgencyType = array_filter(explode('|', $db_AgencyType)); # Get db info
+#$agencyDiff = array_diff($arr_xml_AgencyType, $arr_db_AgencyType);
+#echo "Agency Diff: ".var_dump($agencyDiff)."\r\n";
     
     $CreateDateTime = $xml->CreateDateTime;
     // $AgencyContexts_AgencyContext_CallType = $xml->AgencyContexts->AgencyContext[0]->CallType;
@@ -102,16 +102,16 @@ echo "Agency Diff: ".var_dump($agencyDiff)."\r\n";
     }
     $arr_xml_UnitNumber = array_filter(explode('|', $str_xml_UnitNumber));
 
-echo"#########\r\n";
-echo "xmlUnits: ".var_dump($arr_xml_UnitNumber)."\r\n";
-echo "dbUnits: ".var_dump($arr_db_UnitNumber)."\r\n";
-echo"#########\r\n";
-$unitDiff = array_diff($arr_xml_UnitNumber, $arr_db_UnitNumber);
+#echo"#########\r\n";
+#echo "xmlUnits: ".var_dump($arr_xml_UnitNumber)."\r\n";
+#echo "dbUnits: ".var_dump($arr_db_UnitNumber)."\r\n";
+#echo"#########\r\n";
+#$unitDiff = array_diff($arr_xml_UnitNumber, $arr_db_UnitNumber);
 #$unitDiff = implode("|", $unitDiff);
 
-echo "Agency Type: ".var_dump($AgencyContexts_AgencyContext_AgencyType)."\r\n";
-echo "Jurisdiction : ".var_dump($Incidents_Incident_Jurisdiction)."\r\n";
-echo "Unit Diff: ".var_dump($unitDiff)."\r\n";
+#echo "Agency Type: ".var_dump($AgencyContexts_AgencyContext_AgencyType)."\r\n";
+#echo "Jurisdiction : ".var_dump($Incidents_Incident_Jurisdiction)."\r\n";
+#echo "Unit Diff: ".var_dump($unitDiff)."\r\n";
 
 
 
