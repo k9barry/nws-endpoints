@@ -49,7 +49,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
     #Gather all topics to send to
     $topics = "" . $agencies . "|" . $jurisdictions . "|" . $units . "";
     $arr_Topics_Xml = array_unique(explode('|', $topics));
-    echo "XML topics are: ".var_dump($arr_Topics_Xml)." \r\n";
+    #echo "XML topics are: ".var_dump($arr_Topics_Xml)." \r\n";
     #Delta time check
     $delta = fcn_20_DeltaTime($xml->CreateDateTime);
     if ($xml->ClosedFlag == "true") { //record is closed
@@ -57,7 +57,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         fcn_14_deleteRecord($db_conn, $db_incident, $xml->CallId, $logger);
         return;
     } else if (!fcn_15_callIdExist($db_conn, $db_incident, $xml->CallId, $logger)) { // record does not exist in db
-        $logger->info("New record to enter into the DB and send all topics.");
+        $logger->info("New record to enter into the DB and send to all topics.");
         echo "Record does not exist so we will insert into DB: ".$topics." \r\n";
         fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units); // This is where a new record gets entered into db
         fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics); // Send to ntfy
@@ -80,28 +80,29 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         $topics_arrDb_Jurisdiction = array_unique(explode("|", $db_Incident_Jurisdiction));
         $topics_arrDb_Unit = array_unique(explode("|", $db_UnitNumber));
         $arr_Topics_Db = array_merge($topics_arrDb_Agency, $topics_arrDb_Jurisdiction, $topics_arrDb_Unit);
-        echo "DB topics are: ".var_dump($arr_Topics_Db)." \r\n";
+        #echo "DB topics are: ".var_dump($arr_Topics_Db)." \r\n";
                 
         #Get the topic differences between the xml file and the DB
         $topics = array_diff($arr_Topics_Xml, $arr_Topics_Db);
-        echo "Topic differences are:".var_dump($topics)." \r\n";
+        $topics = implode($topics);
+        echo "Topic differences are:".$topics." \r\n";
 
-        #If the count of the array is >0 then resend the message to the new topic
+        #If the count of topics is not empty then resend the message to the new topic
         $saveToDb = 0;  //set to 0
-        if (count($topics) > 0) {
+        if (!empty($topics)) {
             $saveToDb = 1;
         } else {
-            $logger->info("No new topics - nothing to send");
-            echo "No new topics - nothing to send \r\n\r\n";
+            $logger->info("No new units - nothing to send");
+            echo "No new units - nothing to send \r\n\r\n";
         }
 
         /*#Check to see if the call type changes if so resend to all topics
-        #$AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
+        #$AgencyContexts_AgencyContext_CallType = $xml->AgencyContexts->AgencyContext[0]->CallType;
         if ($AgencyContexts_AgencyContext_CallType != $db_CallType) {
             $logger->info("" . $AgencyContexts_AgencyContext_CallType . " <- " . $db_CallType . "-Call type change");
             $saveToDb = 1;
         } else {
-            $logger->info("No Call tyoe changes - nothing to send");
+            $logger->info("No Call type changes - nothing to send");
             echo "No new call types - nothing to send \r\n\r\n";
         }*/
 
@@ -128,7 +129,6 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
             $logger->info("No new alarm level - nothing to send");
             echo "No new alarm level - nothing to send \r\n\r\n";
         }
-
         
         if ($saveToDb) {
             #Check Delta time
