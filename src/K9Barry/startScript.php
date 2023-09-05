@@ -15,7 +15,7 @@ use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Monolog\Processor\IntrospectionProcessor;
 
-$logger = new Logger('endpoint_logger'); // Create the logger
+$logger = new Logger('ntfy_logger'); // Create the logger
 $logger->pushHandler(new RotatingFileHandler("./data/Logs/nws-endpoint.log", Logger::DEBUG)); // Add sRotatingFileHandler
 $logger->pushProcessor(new IntrospectionProcessor());
 $logger->info('Endpoint logger is now ready'); // You can now use your logger

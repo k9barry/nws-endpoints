@@ -8,12 +8,14 @@
  * @param  mixed $xml
  * @param  mixed $send
  * @param  mixed $logger
+ * @param  mixed $agencies
+ * @param  mixed $jurisdictions
+ * @param  mixed $units
  * @return void
  */
-function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
-{
-    global $CfsTableName, $ntfySend, $TimeAdjust;
-    if ($send == 0) { // checking for changes between old and new
+function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units) {
+    global $CfsTableName;
+    /*if ($send == 0) { // checking for changes between old and new
         $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$xml->CallId'";
         $row = $db_conn->prepare($sql);
         $row->execute();
@@ -26,27 +28,15 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
         $db_AgencyType = "";
         $db_UnitNumber = "";
         $delta = "";
-    }
+    }*/
     $CallId = $xml->CallId;
     $CallNumber = $xml->CallNumber;
     $ClosedFlag = $xml->ClosedFlag;
 // $AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
-    $AgencyContexts_AgencyContext_AgencyType = $sep = '';
-    $nrOfRows = $xml->AgencyContexts->AgencyContext->count();
-    $n = 0;
-    for ($n = 0; $n < $nrOfRows; $n++) {
-        $value = $xml->AgencyContexts->AgencyContext[$n]->AgencyType;
-        $AgencyContexts_AgencyContext_AgencyType .= $sep . $value;
-        $sep = '|';
-    }
-
-#$arr_xml_AgencyType = array_filter(explode('|', $AgencyContexts_AgencyContext_AgencyType)); # Get xml info
-#$arr_db_AgencyType = array_filter(explode('|', $db_AgencyType)); # Get db info
-#$agencyDiff = array_diff($arr_xml_AgencyType, $arr_db_AgencyType);
-#echo "Agency Diff: ".var_dump($agencyDiff)."\r\n";
-    
+    $AgencyContexts_AgencyContext_AgencyType = $agencies;
+// Create Date and Time
     $CreateDateTime = $xml->CreateDateTime;
-    // $AgencyContexts_AgencyContext_CallType = $xml->AgencyContexts->AgencyContext[0]->CallType;
+// $AgencyContexts_AgencyContext_CallType = $xml->AgencyContexts->AgencyContext[0]->CallType;
     $AgencyContexts_AgencyContext_CallType = $sep = '';
     $nrOfRows = $xml->AgencyContexts->AgencyContext->count();
     $n = 0;
@@ -55,22 +45,10 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
         $AgencyContexts_AgencyContext_CallType .= $sep . $value;
         $sep = '|';
     }
-    if ($AgencyContexts_AgencyContext_CallType != $db_CallType) {
-        $logger->info("" . $AgencyContexts_AgencyContext_CallType . " <- " . $db_CallType . "-Call type change");
-        $send = 1;
-    }
     $AlarmLevel = $xml->AlarmLevel;
-    if ($AlarmLevel > $db_AlarmLevel) {
-        $logger->info("".$AlarmLevel." > ".$db_AlarmLevel." resend because alarm level increased");
-        $send = 1;
-    }
     $NatureOfCall = $xml->NatureOfCall;
     $Location_CommonName = $xml->Location->CommonName;
     $Location_FullAddress = $xml->Location->FullAddress;
-    if ($Location_FullAddress != $db_FullAddress) {
-        #$logger->info("".$Location_FullAddress." <> ".$db_FullAddress." resend because address change");
-        #$send = 1;
-    }
     $Location_State = $xml->Location->State;
     $Location_NearestCrossStreets = $xml->Location->NearestCrossStreets;
     $Location_AdditionalInfo = $xml->Location->AdditionalInfo;
@@ -82,7 +60,7 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
     $Location_LongitudeX = $xml->Location->LongitudeX;
 
 // $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
-    $Incidents_Incident_Jurisdiction = $sep = '';
+    $Incidents_Incident_Jurisdiction = $jurisdictions;
     $nrOfRows = $xml->Incidents->Incident->count();
     $n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
@@ -91,56 +69,9 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
         $sep = '|';
     }   
 // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
-    $arr_db_UnitNumber = array_filter(explode('|', $db_UnitNumber));
-    $str_xml_UnitNumber = $sep = '';
-    $nrOfRows = $xml->AssignedUnits->Unit->count();
-    $n = 0;
-    for ($n = 0; $n < $nrOfRows; $n++) {
-        $value = $xml->AssignedUnits->Unit[$n]->UnitNumber;
-        $str_xml_UnitNumber .= $sep . $value;
-        $sep = '|';
-    }
-    $arr_xml_UnitNumber = array_filter(explode('|', $str_xml_UnitNumber));
-
-#echo"#########\r\n";
-#echo "xmlUnits: ".var_dump($arr_xml_UnitNumber)."\r\n";
-#echo "dbUnits: ".var_dump($arr_db_UnitNumber)."\r\n";
-#echo"#########\r\n";
-#$unitDiff = array_diff($arr_xml_UnitNumber, $arr_db_UnitNumber);
-#$unitDiff = implode("|", $unitDiff);
-
-#echo "Agency Type: ".var_dump($AgencyContexts_AgencyContext_AgencyType)."\r\n";
-#echo "Jurisdiction : ".var_dump($Incidents_Incident_Jurisdiction)."\r\n";
-#echo "Unit Diff: ".var_dump($unitDiff)."\r\n";
-
-
-
-
-    if ($arr_db_UnitNumber != $arr_xml_UnitNumber) {
-
-        /*###########
-        $unitDiff = array_diff($arr_db_UnitNumber, $arr_xml_UnitNumber);
-        $unitDiff = implode("|", $unitDiff);
-        echo"Unit differences: ".""var_dump($unitDiff);
-        ###########*/
-
-        #$logger->info("Resend because unit number was added");
-        #$send = 1;
-    }
-    $merge_arr_UnitNumber = array_merge_recursive($arr_db_UnitNumber, $arr_xml_UnitNumber);
-    $merge_arr_UnitNumber = array_unique($merge_arr_UnitNumber);
-    $merge_arr_UnitNumber = array_values($merge_arr_UnitNumber); // resort key values in array
-    $out = $sep = '';
-    $nrOfRows = count($merge_arr_UnitNumber);
-    $n = 0;
-    for ($n = 0; $n < $nrOfRows; $n++) {
-        $value = $merge_arr_UnitNumber[$n];
-        $out .= $sep . $value;
-        $sep = '|';
-    }
-    $AssignedUnits_Unit_UnitNumber = $out;
-    $RadioChannel = preg_grep('/FG-[1-9]/m', $merge_arr_UnitNumber);
-    $RadioChannel = implode(" ", $RadioChannel);
+    $AssignedUnits_Unit_UnitNumber = $units;
+    $RadioChannel = preg_match('/FG-[1-9]/m', $AssignedUnits_Unit_UnitNumber, $match);
+    $RadioChannel = implode("|", $match);
     // $Incidents_Incident_Number = $xml->Incidents->Incident->Number;
     $Incidents_Incident_Number = $sep = '';
     $nrOfRows = $xml->Incidents->Incident->count();
@@ -225,20 +156,4 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $send, $logger)
         )";
     $db_conn->exec($sql);
     $logger->info("Record inserted into DB");
-
-    $delta = fcn_20_DeltaTime($CreateDateTime);
-
-    if ($delta < $TimeAdjust) { // if return true then send
-        $logger->info("Time delta is ".$delta." if greater than ".$TimeAdjust. " message will NOT be sent");       
-        if ($send == 1) {
-            if ($ntfySend) {
-                $logger->info("Passing xml file to fcn_21_sendNtfy");
-                fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger); // Ntfy
-            }
-        } else {
-            $logger->info("Send flag not set - nothing passed to Ntfy");
-        }
-    } else {
-        $logger->info("Time delta is too high ".$delta." - NOT passing record to Ntfy");
-    }
 }
