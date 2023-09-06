@@ -44,7 +44,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
         $tags = "3rd_place_medal," . $tags;
     }
 
-    if ($resendAll = 1) {
+    if ($resendAll == 1) {
         $topics = "". $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber . "";
     }
     $logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
