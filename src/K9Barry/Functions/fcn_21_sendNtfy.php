@@ -9,9 +9,10 @@
  * @param  mixed $delta
  * @param  mixed $logger
  * @param  mixed $topics
+ * @param  mixed $resendAll
  * @return void
  */
-function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics) {
+function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll) {
     global $ntfyUrl, $ntfyToken, $ntfyUser, $googleApiKey;
     $CallId = $xml->CallId;
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
@@ -42,9 +43,13 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics)
     } else if ($db_AlarmLevel == "3") {
         $tags = "3rd_place_medal," . $tags;
     }
-    #$logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
 
+    if ($resendAll = 1) {
+        $topics = "". $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber . "";
+    }
+    $logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
     $topics = explode('|', $topics);
+    $topics = array_unique($topics);  //Remove any duplicates
     foreach ($topics as $topic) {
 
         file_get_contents("" . $ntfyUrl . "/" . $topic, false, stream_context_create([

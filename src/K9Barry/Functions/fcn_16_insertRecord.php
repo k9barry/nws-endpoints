@@ -15,20 +15,7 @@
  */
 function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units) {
     global $CfsTableName;
-    /*if ($send == 0) { // checking for changes between old and new
-        $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$xml->CallId'";
-        $row = $db_conn->prepare($sql);
-        $row->execute();
-        $dbInfo = $row->fetchAll(PDO::FETCH_ASSOC);
-        extract($dbInfo[0]); // db info
-    } else {
-        $db_CallType = "";
-        $db_AlarmLevel = "";
-        $db_FullAddress = "";
-        $db_AgencyType = "";
-        $db_UnitNumber = "";
-        $delta = "";
-    }*/
+
     $CallId = $xml->CallId;
     $CallNumber = $xml->CallNumber;
     $ClosedFlag = $xml->ClosedFlag;
