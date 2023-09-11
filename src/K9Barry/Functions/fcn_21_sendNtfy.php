@@ -50,35 +50,40 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
     $logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
     $topics = explode('|', $topics);
     $topics = array_unique($topics);  //Remove any duplicates
-    foreach ($topics as $topic) {
 
-        file_get_contents("" . $ntfyUrl . "/" . $topic, false, stream_context_create([
-            'http' => [
-                'method' => 'PUT',
-                'header' =>
-                "Content-Type: text/plain \r\n" .
-                    #"Authorization: Bearer $ntfyToken \r\n" .
-                    "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
-                    "Tags: $tags \r\n" .
-                    #"Attach: $mapUrl \r\n" .
-                    "Click: $mapUrl \r\n" .
-                    #"Icon: https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX37302430.jpg \r\n" .
-                    "Priority: 4",
-                'content' => "\r\n
-C-Name: $db_CommonName
-Loc: $db_FullAddress
-Inc: $db_CallType
-Nature: $db_NatureOfCall
-Cross Rd: $db_NearestCrossStreets
-Beat: $db_PoliceBeat
-Quad: $db_FireQuadrant
-Unit: $db_UnitNumber
-Time: $db_CreateDateTime
-Narr: $db_Narrative_Text"
-        ]
-        ]));
-    $logger->info("========= Ntfy messages sent to topic " . $topic . " =========");
-    } //foreach loop
+    if ($db_CallType <> "New Call") {
+
+        foreach ($topics as $topic) {
+
+            file_get_contents("" . $ntfyUrl . "/" . $topic, false, stream_context_create([
+                'http' => [
+                    'method' => 'PUT',
+                    'header' =>
+                    "Content-Type: text/plain \r\n" .
+                        #"Authorization: Bearer $ntfyToken \r\n" .
+                        "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
+                        "Tags: $tags \r\n" .
+                        #"Attach: $mapUrl \r\n" .
+                        "Click: $mapUrl \r\n" .
+                        #"Icon: https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX37302430.jpg \r\n" .
+                        "Priority: 4",
+                    'content' => "\r\n
+    C-Name: $db_CommonName
+    Loc: $db_FullAddress
+    Inc: $db_CallType
+    Nature: $db_NatureOfCall
+    Cross Rd: $db_NearestCrossStreets
+    Beat: $db_PoliceBeat
+    Quad: $db_FireQuadrant
+    Unit: $db_UnitNumber
+    Time: $db_CreateDateTime
+    Narr: $db_Narrative_Text"
+            ]
+            ]));
+        $logger->info("========= Ntfy messages sent to topic " . $topic . " =========");
+        } //foreach loop
+    } // if <> New Call
+    
     fcn_22_removeOldRecords ($db_conn, $db_incident, $CallId, $logger);
 
 }
