@@ -129,8 +129,8 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         #Check to see if the location changes if so resend to all topics
         #$Location_FullAddress = $xml->Location->FullAddress;
         if ($xml->Location->FullAddress != $db_FullAddress) {
-            var_dump($xml->Location->FullAddress);
-            var_dump($db_FullAddress);
+            #var_dump($xml->Location->FullAddress);
+            #var_dump($db_FullAddress);
             $logger->info("%%%%%%".$xml->Location->FullAddress." <- ".$db_FullAddress." resend because address change");
             $saveToDb = 1;
             $resendAll = 1;
@@ -142,8 +142,8 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         #Check if Alarm Level changed
         #$AlarmLevel = $xml->AlarmLevel;
         if ($xml->AlarmLevel > $db_AlarmLevel) {
-            var_dump($xml->AlarmLevel);
-            var_dump($db_AlarmLevel);
+            #var_dump($xml->AlarmLevel);
+            #var_dump($db_AlarmLevel);
             $logger->info("%%%%%%".$xml->AlarmLevel." <- ".$db_AlarmLevel." resend because alarm level increased");
             $saveToDb = 1;
             $resendAll = 1;
