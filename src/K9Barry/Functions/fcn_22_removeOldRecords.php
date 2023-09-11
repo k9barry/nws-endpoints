@@ -9,7 +9,7 @@
  * @param  mixed $logger
  * @return void
  */
-function fcn__removeOldRecords($db_conn, $db_incident, $CallId, $logger)
+function fcn_22_removeOldRecords($db_conn, $db_incident, $CallId, $logger)
 {
     $CallId = ($CallId - 999); //$CallId minus 999
     $sql = "DELETE FROM $db_incident WHERE db_CallId < $CallId";
