@@ -34,7 +34,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         $jurisdictions .= $sep . $value;
         $sep = '|';
     }
-    $jurisdiction = implode("|", array_unique(explode("|",$jurisdiction)));  //remove any duplicates
+    $jurisdictions = implode("|", array_unique(explode("|",$jurisdictions)));  //remove any duplicates
     #var_dump($jurisdictions);
     #echo "\r\n";
     // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
