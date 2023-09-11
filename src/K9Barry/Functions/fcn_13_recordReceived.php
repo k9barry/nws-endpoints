@@ -97,7 +97,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
 
         #If the count of topics is not empty then resend the message to the new topic
         if (!empty($topics)) {
-            $logger->info("%%%%%%" . $topics . " - New units dispatched - ");
+            $logger->info("%%%%%% " . $topics . " - New units dispatched - ");
             $saveToDb = 1;
             $resendAll = 0;
         } else {
