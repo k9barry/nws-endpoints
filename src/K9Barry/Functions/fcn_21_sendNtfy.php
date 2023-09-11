@@ -79,6 +79,6 @@ Narr: $db_Narrative_Text"
         ]));
     $logger->info("========= Ntfy messages sent to topic " . $topic . " =========");
     } //foreach loop
-function fcn_removeOldRecord ($db_conn, $db_incident, $CallId, $logger) {
+fcn_removeOldRecord ($db_conn, $db_incident, $CallId, $logger) {
 }
 }
