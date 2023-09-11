@@ -89,7 +89,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
                 
         #Get the topic differences between the xml file and the DB
         $topics = array_diff($arr_Topics_Xml, $arr_Topics_Db);
-        $topics = implode($topics);
+        $topics = implode("|", $topics);
         #echo "%%%%%% Topic differences are:".$topics." \r\n";
 
         $saveToDb = 0;  //set to 0
@@ -119,7 +119,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
             $saveToDb = 1;
             $resendAll = 1;
         } else {
-            $logger->info("No Call type changes - nothing to send");
+            $logger->info("No call type changes - nothing to send");
             #echo "No new call types - nothing to send \r\n\r\n";
         }
 
