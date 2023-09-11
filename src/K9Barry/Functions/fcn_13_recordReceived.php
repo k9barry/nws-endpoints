@@ -22,6 +22,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         $agencies .= $sep . $value;
         $sep = '|';
     }
+    $agencies = implode("|", array_unique(explode("|",$agencies)));  //remove any duplicates
     #var_dump($agencies);
     #echo "\r\n";
     // $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
@@ -33,6 +34,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         $jurisdictions .= $sep . $value;
         $sep = '|';
     }
+    $jurisdiction = implode("|", array_unique(explode("|",$jurisdiction)));  //remove any duplicates
     #var_dump($jurisdictions);
     #echo "\r\n";
     // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
