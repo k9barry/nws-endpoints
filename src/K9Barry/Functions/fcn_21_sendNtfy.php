@@ -68,16 +68,16 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
                         #"Icon: https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX37302430.jpg \r\n" .
                         "Priority: 4",
                     'content' => "\r\n
-    C-Name: $db_CommonName
-    Loc: $db_FullAddress
-    Inc: $db_CallType
-    Nature: $db_NatureOfCall
-    Cross Rd: $db_NearestCrossStreets
-    Beat: $db_PoliceBeat
-    Quad: $db_FireQuadrant
-    Unit: $db_UnitNumber
-    Time: $db_CreateDateTime
-    Narr: $db_Narrative_Text"
+C-Name: $db_CommonName
+Loc: $db_FullAddress
+Inc: $db_CallType
+Nature: $db_NatureOfCall
+Cross Rd: $db_NearestCrossStreets
+Beat: $db_PoliceBeat
+Quad: $db_FireQuadrant
+Unit: $db_UnitNumber
+Time: $db_CreateDateTime
+Narr: $db_Narrative_Text"
             ]
             ]));
         $logger->info("========= Ntfy messages sent to topic " . $topic . " =========");
