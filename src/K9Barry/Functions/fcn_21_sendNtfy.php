@@ -51,7 +51,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
     $topics = explode('|', $topics);
     $topics = array_unique($topics);  //Remove any duplicates
 
-    if ($db_CallType <> "New Call") {
+    if ($db_CallType <> "New Call" || $db_CallType <> "New Call|New Call" ) {
 
         foreach ($topics as $topic) {
 
