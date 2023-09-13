@@ -51,7 +51,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
     $topics = explode('|', $topics);
     $topics = array_unique($topics);  //Remove any duplicates
 
-    if (($db_CallType <> "New Call") || ($db_CallType <> "New Call|New Call" )) {
+    if (!str_contains ($db_CallType, "New Call")) {
 
         foreach ($topics as $topic) {
 
@@ -82,7 +82,7 @@ Narr: $db_Narrative_Text"
             ]));
         $logger->info("========= Ntfy messages sent to topic " . $topic . " =========");
         } //foreach loop
-    } // if <> New Call
+    } // if !str_contains New Call
     
     fcn_22_removeOldRecords ($db_conn, $db_incident, $CallId, $logger);
 
