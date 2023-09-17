@@ -13,17 +13,18 @@
  * @param  mixed $units
  * @return void
  */
-function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units) {
+function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units)
+{
     global $CfsTableName;
 
     $CallId = $xml->CallId;
     $CallNumber = $xml->CallNumber;
     $ClosedFlag = $xml->ClosedFlag;
-// $AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
+    // $AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
     $AgencyContexts_AgencyContext_AgencyType = $agencies;
-// Create Date and Time
+    // Create Date and Time
     $CreateDateTime = $xml->CreateDateTime;
-// $AgencyContexts_AgencyContext_CallType = $xml->AgencyContexts->AgencyContext[0]->CallType;
+    // $AgencyContexts_AgencyContext_CallType = $xml->AgencyContexts->AgencyContext[0]->CallType;
     $AgencyContexts_AgencyContext_CallType = $sep = '';
     $nrOfRows = $xml->AgencyContexts->AgencyContext->count();
     $n = 0;
@@ -46,7 +47,7 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $
     $Location_LatitudeY = $xml->Location->LatitudeY;
     $Location_LongitudeX = $xml->Location->LongitudeX;
 
-// $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
+    // $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
     $Incidents_Incident_Jurisdiction = $jurisdictions;
     $nrOfRows = $xml->Incidents->Incident->count();
     $n = 0;
@@ -54,8 +55,8 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $
         $value = $xml->Incidents->Incident[$n]->Jurisdiction;
         $Incidents_Incident_Jurisdiction .= $sep . $value;
         $sep = '|';
-    }   
-// $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
+    }
+    // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
     $AssignedUnits_Unit_UnitNumber = $units;
     $RadioChannel = preg_match('/FG-[1-9]/m', $AssignedUnits_Unit_UnitNumber, $match);
     $RadioChannel = implode("|", $match);

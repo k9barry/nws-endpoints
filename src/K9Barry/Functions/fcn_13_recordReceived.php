@@ -9,7 +9,8 @@
  * @param  mixed $logger
  * @return void
  */
-function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
+function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
+{
     global $TimeAdjust;
     $xml = simplexml_load_file($strInFile) or die("Error: Cannot create object"); # read the xml file
     $logger->info("File " . $strInFile . " read into simpleXML");
@@ -22,7 +23,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         $agencies .= $sep . $value;
         $sep = '|';
     }
-    $agencies = implode("|", array_unique(explode("|",$agencies)));  //remove any duplicates
+    $agencies = implode("|", array_unique(explode("|", $agencies))); //remove any duplicates
     #var_dump($agencies);
     #echo "\r\n";
     // $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
@@ -34,7 +35,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         $jurisdictions .= $sep . $value;
         $sep = '|';
     }
-    $jurisdictions = implode("|", array_unique(explode("|",$jurisdictions)));  //remove any duplicates
+    $jurisdictions = implode("|", array_unique(explode("|", $jurisdictions))); //remove any duplicates
     #var_dump($jurisdictions);
     #echo "\r\n";
     // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
@@ -50,7 +51,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
     #echo "\r\n";
 
     #Gather all topics to send to
-    $topics = "";  //Set to null
+    $topics = ""; //Set to null
     $topics = "" . $agencies . "|" . $jurisdictions . "|" . $units . "";
     $arr_Topics_Xml = array_unique(explode('|', $topics));
     #echo "XML topics are: ".var_dump($arr_Topics_Xml)." \r\n";
@@ -82,20 +83,20 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         extract($ntfyMessage[0]);
 
         #Get the topics from the DB file
-        $topics = "";  //Set to null
+        $topics = ""; //Set to null
         $topics_arrDb_Agency = array_unique(explode("|", $db_AgencyType));
         $topics_arrDb_Jurisdiction = array_unique(explode("|", $db_Incident_Jurisdiction));
         $topics_arrDb_Unit = array_unique(explode("|", $db_UnitNumber));
         $arr_Topics_Db = array_merge($topics_arrDb_Agency, $topics_arrDb_Jurisdiction, $topics_arrDb_Unit);
         #echo "DB topics are: ".var_dump($arr_Topics_Db)." \r\n";
-                
+
         #Get the topic differences between the xml file and the DB
         $topics = array_diff($arr_Topics_Xml, $arr_Topics_Db);
         $topics = implode("|", $topics);
         #echo "%%%%%% Topic differences are:".$topics." \r\n";
 
-        $saveToDb = 0;  //set to 0
-        $resendAll = 0;  //set to 0
+        $saveToDb = 0; //set to 0
+        $resendAll = 0; //set to 0
 
         #If the count of topics is not empty then resend the message to the new topic
         if (!empty($topics)) {
@@ -131,7 +132,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         if ($xml->Location->FullAddress != $db_FullAddress) {
             #var_dump($xml->Location->FullAddress);
             #var_dump($db_FullAddress);
-            $logger->info("%%%%%%".$xml->Location->FullAddress." <- ".$db_FullAddress." resend because address change");
+            $logger->info("%%%%%%" . $xml->Location->FullAddress . " <- " . $db_FullAddress . " resend because address change");
             $saveToDb = 1;
             $resendAll = 1;
         } else {
@@ -144,25 +145,25 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger) {
         if ($xml->AlarmLevel > $db_AlarmLevel) {
             #var_dump($xml->AlarmLevel);
             #var_dump($db_AlarmLevel);
-            $logger->info("%%%%%%".$xml->AlarmLevel." <- ".$db_AlarmLevel." resend because alarm level increased");
+            $logger->info("%%%%%%" . $xml->AlarmLevel . " <- " . $db_AlarmLevel . " resend because alarm level increased");
             $saveToDb = 1;
             $resendAll = 1;
         } else {
             $logger->info("No new alarm level - nothing to send");
             #echo "No new alarm level - nothing to send \r\n\r\n";
         }
-        
+
         if ($saveToDb) {
             #Check Delta time
             if ($delta < $TimeAdjust) { // if return true then send
                 #var_dump($delta);
                 #var_dump($TimeAdjust);
-                $logger->info("Time delta is ".$delta." if less than ".$TimeAdjust. " message will be sent"); 
+                $logger->info("Time delta is " . $delta . " if less than " . $TimeAdjust . " message will be sent");
                 fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
                 $logger->info("Passing xml file to fcn_21_sendNtfy");
                 fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll); // Ntfy
             } else {
-                $logger->info("Time delta is too high ".$delta." - NOT passing record to Ntfy");
+                $logger->info("Time delta is too high " . $delta . " - NOT passing record to Ntfy");
                 #echo "Delta too high - nothing to send \r\n\r\n";
                 fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
             }
