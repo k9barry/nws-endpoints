@@ -26,7 +26,7 @@ function fcn_5_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBack
      * Add my custom functions to be preformed when new file is added to monitor folder
     /*************************************************************************************************************************************/
     $db_conn = fcn_10_openConnection($db, $logger);
-//   $db_conn = new PDO("sqlite:$db");
+    //   $db_conn = new PDO("sqlite:$db");
 //   $logger->info("Connection opened to database $db");
     if (!fcn_11_tableExists($db_conn, $db_table, $logger)) {
         fcn_12_createIncidentsTable($db_conn, $db_table, $logger); // Create incidents table in DB if it does not exist

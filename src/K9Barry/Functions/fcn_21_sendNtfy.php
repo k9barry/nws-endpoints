@@ -12,7 +12,8 @@
  * @param  mixed $resendAll
  * @return void
  */
-function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll) {
+function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll)
+{
     global $ntfyUrl, $ntfyToken, $ntfyUser, $googleApiKey;
     $CallId = $xml->CallId;
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
@@ -29,14 +30,14 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
     $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&scale=2&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
     $logger->info("Open connection to NTFY and set Google Url " . $mapUrl . "");
     ##Set tag
-     if ($db_AgencyType == "Fire") {
+    if ($db_AgencyType == "Fire") {
         $tags = "fire_engine";
     } else if ($db_AgencyType == "Police") {
         $tags = "police_car";
     } else {
         $tags = "fire_engine,police_car";
     }
-    if ($db_AlarmLevel == "1") {  #Add alarm level to tag
+    if ($db_AlarmLevel == "1") { //Add alarm level to tag
         $tags = "1st_place_medal," . $tags;
     } else if ($db_AlarmLevel == "2") {
         $tags = "2nd_place_medal," . $tags;
@@ -45,13 +46,13 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
     }
 
     if ($resendAll == 1) {
-        $topics = "". $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber . "";
+        $topics = "" . $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber . "";
     }
     $logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
     $topics = explode('|', $topics);
-    $topics = array_unique($topics);  //Remove any duplicates
+    $topics = array_unique($topics); //Remove any duplicates
 
-    if ($db_CallType <> "New Call") {
+    if (!str_contains($db_CallType, "New Call")) {
 
         foreach ($topics as $topic) {
 
@@ -59,7 +60,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
                 'http' => [
                     'method' => 'PUT',
                     'header' =>
-                    "Content-Type: text/plain \r\n" .
+                        "Content-Type: text/plain \r\n" .
                         #"Authorization: Bearer $ntfyToken \r\n" .
                         "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
                         "Tags: $tags \r\n" .
@@ -78,12 +79,12 @@ Quad: $db_FireQuadrant
 Unit: $db_UnitNumber
 Time: $db_CreateDateTime
 Narr: $db_Narrative_Text"
-            ]
+                ]
             ]));
-        $logger->info("========= Ntfy messages sent to topic " . $topic . " =========");
+            $logger->info("========= Ntfy messages sent to topic " . $topic . " =========");
         } //foreach loop
     } // if !str_contains New Call
-    
-    fcn_22_removeOldRecords ($db_conn, $db_incident, $CallId, $logger);
+
+    fcn_22_removeOldRecords($db_conn, $db_incident, $CallId, $logger);
 
 }

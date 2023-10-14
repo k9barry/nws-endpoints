@@ -20,5 +20,5 @@ function fcn_1_unlinkInputOld($path, $TimeAdjust, $logger) // $strInFolder, $Tim
         }
         closedir($handle);
     }
-    $logger->info("All files older than ".$TimeAdjust." removed from Input folder " . $path . "");
+    $logger->info("All files older than " . $TimeAdjust . " removed from Input folder " . $path . "");
 }

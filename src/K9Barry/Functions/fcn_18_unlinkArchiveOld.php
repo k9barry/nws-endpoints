@@ -7,7 +7,6 @@
  * @return void
  */
 function fcn_18_unlinkArchiveOld($path) // $strBackupFolder
-
 {
     global $logger;
     if ($handle = opendir($path)) {

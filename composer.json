@@ -1,22 +1,25 @@
 {
-    "name": "k9barry/nws-endpoints",
-    "description": "A PHP package to send notifications to various endpoints from New World Systems",
-    "license": "proprietary",
-    "minimum-stability": "dev",
-    "keywords": ["nws", "Microsoft", "Teams", "webhook", "Pushover", "SNPP", "Active911", "connector"],
-    "authors": [
-        {
-            "name": "K9 Barry",
-            "email": "k9barry@gmail.com",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": "^7.0",
-        "ext-curl": "*",
-        "ext-mysqli": "*",
-        "ext-pdo_mysql": "*",
-        "ext-pdo_sqlite": "*",
-        "monolog/monolog": "2.*"
-    }
+	"name": "k9barry/nws-endpoints",
+	"description": "A PHP package to send notifications to various endpoints from New World Systems",
+	"license": "proprietary",
+	"minimum-stability": "dev",
+	"keywords": [
+		"nws",
+		"ntfy"
+	],
+	"authors": [
+		{
+			"name": "K9 Barry",
+			"email": "k9barry@gmail.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": "^7.0",
+		"ext-curl": "*",
+		"ext-mysqli": "*",
+		"ext-pdo_mysql": "*",
+		"ext-pdo_sqlite": "*",
+		"monolog/monolog": "2.*"
+	}
 }
