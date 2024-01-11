@@ -10,7 +10,7 @@
  * @param  mixed $logger
  * @return void
  */
-function fcn_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
+function fcn_21a_sendPushover($db_conn, $db_incident, $xml, $delta, $logger)
 {
     global $pushoverUrl, $pushoverToken, $pushoverUser, $googleApiKey;
     $CallId = $xml->CallId;
