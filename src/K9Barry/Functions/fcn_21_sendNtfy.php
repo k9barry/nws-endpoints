@@ -12,9 +12,9 @@
  * @param  mixed $resendAll
  * @return void
  */
-function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll, $pushoverSend)
+function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll)
 {
-    global $ntfyUrl, $ntfyToken, $ntfyUser, $googleApiKey;
+    global $ntfyUrl, $ntfyToken, $ntfyUser, $googleApiKey, $pushoverSend;
     $CallId = $xml->CallId;
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
     $row = $db_conn->prepare($sql);
