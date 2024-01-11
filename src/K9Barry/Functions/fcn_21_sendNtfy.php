@@ -12,7 +12,7 @@
  * @param  mixed $resendAll
  * @return void
  */
-function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll)
+function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll, $pushoverSend)
 {
     global $ntfyUrl, $ntfyToken, $ntfyUser, $googleApiKey;
     $CallId = $xml->CallId;
@@ -84,6 +84,9 @@ Narr: $db_Narrative_Text"
             $logger->info("========= Ntfy messages sent to topic " . $topic . " =========");
         } //foreach loop
     } // if !str_contains New Call
+    if ($pushoverSend = true) {
+        fcn_21a_sendPushover($db_conn, $db_incident, $xml, $delta, $logger);
+    }
 
     fcn_22_removeOldRecords($db_conn, $db_incident, $CallId, $logger);
 
