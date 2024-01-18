@@ -84,7 +84,7 @@ Narr: $db_Narrative_Text"
             $logger->info("========= Ntfy messages sent to topic " . $topic . " =========");
         } //foreach loop
     } // if !str_contains New Call
-    if ($pushoverSend = true) {
+    if ($pushoverSend == "true") {
         fcn_21a_sendPushover($db_conn, $db_incident, $xml, $delta, $logger);
     }
 
