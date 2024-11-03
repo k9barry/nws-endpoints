@@ -1,7 +1,7 @@
 <?php
 
 /**
- * fcn_22_removeOldRecords
+ * fcn_22_removeOldRecords Only keep the last 999 Call ID's
  *
  * @param  mixed $db_conn
  * @param  mixed $db_incident
