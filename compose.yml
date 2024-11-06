@@ -1,2 +1,74 @@
 services:
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    depends_on:
+      - php-fpm
+    ports:
+      - 8080:80
+    volumes:
+      - www-data/web:/var/www/html
+      - www-data/web/config/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - web
+
+  php-fpm:
+    image: adhocore/phpfpm:8.3
+    container_name: php-fpm
+    volumes:
+      - www-data/web:/var/www/html
+    networks:
+      - web
+
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: ntfy
+    command:
+      - serve
+    restart: unless-stopped
+    volumes:
+      - ntfy/cache/ntfy:/var/cache/ntfy
+      - ntfy/:/etc/ntfy
+    environment:
+      - TZ=America/Indiana/Indianapolis
+    networks:
+      - web
+
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test:
+        - CMD
+        - /dozzle
+        - healthcheck
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - web
+
+networks:
+  web:
+    name: web
+
+volumes:
+  ntfy:
+  www-data:
+
+
+secrets:
+   db_password:
+     file: ./secrets/db_password.txt
+
+networks:
+  backend:
+    driver: bridge
+
     
