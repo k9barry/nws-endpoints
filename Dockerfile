@@ -1,20 +1,21 @@
-FROM composer as builder
+FROM composer AS builder
+
+RUN curl -sS https://getcomposer.org/installer | php \
+  && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer
+
+#RUN apk update && apk add curl
+  
 WORKDIR /
-COPY . /
+COPY composer.json /
 RUN composer install
 
-FROM adhocore/phpfpm:8.3
+FROM php:8.3.2-fpm
 
-COPY --from=builder /vendor /vendor
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+    
+COPY --from=builder /vendor /app/vendor
+WORKDIR /app
+COPY src/ .
 
-#RUN \
-# setup
-#apk add -U $PHPIZE_DEPS \
-#
-# if it is in pecl: \
-#&& docker-pecl-ext-install grpc phalcon swoole \
-# && apk del $PHPIZE_DEPS \
-#
-# if it is in php ext: \
-#&& docker-php-source extract && docker-php-ext-install-if dba \
-# && docker-php-source delete
+#CMD ["php", "run.php"]
