@@ -3,10 +3,10 @@
 /**
  * fcn_2_monitorFolder
  *
- * @param  mixed $strInFolder
- * @param  mixed $extensions
- * @param  mixed $strOutFolder
- * @param  mixed $strBackupFolder
+ * @param  string $strInFolder
+ * @param  array $extensions
+ * @param  string $strOutFolder
+ * @param  string $strBackupFolder
  * @param  mixed $logger
  * @return void
  */

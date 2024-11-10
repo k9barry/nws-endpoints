@@ -4,9 +4,9 @@
  * fcn_6_recursiveMkdir
  *
  * @param  mixed $dest
- * @param  mixed $permissions
- * @param  mixed $create
  * @param  mixed $logger
+ * @param  int $permissions
+ * @param  bool $create
  * @return void
  */
 function fcn_6_recursiveMkdir($dest, $logger, $permissions = 0755, $create = true)

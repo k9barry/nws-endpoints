@@ -4,7 +4,7 @@
  * fcn_12_createIncidentsTable
  *
  * @param  mixed $db_conn
- * @param  mixed $db_incident
+ * @param  string $db_incident
  * @param  mixed $logger
  * @return void
  */

@@ -1,42 +1,5 @@
 services:
 
-  php-fpm:
-    build: .
-    container_name: nws-endpoints
-    restart: unless-stopped
-    volumes:
-      - ./watchfolder:/app/data/watchfolder
-      - ./db:/app/data/db
-    #networks:
-    #  - web
-
-  sqlitebrowser:
-    image: lscr.io/linuxserver/sqlitebrowser:latest
-    container_name: sqlite_browser
-    restart: unless-stopped
-    ports:
-      - 8888:3000
-    volumes:
-      - ./db:/config
-    networks:
-      - web 
-
-  ntfy:
-    image: binwiederhier/ntfy:latest
-    container_name: ntfy
-    restart: unless-stopped
-    profiles:
-      - test
-    command:
-      - serve
-    volumes:
-      - ntfy/cache/ntfy:/var/cache/ntfy
-      - ntfy/:/etc/ntfy
-    environment:
-      - TZ=America/Indiana/Indianapolis
-    networks:
-      - web
-
   dozzle:
     image: amir20/dozzle:latest
     container_name: dozzle
@@ -56,6 +19,44 @@ services:
       start_period: 30s
     networks:
       - web
+
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: ntfy
+    restart: unless-stopped
+    profiles:
+      - ntfy
+    ports:
+      - 80:80
+    command:
+      - serve
+    volumes:
+      - ntfy/cache/ntfy:/var/cache/ntfy
+      - ntfy/:/etc/ntfy
+    environment:
+      - TZ=America/Indiana/Indianapolis
+    networks:
+      - web
+
+  nws-endpoints:
+    build: .
+    container_name: nws-endpoints
+    restart: unless-stopped
+    command: ["php", "run"]
+    volumes:
+      - ./watchfolder:/app/data/watchfolder
+      - ./db:/app/data/db
+
+  sqlitebrowser:
+    image: lscr.io/linuxserver/sqlitebrowser:latest
+    container_name: sqlitebrowser
+    restart: unless-stopped
+    ports:
+      - 8888:3000
+    volumes:
+      - ./db:/config
+    networks:
+      - web 
 
 networks:
   web:

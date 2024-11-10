@@ -4,8 +4,8 @@
  * fcn_13_recordReceived
  *
  * @param  mixed $db_conn
- * @param  mixed $db_incident
- * @param  mixed $strInFile
+ * @param  string $db_incident
+ * @param  string $strInFile
  * @param  mixed $logger
  * @return void
  */
@@ -24,8 +24,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
         $sep = '|';
     }
     $agencies = implode("|", array_unique(explode("|", $agencies))); //remove any duplicates
-    #var_dump($agencies);
-    #echo "\r\n";
+
     // $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
     $jurisdictions = $sep = '';
     $nrOfRows = $xml->Incidents->Incident->count();
@@ -36,8 +35,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
         $sep = '|';
     }
     $jurisdictions = implode("|", array_unique(explode("|", $jurisdictions))); //remove any duplicates
-    #var_dump($jurisdictions);
-    #echo "\r\n";
+
     // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
     $units = $sep = '';
     $nrOfRows = $xml->AssignedUnits->Unit->count();
@@ -47,8 +45,6 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
         $units .= $sep . $value;
         $sep = '|';
     }
-    #var_dump($units);
-    #echo "\r\n";
 
     #Gather all topics to send to
     $topics = ""; //Set to null

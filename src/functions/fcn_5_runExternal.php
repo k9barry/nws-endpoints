@@ -3,16 +3,16 @@
 /**
  * fcn_5_runExternal
  *
- * @param  mixed $strInFile
- * @param  mixed $strInRootFolder
- * @param  mixed $strOutFolder
- * @param  mixed $strBackupFolder
+ * @param  string $strInFile
+ * @param  string $strInRootFolder
+ * @param  string $strOutFolder
+ * @param  string $strBackupFolder
  * @param  mixed $logger
  * @return void
  */
 function fcn_5_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger)
 {
-    global $db, $db_table, $CfsTableName, $CfsCsvFilePath;
+    global $db, $db_table; #, $CfsTableName, $CfsCsvFilePath;
     $logger->info("$strInFile => $strOutFolder");
     $arrayParts = pathinfo($strInFile);
     $strRelativeFileName = str_replace($strInRootFolder, '', $strInFile);
@@ -33,7 +33,7 @@ function fcn_5_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBack
     }
     fcn_13_recordReceived($db_conn, $db_table, $strInFile, $logger);
     fcn_17_closeConnection($db_conn, $logger);
-    fcn_18_unlinkArchiveOld($strBackupFolder);
+    fcn_18_unlinkArchiveOld($strBackupFolder, $logger);
     /*************************************************************************************************************************************/
     /*************************************************************************************************************************************/
 

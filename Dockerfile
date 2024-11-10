@@ -13,4 +13,4 @@ COPY --from=builder /vendor /app/vendor
 WORKDIR /app
 COPY src/ .
 
-CMD ["php", "run.php"]
+#CMD ["php", "run"]

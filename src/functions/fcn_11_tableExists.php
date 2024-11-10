@@ -4,9 +4,9 @@
  * fcn_11_tableExists
  *
  * Check if a table exists in the current database.
- * @param PDO $db_conn PDO instance connected to a database.
+ * @param mixed $db_conn PDO instance connected to a database.
  * @param string $db_incident table to search for.
- * @param string $logger
+ * @param mixed $logger
  * @return bool TRUE if table exists, FALSE if no table found.
  */
 function fcn_11_tableExists($db_conn, $db_incident, $logger)

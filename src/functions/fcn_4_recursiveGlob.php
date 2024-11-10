@@ -3,11 +3,11 @@
 /**
  * fcn_4_recursiveGlob
  *
- * @param  mixed $dir
- * @param  mixed $ext
- * @param  mixed $strInRootFolder
- * @param  mixed $strOutFolder
- * @param  mixed $strBackupFolder
+ * @param  string $dir
+ * @param  string $ext
+ * @param  string $strInRootFolder
+ * @param  string $strOutFolder
+ * @param  string $strBackupFolder
  * @param  mixed $logger
  * @return void
  */

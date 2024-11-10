@@ -6,7 +6,7 @@
  * ['jpg','gif'] as input
  * converted to: *.{[Jj][Pp][Gg],[Gg][Ii][Ff]}
  *
- * @param  mixed $arr_extensions
+ * @param  array $arr_extensions
  * @return void
  */
 function fcn_3_globCaseInsensitivePattern($arr_extensions)
