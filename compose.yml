@@ -44,8 +44,19 @@ services:
     restart: unless-stopped
     command: ["php", "run"]
     volumes:
-      - ./watchfolder:/app/data/watchfolder
+      #- ./watchfolder:/app/data/watchfolder
       - ./db:/app/data/db
+      - type: cifs
+        source: "//10.200.0.34/e$/Interfaces/CadEnterpriseExporter/Pushover"
+        target: "/watchfolder"
+        options:
+          username: "${CIFS_USERNAME}"
+          password: "${CIFS_PASSWORD}"
+    secrets:
+      - cifs_username
+      - cifs_password
+# echo "your_username" | docker secret create cifs_username -
+# echo "your_password" | docker secret create cifs_password -
 
   sqlitebrowser:
     image: lscr.io/linuxserver/sqlitebrowser:latest
@@ -56,7 +67,7 @@ services:
     volumes:
       - ./db:/config
     networks:
-      - web 
+      - web
 
 networks:
   web:
