@@ -63,9 +63,6 @@ networks:
   web:
     name: web
 
-# echo "your_username" | docker secret create cifs_username -
-# echo "your_password" | docker secret create cifs_password -
-
 volumes:
   watchfolder:
     driver_opts:

@@ -10,5 +10,7 @@ RUN composer install
 FROM php:8.3.2-fpm
 
 COPY --from=builder /vendor /app/vendor
+
+
 WORKDIR /app
 COPY src/ .
