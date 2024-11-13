@@ -5,3 +5,4 @@
 /db/
 /watchfolder/
 /.vscode
+/.env

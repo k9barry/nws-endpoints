@@ -43,9 +43,6 @@ services:
     container_name: nws-endpoints
     restart: unless-stopped
     command: ["php", "run"]
-    secrets:
-      - cifs_username
-      - cifs_password
     volumes:
       #- ./watchfolder:/app/data/watchfolder
       - ./db:/app/data/db
@@ -73,5 +70,5 @@ volumes:
   watchfolder:
     driver_opts:
       type: cifs
-      o: "username=${CIFS_USERNAME} , password=${CIFS_PASSWORD}"
-      device: "//10.200.0.34/e$/Interfaces/CadEnterpriseExporter/Pushover"
+      o: "username=${CIFS_USERNAME},password=${CIFS_PASSWORD},domain=${CIFS_DOMAIN}"
+      device: ${SHARED_FOLDER_PATH}
