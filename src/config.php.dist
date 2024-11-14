@@ -1,43 +1,6 @@
 <?php
 
-/**
- * Rename this file to config.php
- *
- * Config file defining file locations and storage of API keys.
- * This file is required for this script to function, you will
- * need to change the values below to match your keys.
- *
- */
-
-// Data folder for files created by scripts
-$strDataFolder = "./data"; // No ending '/'
-
-// Monitor folder this script is watching for file additions
-$strInFolder = "Y:"; // mapped drive to NWS xml file folder
-
-// Filename extensions to be monitored for in the monitor folder
-$arrayInputFileExtensions = array('xml');
-
-// Set output folder for output files
-$strOutFolder = "" . $strDataFolder . "/Output";
-
-// Move the original files to this folder after processing
-$strBackupFolder = "" . $strDataFolder . "/Archive";
-
-// Log folder to store log files into
-$strLogFolder = "" . $strDataFolder . "/Logs";
-
-// Set time to wait before checking input folder for new files (in seconds)
-$sleep = 3;
-
-// Set the database location and name
-$db = "" . $strDataFolder . "/Database.sqlite";
-
-// Set the database table name to store incidents into
-$db_table = 'incidents';
-
-// Incidents older than this time will not be sent
-$TimeAdjust = 900; // 15 minutes x 60 seconds
+##  Rename this file to config.php  ##
 
 /**
  * sendNtfy
@@ -46,7 +9,7 @@ $TimeAdjust = 900; // 15 minutes x 60 seconds
 $ntfySend = true; #true|false
 $ntfyUrl = "{serverUrl}";
 $ntfyToken = "{ntfyToken}";
-$ntfyUser = "{ntfyUser}";
+$ntfyUser = "{ntfyUser}";  // Likely not needed
 
 /**
  * sendPushover 
