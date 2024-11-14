@@ -1,6 +1,20 @@
 <?php
 
 /**
+ * Setup variables
+ *
+ */
+$strDataFolder = "./data";  // No ending '/' Data folder for files created by scripts
+$strInFolder = "" . $strDataFolder . "/watchfolder";  // Folder this script is watching for file additions
+$strOutFolder = "" . $strDataFolder . "/output";  // Set output folder for output files
+$strBackupFolder = "" . $strDataFolder . "/archive";  // Move the original files to this folder after processing
+$arrayInputFileExtensions = array('xml');  // Filename extensions to be monitored for in the watch folder
+$sleep = 3;  // Set time to wait before checking input folder for new files (in seconds)
+$db = "" . $strDataFolder . "/db/db.sqlite";  // Set the database location and name
+$db_table = 'incidents';  // Set the database table name to store incidents into
+$TimeAdjust = 900;  // 15 minutes x 60 seconds Incidents older than this time will never be sent
+
+/**
  * Composer autoload and php 
  *
  */
@@ -24,7 +38,7 @@ $logger->pushHandler($stream_handler);
 $logger->info('nws-endpoint logger is now ready'); // You can now use your logger
 
 /**
- * Require config file
+ * Include config.php file
  * */
 
 if (!file_exists('./config.php')) {
@@ -34,7 +48,7 @@ if (!file_exists('./config.php')) {
 }
 
 /**
- * Require functions
+ * Include all functions in the src/functions folder
  */
 foreach (glob('./functions/*.php') as $filename) {
     include_once $filename;
@@ -45,20 +59,20 @@ foreach (glob('./functions/*.php') as $filename) {
  * Setup file structure
  */
 
-if (!is_dir($strInFolder)) {
+if (!is_dir($strInFolder)) {  // Watchfolder
     mkdir($strInFolder);
     $logger->info("Watch folder not found - So I created one for you at $strInFolder");
 } else {
     $logger->info("Watch folder found at $strInFolder");
 }
 
-if (!is_dir($strOutFolder)) {
+if (!is_dir($strOutFolder)) {  // OutFolder
     mkdir($strOutFolder);
     $logger->info("Output folder not found - So I created one for you at $strOutFolder");
 } else {
     $logger->info("Output folder found at $strOutFolder");
 }
-if (!is_dir($strBackupFolder)) {
+if (!is_dir($strBackupFolder)) {  // ArchiveFolder
     mkdir($strBackupFolder);
     $logger->info("Backup folder not found - So I created one for you at $strBackupFolder");
 } else {
@@ -71,10 +85,12 @@ if (!is_dir($strBackupFolder)) {
 fcn_1_unlinkInputOld($strInFolder, $TimeAdjust, $logger);
 
 /**
- * Launch this thing.....
+ * Start monitoring folders
  */
 while (true) {
     fcn_2_monitorFolder($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder, $logger);
-    //$logger->info("=====================================================");
+
+    // All the remaining functions are called from here
+
     sleep($sleep); //Waiting for XXX seconds
 }
