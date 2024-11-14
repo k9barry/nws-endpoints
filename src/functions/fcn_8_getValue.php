@@ -3,7 +3,7 @@
 /**
  * fcn_8_getValue
  *
- * @param  mixed $array
+ * @param  array $array
  * @param  mixed $index
  * @param  mixed $default
  * @return void

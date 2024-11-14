@@ -3,7 +3,7 @@
 /**
  * fcn_10_openConnection
  *
- * @param  mixed $db
+ * @param  string $db
  * @param  mixed $logger
  * @return $db_conn  DB connection
  */

@@ -4,8 +4,8 @@
  * fcn_22_removeOldRecords Only keep the last 999 Call ID's
  *
  * @param  mixed $db_conn
- * @param  mixed $db_incident
- * @param  mixed $CallId
+ * @param  string $db_incident
+ * @param  int $CallId
  * @param  mixed $logger
  * @return void
  */

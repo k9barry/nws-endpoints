@@ -81,7 +81,7 @@ Time: $db_CreateDateTime
 Narr: $db_Narrative_Text"
                 ]
             ]));
-            $logger->info("========= Ntfy messages sent to topic " . $topic . " =========");
+            $logger->debug("========= Ntfy messages sent to topic " . $topic . " =========");
         } //foreach loop
     } // if !str_contains New Call
     if ($pushoverSend == "true") {

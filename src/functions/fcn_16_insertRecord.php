@@ -4,9 +4,9 @@
  * fcn_16_insertRecord
  *
  * @param  mixed $db_conn
- * @param  mixed $db_incident
+ * @param  string $db_incident
  * @param  mixed $xml
- * @param  mixed $send
+ * @param  bool $send
  * @param  mixed $logger
  * @param  mixed $agencies
  * @param  mixed $jurisdictions
@@ -15,8 +15,6 @@
  */
 function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units)
 {
-    global $CfsTableName;
-
     $CallId = $xml->CallId;
     $CallNumber = $xml->CallNumber;
     $ClosedFlag = $xml->ClosedFlag;

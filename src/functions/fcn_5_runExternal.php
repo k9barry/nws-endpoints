@@ -3,23 +3,23 @@
 /**
  * fcn_5_runExternal
  *
- * @param  mixed $strInFile
- * @param  mixed $strInRootFolder
- * @param  mixed $strOutFolder
- * @param  mixed $strBackupFolder
+ * @param  string $strInFile
+ * @param  string $strInRootFolder
+ * @param  string $strOutFolder
+ * @param  string $strBackupFolder
  * @param  mixed $logger
  * @return void
  */
 function fcn_5_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger)
 {
-    global $db, $db_table, $CfsTableName, $CfsCsvFilePath, $strLogFolder;
+    global $db, $db_table; #, $CfsTableName, $CfsCsvFilePath;
     $logger->info("$strInFile => $strOutFolder");
     $arrayParts = pathinfo($strInFile);
     $strRelativeFileName = str_replace($strInRootFolder, '', $strInFile);
     $logger->info("RelativeFileName=$strRelativeFileName");
     $strOutFile = $strOutFolder . '/' . $strRelativeFileName;
     $strOutFile = str_replace('//', '/', $strOutFile);
-    fcn_6_recursiveMkdir(dirname($strOutFile), 0755, true, $logger);
+    fcn_6_recursiveMkdir(dirname($strOutFile),$logger, 0755, true);
     $strOutFile = fcn_7_renameIfExists($strOutFile);
 
     /*************************************************************************************************************************************
@@ -33,15 +33,14 @@ function fcn_5_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBack
     }
     fcn_13_recordReceived($db_conn, $db_table, $strInFile, $logger);
     fcn_17_closeConnection($db_conn, $logger);
-    fcn_18_unlinkArchiveOld($strBackupFolder);
-    fcn_19_unlinkLogFiles($strLogFolder, $logger);
+    fcn_18_unlinkArchiveOld($strBackupFolder, $logger);
     /*************************************************************************************************************************************/
     /*************************************************************************************************************************************/
 
     //Move original file to Archive folder
     $strBackupFile = $strBackupFolder . '/' . $strRelativeFileName;
     $strBackupFile = str_replace('//', '/', $strBackupFile);
-    fcn_6_recursiveMkdir(dirname($strBackupFile), 0755, true, $logger);
+    fcn_6_recursiveMkdir(dirname($strBackupFile), $logger, 0755, true);
     $strBackupFile = fcn_7_renameIfExists($strBackupFile);
     rename($strInFile, $strBackupFile);
     $logger->info("MoveFile: $strInFile => $strBackupFile");

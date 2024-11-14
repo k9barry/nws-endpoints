@@ -3,12 +3,12 @@
 /**
  * fcn_unlinkInputOld
  *
- * @param  mixed $path
- * @param  mixed $TimeAdjust
+ * @param  string $path
+ * @param  int $TimeAdjust
  * @param  mixed $logger
  * @return void
  */
-function fcn_1_unlinkInputOld($path, $TimeAdjust, $logger) // $strInFolder, $TimeAdjust
+function fcn_1_unlinkInputOld($path, $TimeAdjust, $logger)
 {
     if ($handle = opendir($path)) {
         while (false !== ($file = readdir($handle))) {

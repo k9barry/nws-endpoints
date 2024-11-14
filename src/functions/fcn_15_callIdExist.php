@@ -4,8 +4,8 @@
  * fcn_15_callIdExist
  *
  * @param  mixed $db_conn
- * @param  mixed $db_incident
- * @param  mixed $CallId
+ * @param  string $db_incident
+ * @param  int $CallId
  * @param  mixed $logger
  * @return $RowExists (true) if row exists
  */

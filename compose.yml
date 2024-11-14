@@ -1,0 +1,71 @@
+services:
+
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    restart: unless-stopped
+    ports:
+      - 8088:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test:
+        - CMD
+        - /dozzle
+        - healthcheck
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    networks:
+      - web
+
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: ntfy
+    restart: unless-stopped
+    profiles:
+      - ntfy
+    ports:
+      - 80:80
+    command:
+      - serve
+    volumes:
+      - ntfy/cache/ntfy:/var/cache/ntfy
+      - ntfy/:/etc/ntfy
+    environment:
+      - TZ=America/Indiana/Indianapolis
+    networks:
+      - web
+
+  nws-endpoints:
+    build: .
+    container_name: nws-endpoints
+    restart: unless-stopped
+    command: ["php", "run"]
+    volumes:
+      #- ./watchfolder:/app/data/watchfolder
+      - ./db:/app/data/db
+      - watchfolder:/app/data/watchfolder
+
+  sqlitebrowser:
+    image: lscr.io/linuxserver/sqlitebrowser:latest
+    container_name: sqlitebrowser
+    restart: unless-stopped
+    ports:
+      - 8888:3000
+    volumes:
+      - ./db:/config
+    networks:
+      - web
+
+networks:
+  web:
+    name: web
+
+volumes:
+  watchfolder:
+    driver_opts:
+      type: cifs
+      o: "username=${CIFS_USERNAME},password=${CIFS_PASSWORD},domain=${CIFS_DOMAIN}"
+      device: ${SHARED_FOLDER_PATH}
