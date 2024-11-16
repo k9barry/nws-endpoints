@@ -86,6 +86,7 @@ jobs:
           #   }}
           VALIDATE_ALL_CODEBASE: true       
 
+          GITHUB_ENV: gitea.cleaver.me
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
           # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE
