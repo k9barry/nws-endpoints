@@ -3,7 +3,7 @@
 /**
  * fcn_2TimeOver15Minutes
  *
- * @param  mixed $db_CreateDateTime
+ * @param  mixed $CreateDateTime
  * @return $send
  */
 function fcn_20_DeltaTime($CreateDateTime)
