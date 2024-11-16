@@ -6,3 +6,4 @@
 /watchfolder/
 /.vscode
 /.env
+megalinter-reports/
