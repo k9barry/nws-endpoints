@@ -1,10 +1,10 @@
 <?php
 
 /**
- * fcn_2TimeOver15Minutes
+ * fcn_20_DeltaTime
  *
  * @param  mixed $CreateDateTime
- * @return $send
+ * @return $delta
  */
 function fcn_20_DeltaTime($CreateDateTime)
 {
