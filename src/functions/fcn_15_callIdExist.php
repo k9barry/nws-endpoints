@@ -7,7 +7,7 @@
  * @param  string $db_incident
  * @param  int $CallId
  * @param  mixed $logger
- * @return $RowExists (true) if row exists
+ * @return $RowExists
  */
 function fcn_15_callIdExist($db_conn, $db_incident, $CallId, $logger)
 {
