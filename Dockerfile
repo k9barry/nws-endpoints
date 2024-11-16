@@ -1,4 +1,4 @@
-FROM composer AS builder
+FROM composer:2.8.2 AS builder
 
 RUN curl -sS https://getcomposer.org/installer | php \
   && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer
