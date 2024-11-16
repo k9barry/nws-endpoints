@@ -5,7 +5,7 @@ services:
     container_name: dozzle
     restart: unless-stopped
     ports:
-      - 8088:8080
+      - 8081:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     healthcheck:
@@ -27,7 +27,7 @@ services:
     profiles:
       - ntfy
     ports:
-      - 80:80
+      - 8080:80
     command:
       - serve
     volumes:
@@ -44,8 +44,7 @@ services:
     restart: unless-stopped
     command: ["php", "run"]
     volumes:
-      #- ./watchfolder:/app/data/watchfolder
-      - ./db:/app/data/db
+      - db:/app/data/db
       - watchfolder:/app/data/watchfolder
 
   sqlitebrowser:
@@ -53,9 +52,9 @@ services:
     container_name: sqlitebrowser
     restart: unless-stopped
     ports:
-      - 8888:3000
+      - 8082:3000
     volumes:
-      - ./db:/config
+      - db:/config
     networks:
       - web
 
@@ -64,6 +63,7 @@ networks:
     name: web
 
 volumes:
+  db:
   watchfolder:
     driver_opts:
       type: cifs
