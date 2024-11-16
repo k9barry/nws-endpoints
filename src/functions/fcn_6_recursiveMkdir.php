@@ -7,7 +7,7 @@
  * @param  mixed $logger
  * @param  int $permissions
  * @param  bool $create
- * @return true
+ * @return true|void
  */
 function fcn_6_recursiveMkdir($dest, $logger, $permissions = 0755, $create = true)
 {
