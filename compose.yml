@@ -1,5 +1,4 @@
 services:
-
   dozzle:
     image: amir20/dozzle:latest
     container_name: dozzle
