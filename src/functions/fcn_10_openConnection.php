@@ -5,7 +5,7 @@
  *
  * @param  string $db
  * @param  mixed $logger
- * @return $db_conn  DB connection
+ * @return $db_conn
  */
 function fcn_10_openConnection($db, $logger)
 {
