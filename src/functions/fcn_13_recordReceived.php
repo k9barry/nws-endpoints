@@ -61,7 +61,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
     } else if (!fcn_15_callIdExist($db_conn, $db_incident, $xml->CallId, $logger)) { // record does not exist in db
         $logger->info("New record to enter into the DB and send to all topics.");
         #echo "Record does not exist so we will insert into DB: ".$topics." \r\n";
-        fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units); // This is where a new record gets entered into db
+        fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
         fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll = 0); // Send to ntfy
     } else {
         $logger->info("Record exists in DB - gathering topic changes and checking for changes to requsite fields");
@@ -115,7 +115,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
             $sep = '|';
         }
         if ($AgencyContexts_AgencyContext_CallType != $db_CallType) {
-            $logger->info("%%%%%%" . $AgencyContexts_AgencyContext_CallType . " <- " . $db_CallType . " - Call type change");
+            $logger->info("%%%%%%" . $AgencyContexts_AgencyContext_CallType . " <-" . $db_CallType . "- Call change");
             $saveToDb = 1;
             $resendAll = 1;
         } else {
@@ -128,7 +128,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
         if ($xml->Location->FullAddress != $db_FullAddress) {
             #var_dump($xml->Location->FullAddress);
             #var_dump($db_FullAddress);
-            $logger->info("%%%%%%" . $xml->Location->FullAddress . " <- " . $db_FullAddress . " resend because address change");
+            $logger->info("%%%%%%" . $xml->Location->FullAddress . " <-" . $db_FullAddress . " resend address change");
             $saveToDb = 1;
             $resendAll = 1;
         } else {
@@ -141,7 +141,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
         if ($xml->AlarmLevel > $db_AlarmLevel) {
             #var_dump($xml->AlarmLevel);
             #var_dump($db_AlarmLevel);
-            $logger->info("%%%%%%" . $xml->AlarmLevel . " <- " . $db_AlarmLevel . " resend because alarm level increased");
+            $logger->info("%%%%%%" . $xml->AlarmLevel . " <-" . $db_AlarmLevel . " resend alarm level increased");
             $saveToDb = 1;
             $resendAll = 1;
         } else {
