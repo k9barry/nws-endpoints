@@ -9,6 +9,9 @@ RUN composer install
 
 FROM php:8.3.2-fpm
 
+RUN useradd -m appuser
+USER appuser
+
 COPY --from=builder /vendor /app/vendor
 
 
