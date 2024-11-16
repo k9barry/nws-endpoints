@@ -4,7 +4,7 @@
  * fcn_7_renameIfExists
  *
  * @param  mixed $filename
- * @return void
+ * @return $strNewFileName
  */
 function fcn_7_renameIfExists($filename)
 {
