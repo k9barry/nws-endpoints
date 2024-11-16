@@ -5,7 +5,7 @@
  *
  * @param  mixed $path
  * @param  mixed $filename
- * @return void
+ * @return $newname
  */
 function fcn_9_fileNewname($path, $filename)
 {

@@ -21,7 +21,7 @@ All information is logged to a log file by Monolog and stored in ./data/Logs/ by
 
 The parsed incident data is written into a sqlite3 DB while the incident is active and then removed when the incident is closed.
 
-All incidents will be sent to nested ntfy topics based on AGENCY/JURISDICTION/UNIT (i.e. https://ntfy.sh/{topic1}/{topic2}/{topic3} )
+All incidents will be sent to nested ntfy topics based on AGENCY/JURISDICTION/UNIT (i.e. https://ntfy.sh/ )
 
 CONFIGURATION
 

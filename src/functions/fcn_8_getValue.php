@@ -6,7 +6,7 @@
  * @param  array $array
  * @param  mixed $index
  * @param  mixed $default
- * @return void
+ * @return $value
  */
 function fcn_8_getValue($array, $index, $default = '')
 {

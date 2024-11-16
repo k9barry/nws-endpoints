@@ -84,7 +84,7 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $
     $Location_NearestCrossStreets = trim(str_replace("'", "''", $Location_NearestCrossStreets));
     $Location_AdditionalInfo = trim(str_replace("'", "''", $Location_AdditionalInfo));
     // replace \r \n \t with ' ' then make uppercase and trim
-    $Narratives_Narrative_Text = trim(strtoupper(preg_replace(array("/\s\s+/", "/[\t\n\r]/"), ' ', str_replace("'", "''", $Narratives_Narrative_Text))));
+    $Text = trim(strtoupper(preg_replace(array("/\s\s+/", "/[\t\n\r]/"), ' ', str_replace("'", "''", $Text))));
 
     $sql = "INSERT OR REPLACE INTO $db_incident
         (
@@ -138,7 +138,7 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $
         '$AssignedUnits_Unit_UnitNumber',
         '$Incidents_Incident_Number',
         '$Incidents_Incident_Jurisdiction',
-        '$Narratives_Narrative_Text'
+        '$Text'
         )";
     $db_conn->exec($sql);
     $logger->info("Record inserted into DB");

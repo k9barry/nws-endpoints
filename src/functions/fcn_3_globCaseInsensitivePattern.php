@@ -7,7 +7,7 @@
  * converted to: *.{[Jj][Pp][Gg],[Gg][Ii][Ff]}
  *
  * @param  array $arr_extensions
- * @return void
+ * @return $opbouw
  */
 function fcn_3_globCaseInsensitivePattern($arr_extensions)
 {
