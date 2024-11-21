@@ -1,23 +1,23 @@
 {
-	"name": "k9barry/nws-endpoints",
-	"description": "A PHP package to send notifications to various endpoints from New World Systems",
-	"license": "proprietary",
-	"minimum-stability": "dev",
-	"keywords": [
-		"nws",
-		"ntfy"
-	],
-	"authors": [
-		{
-			"name": "K9 Barry",
-			"email": "k9barry@gmail.com",
-			"role": "Developer"
-		}
-	],
-	"require": {
-		"php": "^8.3",
-		"ext-curl": "*",
-		"ext-pdo_sqlite": "*",
-		"monolog/monolog": "3.*"
-	}
+  "name": "k9barry/nws-endpoints",
+  "description": "A PHP package to send notifications to various endpoints from New World Systems",
+  "license": "proprietary",
+  "minimum-stability": "dev",
+  "keywords": [
+    "nws",
+    "ntfy"
+  ],
+  "authors": [
+    {
+      "name": "K9 Barry",
+      "email": "k9barry@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "ext-curl": "*",
+    "ext-pdo_sqlite": "*",
+    "monolog/monolog": "3.*"
+  }
 }
