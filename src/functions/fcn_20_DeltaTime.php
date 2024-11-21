@@ -1,12 +1,12 @@
 <?php
 
 /**
- * fcn_20_DeltaTime
+ * fcn_20_deltaTime
  *
  * @param  mixed $CreateDateTime
  * @return $delta
  */
-function fcn_20_DeltaTime($CreateDateTime)
+function fcn_20_deltaTime($CreateDateTime)
 {
     global $TimeAdjust;
     $Now = strtotime("now");

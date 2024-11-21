@@ -12,7 +12,7 @@
 function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
 {
     global $TimeAdjust;
-    $xml = simplexml_load_file($strInFile) or die("Error: Cannot create object"); # read the xml file
+    $xml == simplexml_load_file($strInFile) or die("Error: Cannot create object"); # read the xml file
     $logger->info("File " . $strInFile . " read into simpleXML");
     // $AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
     $agencies = $sep = '';
@@ -53,7 +53,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
     #echo "XML topics are: ".var_dump($arr_Topics_Xml)." \r\n";
 
     #Delta time check
-    $delta = fcn_20_DeltaTime($xml->CreateDateTime);
+    $delta = fcn_20_deltaTime($xml->CreateDateTime);
     if ($xml->ClosedFlag == "true") { //record is closed
         $logger->info("ClosedFlag is true so remove record " . $xml->CallId . " from db");
         fcn_14_deleteRecord($db_conn, $db_incident, $xml->CallId, $logger);
