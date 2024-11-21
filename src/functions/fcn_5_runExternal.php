@@ -19,7 +19,7 @@ function fcn_5_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBack
     $logger->info("RelativeFileName=$strRelativeFileName");
     $strOutFile = $strOutFolder . '/' . $strRelativeFileName;
     $strOutFile = str_replace('//', '/', $strOutFile);
-    fcn_6_recursiveMkdir(dirname($strOutFile),$logger, 0755, true);
+    fcn_6_recursiveMkdir(dirname($strOutFile), $logger, 0755, true);
     $strOutFile = fcn_7_renameIfExists($strOutFile);
 
     /*************************************************************************************************************************************

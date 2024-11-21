@@ -53,9 +53,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
     $topics = array_unique($topics); //Remove any duplicates
 
     if ($db_CallType <> "New Call") {
-
         foreach ($topics as $topic) {
-
             file_get_contents("" . $ntfyUrl . "/" . $topic, false, stream_context_create([
                 'http' => [
                     'method' => 'PUT',
@@ -89,5 +87,4 @@ Narr: $db_Narrative_Text"
     }
 
     fcn_22_removeOldRecords($db_conn, $db_incident, $CallId, $logger);
-
 }

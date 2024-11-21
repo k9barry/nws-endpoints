@@ -12,7 +12,7 @@
 function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
 {
     global $TimeAdjust;
-    $xml == simplexml_load_file($strInFile) or die("Error: Cannot create object"); # read the xml file
+    $xml = simplexml_load_file($strInFile) or die("Error: Cannot create object"); # read the xml file
     $logger->info("File " . $strInFile . " read into simpleXML");
     // $AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
     $agencies = $sep = '';
