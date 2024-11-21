@@ -15,13 +15,13 @@ REQUIREMENTS
 
 WHAT THIS DOES
 
-When running this project will recursivelly monitor the input folder for new files arriving from the New World System (NWS) computer aided dispatching (CAD) EXPORTER interface matching the $arrayInputFileExtensions file extentions (usually xml files). When a file with a matching extention is found it is parsed using the included functions and moved briefly into the output folder (for more parsing if necessary but likely not) and then finally moved into the archive folder.
+This project will recursivelly monitor the watchfolder for new files arriving from the New World System (NWS-CAD) EXPORTER interface matching the $arrayInputFileExtensions extentions (xml). When a file with a matching extention is found it is moved briefly into the output folder and parsed by the included functions then finally moved into the archive folder.
 
 All information is logged to a log file by Monolog and stored in ./data/Logs/ by date. (Three days of logging are kept.)
 
 The parsed incident data is written into a sqlite3 DB while the incident is active and then removed when the incident is closed.
 
-All incidents will be sent to nested ntfy topics based on AGENCY/JURISDICTION/UNIT (i.e. https://ntfy.sh/ )
+All incidents will be sent to nested ntfy topics based on AGENCY/JURISDICTION/UNIT (i.e. https://docs.ntfy.sh/config/#config-options )
 
 CONFIGURATION
 

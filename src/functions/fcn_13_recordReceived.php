@@ -58,7 +58,7 @@ function fcn_13_recordReceived($db_conn, $db_incident, $strInFile, $logger)
         $logger->info("ClosedFlag is true so remove record " . $xml->CallId . " from db");
         fcn_14_deleteRecord($db_conn, $db_incident, $xml->CallId, $logger);
         return;
-    } else if (!fcn_15_callIdExist($db_conn, $db_incident, $xml->CallId, $logger)) { // record does not exist in db
+    } elseif (!fcn_15_callIdExist($db_conn, $db_incident, $xml->CallId, $logger)) { // record does not exist in db
         $logger->info("New record to enter into the DB and send to all topics.");
         #echo "Record does not exist so we will insert into DB: ".$topics." \r\n";
         fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);

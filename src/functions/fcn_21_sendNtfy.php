@@ -32,16 +32,16 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
     ##Set tag
     if ($db_AgencyType == "Fire") {
         $tags = "fire_engine";
-    } else if ($db_AgencyType == "Police") {
+    } elseif ($db_AgencyType == "Police") {
         $tags = "police_car";
     } else {
         $tags = "fire_engine,police_car";
     }
     if ($db_AlarmLevel == "1") { //Add alarm level to tag
         $tags = "1st_place_medal," . $tags;
-    } else if ($db_AlarmLevel == "2") {
+    } elseif ($db_AlarmLevel == "2") {
         $tags = "2nd_place_medal," . $tags;
-    } else if ($db_AlarmLevel == "3") {
+    } elseif ($db_AlarmLevel == "3") {
         $tags = "3rd_place_medal," . $tags;
     }
 
