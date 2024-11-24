@@ -30,8 +30,8 @@ services:
     command:
       - serve
     volumes:
-      - ntfy/cache/ntfy:/var/cache/ntfy
-      - ntfy/:/etc/ntfy
+      - ntfy/cache:/var/cache/ntfy
+      - ntfy:/etc/ntfy
     environment:
       - TZ=America/Indiana/Indianapolis
     networks:
@@ -63,6 +63,7 @@ networks:
 
 volumes:
   db:
+  ntfy:
   watchfolder:
     driver_opts:
       type: cifs
