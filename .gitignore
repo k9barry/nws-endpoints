@@ -7,3 +7,4 @@
 /.vscode
 /.env
 megalinter-reports/
+.devcontainer/devcontainer.json

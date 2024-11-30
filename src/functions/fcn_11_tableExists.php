@@ -9,7 +9,7 @@
  * @param mixed $logger
  * @return bool TRUE if table exists, FALSE if no table found.
  */
-function fcn_11_tableExists($db_conn, $db_incident, $logger)
+function fcn_11_tableExists(mixed $db_conn, string $db_incident, mixed $logger): bool
 {
     // Try a select statement against the table
     // Run it in try/catch in case PDO is in ERRMODE_EXCEPTION.

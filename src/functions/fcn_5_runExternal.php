@@ -3,23 +3,23 @@
 /**
  * fcn_5_runExternal
  *
- * @param  string $strInFile
- * @param  string $strInRootFolder
- * @param  string $strOutFolder
- * @param  string $strBackupFolder
+ * @param string $strInFile
+ * @param string $strInRootFolder
+ * @param string $strOutFolder
+ * @param string $strBackupFolder
  * @param  mixed $logger
  * @return void
  */
-function fcn_5_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBackupFolder, $logger)
+function fcn_5_runExternal(string $strInFile, string $strInRootFolder, string $strOutFolder, string $strBackupFolder, mixed $logger): void
 {
     global $db, $db_table; #, $CfsTableName, $CfsCsvFilePath;
     $logger->info("$strInFile => $strOutFolder");
-    $arrayParts = pathinfo($strInFile);
+    #######$arrayParts = pathinfo($strInFile);
     $strRelativeFileName = str_replace($strInRootFolder, '', $strInFile);
     $logger->info("RelativeFileName=$strRelativeFileName");
     $strOutFile = $strOutFolder . '/' . $strRelativeFileName;
     $strOutFile = str_replace('//', '/', $strOutFile);
-    fcn_6_recursiveMkdir(dirname($strOutFile), $logger, 0755, true);
+    fcn_6_recursiveMkdir(dirname($strOutFile), $logger);
     $strOutFile = fcn_7_renameIfExists($strOutFile);
 
     /*************************************************************************************************************************************
@@ -40,7 +40,7 @@ function fcn_5_runExternal($strInFile, $strInRootFolder, $strOutFolder, $strBack
     //Move original file to Archive folder
     $strBackupFile = $strBackupFolder . '/' . $strRelativeFileName;
     $strBackupFile = str_replace('//', '/', $strBackupFile);
-    fcn_6_recursiveMkdir(dirname($strBackupFile), $logger, 0755, true);
+    fcn_6_recursiveMkdir(dirname($strBackupFile), $logger);
     $strBackupFile = fcn_7_renameIfExists($strBackupFile);
     rename($strInFile, $strBackupFile);
     $logger->info("MoveFile: $strInFile => $strBackupFile");

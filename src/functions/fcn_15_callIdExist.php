@@ -3,13 +3,13 @@
 /**
  * fcn_15_callIdExist
  *
- * @param  mixed $db_conn
- * @param  string $db_incident
- * @param  int $CallId
- * @param  mixed $logger
- * @return $RowExists
+ * @param mixed $db_conn
+ * @param string $db_incident
+ * @param int $CallId
+ * @param mixed $logger
+ * @return mixed $RowExists
  */
-function fcn_15_callIdExist($db_conn, $db_incident, $CallId, $logger)
+function fcn_15_callIdExist(mixed $db_conn, string $db_incident, int $CallId, mixed $logger): mixed
 {
     $sql = "SELECT count(1) FROM $db_incident WHERE db_CallId = $CallId LIMIT 1";
     $result = $db_conn->query($sql);

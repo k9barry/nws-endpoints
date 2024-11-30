@@ -3,11 +3,11 @@
 /**
  * fcn_18_unlinkArchiveOld
  *
- * @param  string  $path
+ * @param string $path
  * @param  mixed $logger
  * @return void
  */
-function fcn_18_unlinkArchiveOld($path, $logger) // $strBackupFolder
+function fcn_18_unlinkArchiveOld(string $path, mixed $logger): void // $strBackupFolder
 {
     if ($handle = opendir($path)) {
         while (false !== ($file = readdir($handle))) {
