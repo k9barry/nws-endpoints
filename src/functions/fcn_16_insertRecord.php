@@ -53,8 +53,7 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
         $sep = '|';
     }
     $AssignedUnits_Unit_UnitNumber = $units;
-    $RadioChannel = preg_match('/FG-[1-9]/m', $AssignedUnits_Unit_UnitNumber, $match);
-    $RadioChannel = implode("|", $match);
+    $RadioChannel = implode("|", preg_match('/FG-[1-9]/m', $AssignedUnits_Unit_UnitNumber));
     $Incidents_Incident_Number = $sep = '';
     $nrOfRows = $xml->Incidents->Incident->count();
     #####$n = 0;

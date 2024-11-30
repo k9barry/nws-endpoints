@@ -17,7 +17,7 @@ function fcn_11_tableExists(mixed $db_conn, string $db_incident, mixed $logger):
         $result = $db_conn->query("SELECT 1 FROM '$db_incident' LIMIT 1");
     } catch (Exception $e) {
         // We got an exception == table not found
-        $logger->info("[fcn_11_tableExists] Table " . $db_incident . " not found");
+        $logger->info("[fcn_11_tableExists] Table " . $db_incident . " not found with error " . $e->getMessage());
         return false;
     }
     // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)

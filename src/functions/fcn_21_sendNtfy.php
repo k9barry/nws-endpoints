@@ -20,10 +20,9 @@ function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $
     $row = $db_conn->prepare($sql);
     $row->execute();
     $ntfyMessage = $row->fetchAll(PDO::FETCH_ASSOC);
-    $out = $sep = '';
+    $out = '';
     foreach ($ntfyMessage[0] as $key => $value) {
-        $out .= $sep . $key . ":" . $value . "\n";
-        $sep = '';
+        $out .= $key . ":" . $value . "\n";
     }
     extract($ntfyMessage[0]);
     $urlEncFullAddress = urlencode($db_FullAddress);

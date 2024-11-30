@@ -88,7 +88,7 @@ fcn_1_unlinkInputOld($strInFolder, $TimeAdjust, $logger);
  * Start monitoring folders
  */
 while (true) {
-    fcn_2_monitorFolder($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder, $logger);
+    fcn_2_monitorFolder($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder, $logger, $db, $db_table);
 
     // All the remaining functions are called from here
 

@@ -19,8 +19,7 @@ function fcn_9_fileNewname(mixed $path, mixed $filename): mixed
     $newname = $filename;
     $counter = 0;
     while (file_exists($newpath)) {
-        $newname = $name . '_' . $counter . $ext;
-        $newpath = $path . '/' . $newname;
+        $newpath = $path . '/' . $name . '_' . $counter . $ext;
         $counter++;
     }
     return $newname;

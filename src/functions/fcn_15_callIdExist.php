@@ -14,12 +14,11 @@ function fcn_15_callIdExist(mixed $db_conn, string $db_incident, int $CallId, mi
     $sql = "SELECT count(1) FROM $db_incident WHERE db_CallId = $CallId LIMIT 1";
     $result = $db_conn->query($sql);
     foreach ($result as $result) {
-        $RowExists = $result[0];
     }
-    if ($RowExists) {
+    if ($result[0]) {
         $logger->info("Call ID exists in database");
     } else {
         $logger->info("Call ID does not exist in database");
     }
-    return $RowExists;
+    return $result[0];
 }

@@ -17,7 +17,7 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     // $AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
     $agencies = $sep = '';
     $nrOfRows = $xml->AgencyContexts->AgencyContext->count();
-    #$n = 0;
+    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->AgencyContexts->AgencyContext[$n]->AgencyType;
         $agencies .= $sep . $value;
@@ -28,7 +28,7 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     // $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
     $jurisdictions = $sep = '';
     $nrOfRows = $xml->Incidents->Incident->count();
-    #$n = 0;
+    ####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Incidents->Incident[$n]->Jurisdiction;
         $jurisdictions .= $sep . $value;
@@ -39,7 +39,7 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
     $units = $sep = '';
     $nrOfRows = $xml->AssignedUnits->Unit->count();
-    #$n = 0;
+    ####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->AssignedUnits->Unit[$n]->UnitNumber;
         $units .= $sep . $value;
@@ -47,7 +47,6 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     }
 
     #Gather all topics to send to
-    $topics = ""; //Set to null
     $topics = $agencies . "|" . $jurisdictions . "|" . $units;
     $arr_Topics_Xml = array_unique(explode('|', $topics));
     #echo "XML topics are: ".var_dump($arr_Topics_Xml)." \r\n";
@@ -61,7 +60,7 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     } elseif (!fcn_15_callIdExist($db_conn, $db_incident, $xml->CallId, $logger)) { // record does not exist in db
         $logger->info("New record to enter into the DB and send to all topics.");
         fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
-        fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll = 0); // Send to ntfy
+        fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, 0); // Send to ntfy
     } else {
         $logger->info("Record exists in DB - gathering topic changes and checking for changes to requsite fields");
         #Load the info from the db
@@ -70,10 +69,9 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
         $row = $db_conn->prepare($sql);
         $row->execute();
         $ntfyMessage = $row->fetchAll(PDO::FETCH_ASSOC);
-        $out = $sep = '';
+        $out = '';
         foreach ($ntfyMessage[0] as $key => $value) {
-            $out .= $sep . $key . ":" . $value . "\n";
-            $sep = '';
+            $out .= $key . ":" . $value . "\n";
         }
         extract($ntfyMessage[0]);
 
@@ -95,7 +93,7 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
         if (!empty($topics)) {
             $logger->info("%%%%%% " . $topics . " - New units dispatched - ");
             $saveToDb = 1;
-            $resendAll = 0;
+            #####$resendAll = 0;
         } else {
             $logger->info("No new units - nothing to send");
         }
