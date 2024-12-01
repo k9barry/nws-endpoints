@@ -8,31 +8,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     healthcheck:
-      test: ["CMD", "/dozzle", "healthcheck"]
+      test: [ "CMD", "/dozzle", "healthcheck" ]
       interval: 3s
       timeout: 30s
       retries: 5
       start_period: 30s
-    networks:
-      - web
-
-  ntfy:
-    image: binwiederhier/ntfy:latest
-    container_name: ntfy
-    restart: unless-stopped
-    profiles:
-      - ntfy
-    ports:
-      - "8080:80"
-    command:
-      - serve
-    volumes:
-      - ntfy/cache:/var/cache/ntfy
-      - ntfy:/etc/ntfy
-    environment:
-      - TZ=America/Indiana/Indianapolis
-    networks:
-      - web
 
   nws-endpoints:
     build: .
@@ -51,12 +31,6 @@ services:
       - "8082:3000"
     volumes:
       - db:/config
-    networks:
-      - web
-
-networks:
-  web:
-    name: web
 
 volumes:
   db:

@@ -1,10 +1,4 @@
-/.github/
-/vendor/
-/data/
-/src/config.php
-/db/
-/watchfolder/
-/.vscode
 /.env
-megalinter-reports/
-.devcontainer/devcontainer.json
+/src/composer.lock
+/src/config.php
+/src/vendor/
