@@ -12,7 +12,7 @@ RUN composer install
 
 FROM php:8.3.2-fpm
 
-#RUN pecl install xdebug && docker-php-ext-enable xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 #RUN useradd -m appuser
 #USER appuser

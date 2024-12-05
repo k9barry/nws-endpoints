@@ -26,7 +26,7 @@ function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mi
     $urlEncFullAddress = urlencode($db_FullAddress);
     #$mapUrl = "<a href=\"https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey\">CLICK FOR MAP</a>";
     $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
-    $logger->info("Open connection to Pushover using Google Url " . $mapUrl);
+    #$logger->info("Open connection to Pushover using Google Url " . $mapUrl);
     curl_setopt_array($ch = curl_init(), array(
         CURLOPT_URL => "$pushoverUrl",
         CURLOPT_RETURNTRANSFER => true,
@@ -53,13 +53,13 @@ function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mi
     try {
         $result = curl_exec($ch);
         if (curl_error($ch)) {
-            throw new Exception(curl_error($ch), curl_errno($ch));
+            throw new \Exception(curl_error($ch), curl_errno($ch));
         }
         // Decode JSON data to PHP object
         $obj = json_decode($result, true);
         $status = $obj["status"];
         if ($status <> "1") {
-            throw new Exception('Response: ' . $result);
+            throw new \Exception('Response: ' . $result);
         }
     } catch (Exception $e) {
         // exception is raised it will be handled here
