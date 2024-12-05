@@ -4,11 +4,11 @@
  * fcn_12_createIncidentsTable
  *
  * @param  mixed $db_conn
- * @param  string $db_incident
+ * @param string $db_incident
  * @param  mixed $logger
  * @return void
  */
-function fcn_12_createIncidentsTable($db_conn, $db_incident, $logger)
+function fcn_12_createIncidentsTable(mixed $db_conn, string $db_incident, mixed $logger): void
 {
     $sql = "CREATE TABLE IF NOT EXISTS $db_incident
 		(

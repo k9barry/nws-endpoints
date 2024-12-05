@@ -12,23 +12,22 @@
  * @param  mixed $resendAll
  * @return void
  */
-function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll)
+function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $delta, mixed $logger, mixed $topics, mixed $resendAll): void
 {
-    global $ntfyUrl, $ntfyToken, $ntfyUser, $googleApiKey, $pushoverSend;
+    global $ntfyUrl, $ntfyToken, $googleApiKey, $pushoverSend;
     $CallId = $xml->CallId;
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
     $row = $db_conn->prepare($sql);
     $row->execute();
     $ntfyMessage = $row->fetchAll(PDO::FETCH_ASSOC);
-    $out = $sep = '';
+    $out = '';
     foreach ($ntfyMessage[0] as $key => $value) {
-        $out .= $sep . $key . ":" . $value . "\n";
-        $sep = '';
+        $out .= $key . ":" . $value . "\n";
     }
     extract($ntfyMessage[0]);
     $urlEncFullAddress = urlencode($db_FullAddress);
     $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&scale=2&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
-    $logger->info("Open connection to NTFY and set Google Url " . $mapUrl . "");
+    #$logger->info("Open connection to NTFY and set Google Url " . $mapUrl);
     ##Set tag
     if ($db_AgencyType == "Fire") {
         $tags = "fire_engine";
@@ -46,7 +45,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
     }
 
     if ($resendAll == 1) {
-        $topics = "" . $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber . "";
+        $topics = "" . $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber;
     }
     $logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
     $topics = explode('|', $topics);
@@ -54,7 +53,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
 
     if ($db_CallType <> "New Call") {
         foreach ($topics as $topic) {
-            file_get_contents("" . $ntfyUrl . "/" . $topic, false, stream_context_create([
+            file_get_contents($ntfyUrl . "/" . $topic, false, stream_context_create([
                 'http' => [
                     'method' => 'PUT',
                     'header' =>

@@ -3,17 +3,16 @@
 /**
  * fcn_16_insertRecord
  *
- * @param  mixed $db_conn
- * @param  string $db_incident
- * @param  mixed $xml
- * @param  bool $send
- * @param  mixed $logger
- * @param  mixed $agencies
- * @param  mixed $jurisdictions
- * @param  mixed $units
+ * @param mixed $db_conn
+ * @param string $db_incident
+ * @param mixed $xml
+ * @param mixed $logger
+ * @param mixed $agencies
+ * @param mixed $jurisdictions
+ * @param mixed $units
  * @return void
  */
-function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units)
+function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mixed $logger, mixed $agencies, mixed $jurisdictions, mixed $units): void
 {
     $CallId = $xml->CallId;
     $CallNumber = $xml->CallNumber;
@@ -25,7 +24,7 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $
     // $AgencyContexts_AgencyContext_CallType = $xml->AgencyContexts->AgencyContext[0]->CallType;
     $AgencyContexts_AgencyContext_CallType = $sep = '';
     $nrOfRows = $xml->AgencyContexts->AgencyContext->count();
-    $n = 0;
+    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->AgencyContexts->AgencyContext[$n]->CallType;
         $AgencyContexts_AgencyContext_CallType .= $sep . $value;
@@ -45,32 +44,28 @@ function fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $
     $Location_LatitudeY = $xml->Location->LatitudeY;
     $Location_LongitudeX = $xml->Location->LongitudeX;
 
-    // $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
     $Incidents_Incident_Jurisdiction = $jurisdictions;
     $nrOfRows = $xml->Incidents->Incident->count();
-    $n = 0;
+    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Incidents->Incident[$n]->Jurisdiction;
         $Incidents_Incident_Jurisdiction .= $sep . $value;
         $sep = '|';
     }
-    // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
     $AssignedUnits_Unit_UnitNumber = $units;
     $RadioChannel = preg_match('/FG-[1-9]/m', $AssignedUnits_Unit_UnitNumber, $match);
     $RadioChannel = implode("|", $match);
-    // $Incidents_Incident_Number = $xml->Incidents->Incident->Number;
     $Incidents_Incident_Number = $sep = '';
     $nrOfRows = $xml->Incidents->Incident->count();
-    $n = 0;
+    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Incidents->Incident[$n]->Number;
         $Incidents_Incident_Number .= $sep . $value;
         $sep = '|';
     }
-    // $Narratives_Narrative_Text = $xml->Narratives->Narrative->Text;
     $Narratives_Narrative_Text = $sep = '';
     $nrOfRows = $xml->Narratives->Narrative->count();
-    $n = 0;
+    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Narratives->Narrative[$n]->Text;
         $Narratives_Narrative_Text .= $sep . $value;

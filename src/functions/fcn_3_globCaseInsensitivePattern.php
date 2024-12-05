@@ -2,29 +2,29 @@
 
 /**
  * fcn_3_globCaseInsensitivePattern
- *  create case insensitive patterns for glob or simular functions
+ *  create case-insensitive patterns for glob or similar functions
  * ['jpg','gif'] as input
  * converted to: *.{[Jj][Pp][Gg],[Gg][Ii][Ff]}
  *
- * @param  array $arr_extensions
- * @return $opbouw
+ * @param array $arr_extensions
+ * @return string $outbound
  */
-function fcn_3_globCaseInsensitivePattern($arr_extensions)
+function fcn_3_globCaseInsensitivePattern(array $arr_extensions): string
 {
-    $opbouw = '';
+    $outbound = '';
     $comma = '';
     foreach ($arr_extensions as $ext) {
-        $opbouw .= $comma;
+        $outbound .= $comma;
         $comma = ',';
         foreach (str_split($ext) as $letter) {
-            $opbouw .= '[' . strtoupper($letter) . strtolower($letter) . ']';
+            $outbound .= '[' . strtoupper($letter) . strtolower($letter) . ']';
         }
     }
-    if (count($arr_extensions) == 1 && strlen($opbouw) > 0) {
-        return '*.' . $opbouw;
+    if (count($arr_extensions) == 1 && strlen($outbound) > 0) {
+        return '*.' . $outbound;
     }
-    if ($opbouw) {
-        return '*.{' . $opbouw . '}';
+    if ($outbound) {
+        return '*.{' . $outbound . '}';
     }
     // if no pattern given show all
     return '*';

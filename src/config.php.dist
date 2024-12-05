@@ -9,7 +9,6 @@
 $ntfySend = true; #true|false
 $ntfyUrl = "{serverUrl}";
 $ntfyToken = "{ntfyToken}";
-$ntfyUser = "{ntfyUser}";  // Likely not needed
 
 /**
  * sendPushover 
