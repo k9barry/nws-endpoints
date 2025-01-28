@@ -35,7 +35,8 @@ use Monolog\Processor\IntrospectionProcessor;
 
 $logger = new Logger("nws-endpoint");
 $logger->pushProcessor(new IntrospectionProcessor());
-$stream_handler = new StreamHandler("php://stdout", Level::Info);
+$stream_handler = new StreamHandler("php://stdout", Level::Warning); //Debug|Info|Notice|Warning|Error|Critical|Alert|Emergency
+
 $logger->pushHandler($stream_handler);
 $logger->info('nws-endpoint logger is now ready'); // You can now use your logger
 
