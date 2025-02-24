@@ -1,6 +1,6 @@
 # nws->endpoints ntfy docker compose
 
-Docker compose file to reate a self hosted ntfy.sh server notification using Tyler Tech New World's CAD - ESO interface by taking the Tyler New World .xml file from the ESO interface and parsing it and passing the necessary variables to a self hosted ntfy server. Ntfy topics will be created based on the list below and will re-send information as the incident changes.
+Docker compose file to create a self-hosted ntfy.sh server notification using Tyler Tech New World's CAD - ESO interface by taking the Tyler New World .xml file from the ESO interface and parsing it and passing the necessary variables to ntfu and pushover. Ntfy topics will be created based on the list below and will re-send information as the incident changes.
 
 TOPICS will be created for (nested)
 

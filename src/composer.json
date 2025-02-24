@@ -19,6 +19,8 @@
     "ext-curl": "*",
     "ext-pdo": "*",
     "ext-pdo_sqlite": "*",
-    "monolog/monolog": "3.*"
+    "monolog/monolog": "3.*",
+    "ext-pdo": "*",
+    "ext-simplexml": "*"
   }
 }

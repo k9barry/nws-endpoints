@@ -19,7 +19,7 @@ env:
   # Apply linter fixes configuration
   #
   # When active, APPLY_FIXES must also be defined as environment variable
-  # (in github/workflows/mega-linter.yml or other CI tool)
+  # (in gitHub/workflows/mega-linter.yml or other CI tool)
   APPLY_FIXES: pull_request
 
   # Decide which event triggers application of fixes in a commit or a PR
@@ -49,9 +49,9 @@ jobs:
     steps:
       # Git Checkout
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
-          token: ${{ secrets.PAT || secrets.TOKEN }}
+          #token: ${{ secrets.PAT || secrets.TOKEN }}
 
           # If you use VALIDATE_ALL_CODEBASE = true, you can remove this line to
           # improve performance
@@ -94,8 +94,8 @@ jobs:
 
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
-        #uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
+        # uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: MegaLinter reports
