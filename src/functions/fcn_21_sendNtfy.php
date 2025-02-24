@@ -59,7 +59,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
                     'method' => 'PUT',
                     'header' =>
                         "Content-Type: text/plain \r\n" .
-                        "Authorization: Bearer $ntfyAuthToken \r\n" .
+                        "Authorization: $ntfyAuthToken \r\n" .
                         "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
                         "Tags: $tags \r\n" .
                         "Attach: $mapUrl \r\n" .
