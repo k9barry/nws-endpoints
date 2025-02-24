@@ -8,7 +8,13 @@
  */
 $ntfySend = true; #true|false
 $ntfyUrl = "{serverUrl}";
-$ntfyAuthToken = "Bearer {tk_123456789qwerty}";  // Only needed if user authentication is enabled in server.yml
+$ntfyAuthToken = "Bearer {tk_restoftokengoeshere}";  // Only needed if user authentication is enabled in server.yml
+# https://docs.ntfy.sh/config/#access-control
+# Must add a user for the server i.e. ntfy user add server # Add regular user phil
+# https://docs.ntfy.sh/config/#access-tokens
+# Must get token from ntfy server i.e. ntfy token add server  # Create token for user server which never expires
+# https://docs.ntfy.sh/config/#access-control-list-acl
+# Must set the access for user server to write to every topic # ntfy access server "*" write 
 
 /**
  * sendPushover 
