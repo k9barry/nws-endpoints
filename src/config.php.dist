@@ -8,8 +8,7 @@
  */
 $ntfySend = true; #true|false
 $ntfyUrl = "{serverUrl}";
-$ntfyToken = "{ntfyToken}";
-$ntfyUser = "{ntfyUser}";  // Likely not needed
+$ntfyAuthToken = "{ntfyAuthToken}";  // Only needed if user authentication is enabled in server.yml
 
 /**
  * sendPushover 

@@ -14,7 +14,7 @@
  */
 function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll)
 {
-    global $ntfyUrl, $ntfyToken, $ntfyUser, $googleApiKey, $pushoverSend;
+    global $ntfyUrl, $ntfyAuthToken, $googleApiKey, $pushoverSend;
     $CallId = $xml->CallId;
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
     $row = $db_conn->prepare($sql);
@@ -46,7 +46,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
     }
 
     if ($resendAll == 1) {
-        $topics = "" . $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber . "";
+        $topics = "$db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber";
     }
     $logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
     $topics = explode('|', $topics);
@@ -59,7 +59,7 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
                     'method' => 'PUT',
                     'header' =>
                         "Content-Type: text/plain \r\n" .
-                        #"Authorization: Bearer $ntfyToken \r\n" .
+                        "Authorization: Bearer $ntfyAuthToken \r\n" .
                         "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
                         "Tags: $tags \r\n" .
                         "Attach: $mapUrl \r\n" .
