@@ -12,7 +12,7 @@
  * @param  mixed $resendAll
  * @return void
  */
-function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll)
+function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $delta, mixed $logger, mixed $topics, mixed $resendAll): void
 {
     global $ntfyUrl, $ntfyAuthToken, $googleApiKey, $pushoverSend;
     $CallId = $xml->CallId;
@@ -27,8 +27,11 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
     }
     extract($ntfyMessage[0]);
     $urlEncFullAddress = urlencode($db_FullAddress);
-    $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&scale=2&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
-    $logger->info("Open connection to NTFY and set Google Url " . $mapUrl . "");
+
+    #$mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&scale=2&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
+    $mapUrl = "https://maps.googleapis.com/maps/api/directions/json?destination=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&scale=2&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
+
+    $logger->info("Open connection to NTFY and set Google Url " . $mapUrl);
     ##Set tag
     if ($db_AgencyType == "Fire") {
         $tags = "fire_engine";
@@ -63,9 +66,9 @@ function fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics,
                         "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
                         "Tags: $tags \r\n" .
                         "Attach: $mapUrl \r\n" .
-                        #"Click: $mapUrl \r\n" .
-                        #"Icon: https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX37302430.jpg \r\n" .
-                        "Priority: 4",
+                        "Click: $mapUrl \r\n" .
+                        "Icon: https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX37302430.jpg \r\n" .
+                        "Priority: $db_AlarmLevel+3",
                     'content' => "\r\n
 C-Name: $db_CommonName
 Loc: $db_FullAddress
