@@ -67,7 +67,7 @@ function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $
                         "Authorization: $ntfyAuthToken \r\n" .
                         "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
                         "Tags: $tags \r\n" .
-                        "Attach: $mapUrl \r\n" .
+                        #"Attach: $mapUrl \r\n" .
                         "Click: $mapUrl \r\n" .
                         "Icon: https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX37302430.jpg \r\n" .
                         "Priority: $priority",
