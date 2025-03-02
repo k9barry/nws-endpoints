@@ -14,7 +14,7 @@
  */
 function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $delta, mixed $logger, mixed $topics, mixed $resendAll): void
 {
-    global $ntfyUrl, $ntfyAuthToken, $googleApiKey, $pushoverSend;
+    global $ntfyUrl, $ntfyAuthToken, $pushoverSend;
     $CallId = $xml->CallId;
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
     $row = $db_conn->prepare($sql);
@@ -26,7 +26,6 @@ function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $
         $sep = '';
     }
     extract($ntfyMessage[0]);
-    $urlEncFullAddress = urlencode($db_FullAddress);
 
     #$mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&scale=2&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
     $mapUrl = "https://www.google.com/maps/dir/?api=1&destination=$db_LatitudeY,$db_LongitudeX";
