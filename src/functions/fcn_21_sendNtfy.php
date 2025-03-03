@@ -19,11 +19,10 @@ function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
     $row = $db_conn->prepare($sql);
     $row->execute();
+
     $ntfyMessage = $row->fetchAll(PDO::FETCH_ASSOC);
-    $out = $sep = '';
     foreach ($ntfyMessage[0] as $key => $value) {
-        $out .= $sep . $key . ":" . $value . "\n";
-        $sep = '';
+        $key . ":" . $value . "\n";
     }
     extract($ntfyMessage[0]);
 
@@ -51,7 +50,7 @@ function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $
         $topics = "$db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber";
     }
 
-    $priority = $db_AlarmLevel + 3;
+    $priority = $db_AlarmLevel + 2;
 
     $logger->info("########### Ntfy messages will be sent to " . $topics . " #############");
     $topics = explode('|', $topics);
@@ -67,8 +66,8 @@ function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $
                         "Authorization: $ntfyAuthToken \r\n" .
                         "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
                         "Tags: $tags \r\n" .
-                        #"Attach: $mapUrl \r\n" .
-                        "Click: $mapUrl \r\n" .
+                        "Attach: $mapUrl \r\n" .
+                        #"Click: $mapUrl \r\n" .
                         "Icon: https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX37302430.jpg \r\n" .
                         "Priority: $priority",
                     'content' => "\r\n
