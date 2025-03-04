@@ -10,23 +10,26 @@
  * @param  mixed $logger
  * @return void
  */
+
+
 function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $delta, mixed $logger): void
 {
-    global $pushoverUrl, $pushoverToken, $pushoverUser, $googleApiKey;
+    global $pushoverUrl, $pushoverToken, $pushoverUser;
     $CallId = $xml->CallId;
     $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
     $row = $db_conn->prepare($sql);
     $row->execute();
+
     $pushoverMessage = $row->fetchAll(PDO::FETCH_ASSOC);
-    $out = '';
     foreach ($pushoverMessage[0] as $key => $value) {
-        $out .= $key . ":" . $value . "\n";
+        $key . ":" . $value . "\n";
     }
     extract($pushoverMessage[0]);
-    $urlEncFullAddress = urlencode($db_FullAddress);
-    #$mapUrl = "<a href=\"https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=800x800&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey\">CLICK FOR MAP</a>";
-    $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=$db_LatitudeY,$db_LongitudeX&zoom=16&size=400x400&maptype=hybrid&&markers=color:green|label:$urlEncFullAddress%7C$db_LatitudeY,$db_LongitudeX&key=$googleApiKey";
-    #$logger->info("Open connection to Pushover using Google Url " . $mapUrl);
+
+    $mapUrl = "<a href=\"https://www.google.com/maps/dir/?api=1&destination=$db_LatitudeY,$db_LongitudeX\">CLICK FOR MAP</a>";
+
+    $logger->info("Open connection to Pushover using Google Url " . $mapUrl);
+
     curl_setopt_array($ch = curl_init(), array(
         CURLOPT_URL => "$pushoverUrl",
         CURLOPT_RETURNTRANSFER => true,
