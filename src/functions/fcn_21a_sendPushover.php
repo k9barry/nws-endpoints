@@ -26,8 +26,7 @@ function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mi
     }
     extract($pushoverMessage[0]);
 
-    #$mapUrl = "https://www.google.com/maps/dir/?api=1&destination=$db_LatitudeY,$db_LongitudeX";
-    $mapUrl = "<a href=https://www.google.com/maps/dir/?api=1&destination=$db_LatitudeY,$db_LongitudeX>CLICK FOR MAP</a>";
+    $mapUrl = "https://www.google.com/maps/dir/?api=1&destination=$db_LatitudeY,$db_LongitudeX";
 
     $logger->info("Open connection to Pushover using Google Url " . $mapUrl);
 
@@ -51,7 +50,8 @@ function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mi
             Narr: $db_Narrative_Text",
             "sound" => "bike",
             "html" => "1",
-            "attachment" => curl_file_create("$mapUrl", "image/jpeg")
+            "url" => $mapUrl,
+            "url_title" => "Driving Directions")
         ),
     ));
     try {
