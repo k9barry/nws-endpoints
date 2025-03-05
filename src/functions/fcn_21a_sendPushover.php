@@ -20,7 +20,7 @@ function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mi
     $row = $db_conn->prepare($sql);
     $row->execute();
     $pushoverMessage = $row->fetchAll(PDO::FETCH_ASSOC);
-    $out = '';
+    $out = '';  //TODO: Unused local variable 'out'. The value of the variable is not used anywhere.
     foreach ($pushoverMessage[0] as $key => $value) {
         $out .= $key . ":" . $value . "\n";
     }
