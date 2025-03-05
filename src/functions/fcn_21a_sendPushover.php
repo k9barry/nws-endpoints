@@ -50,8 +50,8 @@ function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mi
             Narr: $db_Narrative_Text",
             "sound" => "bike",
             "html" => "1",
-            "url" => $mapUrl,
-            "url_title" => "Driving Directions")
+            "url" => "$mapUrl",
+            "url_title" => "Driving Directions"
         ),
     ));
     try {
