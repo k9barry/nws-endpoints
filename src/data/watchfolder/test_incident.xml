@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CADData>
+    <CallId>12345</CallId>
+    <CallNumber>TEST-001</CallNumber>
+    <CallType>Test Call</CallType>
+    <CreateDateTime>2025-09-20T22:00:00</CreateDateTime>
+    <CommonName>Test Location</CommonName>
+    <FullAddress>123 Test Street, Test City</FullAddress>
+    <NatureOfCall>Testing the system</NatureOfCall>
+    <NearestCrossStreets>Test Ave &amp; Sample St</NearestCrossStreets>
+    <PoliceBeat>Beat 1</PoliceBeat>
+    <FireQuadrant>Quad A</FireQuadrant>
+    <UnitNumber>TEST1</UnitNumber>
+    <LatitudeY>40.7128</LatitudeY>
+    <LongitudeX>-74.0060</LongitudeX>
+    <AgencyType>Fire</AgencyType>
+    <Incident_Jurisdiction>TEST</Incident_Jurisdiction>
+    <AlarmLevel>1</AlarmLevel>
+    <Narrative_Text>This is a test incident for validation purposes.</Narrative_Text>
+</CADData>
