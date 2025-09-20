@@ -53,7 +53,7 @@ Always reference these instructions first and fallback to search or bash command
 
 ### Validation and Testing
 
-#### ALWAYS run these validation steps after making changes:
+#### ALWAYS run these validation steps after making changes
 1. **PHP Syntax Check** (< 5 seconds):
    ```bash
    cd src/
@@ -209,7 +209,7 @@ cd src/
 ## Common File Outputs
 
 ### Repository Root Structure
-```
+```tree
 .
 ├── .github/workflows/super-linter1.yml
 ├── .gitignore
@@ -223,7 +223,7 @@ cd src/
     ├── functions/
     ├── run
     └── vendor/
-```
+```tree
 
 ### composer.json Dependencies
 ```json
@@ -240,11 +240,11 @@ cd src/
 ```
 
 ### Expected Data Directory After First Run
-```
+```tree
 src/data/
 ├── archive/
 ├── db/
 │   └── db.sqlite
 ├── output/
 └── watchfolder/
-```
+```tree
