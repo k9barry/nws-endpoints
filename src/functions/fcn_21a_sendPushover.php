@@ -17,9 +17,9 @@ function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mi
 {
     global $pushoverUrl, $pushoverToken, $pushoverUser;
     $CallId = $xml->CallId;
-    $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
+    $sql = "SELECT * FROM $db_incident WHERE db_CallId = ?";
     $row = $db_conn->prepare($sql);
-    $row->execute();
+    $row->execute([$CallId]);
     $pushoverMessage = $row->fetchAll(PDO::FETCH_ASSOC);
     extract($pushoverMessage[0]);
 
@@ -59,14 +59,14 @@ function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mi
         // Decode JSON data to PHP object
         $obj = json_decode($result, true);
         $status = $obj["status"];
-        if ($status <> "1") {
+        if ($status != "1") {
             throw new Exception('Response: ' . $result);
         }
+        $logger->info("Pushover message sent - " . $result);
     } catch (Exception $e) {
         // exception is raised it will be handled here
         // $e->getMessage() contains the error message
-        $logger->Error("ERROR " . $e->getMessage());
+        $logger->error("ERROR " . $e->getMessage());
     }
     curl_close($ch);
-    $logger->info("Pushover message sent - " . $result);
 }

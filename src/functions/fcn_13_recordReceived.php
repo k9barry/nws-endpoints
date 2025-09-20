@@ -22,7 +22,6 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     // $AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
     $agencies = $sep = '';
     $nrOfRows = $xml->AgencyContexts->AgencyContext->count();
-    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->AgencyContexts->AgencyContext[$n]->AgencyType;
         $agencies .= $sep . $value;
@@ -33,7 +32,6 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     // $Incidents_Incident_Jurisdiction = $xml->Incidents->Incident->Jurisdiction;
     $jurisdictions = $sep = '';
     $nrOfRows = $xml->Incidents->Incident->count();
-    ####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Incidents->Incident[$n]->Jurisdiction;
         $jurisdictions .= $sep . $value;
@@ -44,7 +42,6 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     // $AssignedUnits_Unit_UnitNumber = $xml->AssignedUnits->Unit->UnitNumber;
     $units = $sep = '';
     $nrOfRows = $xml->AssignedUnits->Unit->count();
-    ####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->AssignedUnits->Unit[$n]->UnitNumber;
         $units .= $sep . $value;
@@ -61,7 +58,6 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     if ($xml->ClosedFlag == "true") { //record is closed
         $logger->info("ClosedFlag is true so remove record " . $xml->CallId . " from db");
         fcn_14_deleteRecord($db_conn, $db_incident, $xml->CallId, $logger);
-        #####return;
     } elseif (!fcn_15_callIdExist($db_conn, $db_incident, $xml->CallId, $logger)) { // record does not exist in db
         $logger->info("New record to enter into the DB and send to all topics.");
         fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
@@ -70,9 +66,9 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
         $logger->info("Record exists in DB - gathering topic changes and checking for changes to requsite fields");
         #Load the info from the db
         $CallId = $xml->CallId;
-        $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
+        $sql = "SELECT * FROM $db_incident WHERE db_CallId = ?";
         $row = $db_conn->prepare($sql);
-        $row->execute();
+        $row->execute([$CallId]);
         $ntfyMessage = $row->fetchAll(PDO::FETCH_ASSOC);
         $out = '';
         foreach ($ntfyMessage[0] as $key => $value) {
@@ -86,8 +82,6 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
         $topics_arrDb_Unit = array_unique(explode("|", $db_UnitNumber));
         $arr_Topics_Db = array_merge($topics_arrDb_Agency, $topics_arrDb_Jurisdiction, $topics_arrDb_Unit);
 
-        #Get the topic differences between the xml file and the DB
-        #####$topics = ""; //Set to null
         $topics = array_diff($arr_Topics_Xml, $arr_Topics_Db);
         $topics = implode("|", $topics);
 
@@ -98,7 +92,6 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
         if (!empty($topics)) {
             $logger->info("%%%%%% " . $topics . " - New units dispatched - ");
             $saveToDb = 1;
-            #####$resendAll = 0;
         } else {
             $logger->info("No new units - nothing to send");
         }
@@ -106,7 +99,6 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
         #Check to see if the call type changes if so resend to all topics
         $AgencyContexts_AgencyContext_CallType = $sep = '';
         $nrOfRows = $xml->AgencyContexts->AgencyContext->count();
-        #$n = 0;
         for ($n = 0; $n < $nrOfRows; $n++) {
             $value = $xml->AgencyContexts->AgencyContext[$n]->CallType;
             $AgencyContexts_AgencyContext_CallType .= $sep . $value;
@@ -147,7 +139,6 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
                 fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll); // Ntfy
             } else {
                 $logger->info("Time delta is too high " . $delta . " - NOT passing record to Ntfy");
-                #echo "Delta too high - nothing to send \r\n\r\n";
                 fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
             }
         } else {

@@ -20,14 +20,11 @@ function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $
 {
     global $ntfyUrl, $ntfyAuthToken, $pushoverSend;
     $CallId = $xml->CallId;
-    $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
+    $sql = "SELECT * FROM $db_incident WHERE db_CallId = ?";
     $row = $db_conn->prepare($sql);
-    $row->execute();
+    $row->execute([$CallId]);
 
     $ntfyMessage = $row->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($ntfyMessage[0] as $key => $value) {
-        $key . ":" . $value . "\n";
-    }
     extract($ntfyMessage[0]);
 
     $mapUrl = "https://www.google.com/maps/dir/?api=1&destination=$db_LatitudeY,$db_LongitudeX";
@@ -50,7 +47,7 @@ function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $
     }
 
     if ($resendAll == 1) {
-        $topics = "$db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber";
+        $topics = $db_AgencyType . "|" . $db_Incident_Jurisdiction . "|" . $db_UnitNumber;
     }
 
     $priority = $db_AlarmLevel + 2;
@@ -59,7 +56,7 @@ function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $
     $topics = explode('|', $topics);
     $topics = array_unique($topics); //Remove any duplicates
 
-    if ($db_CallType <> "New Call") {
+    if ($db_CallType != "New Call") {
         foreach ($topics as $topic) {
             file_get_contents("" . $ntfyUrl . "/" . $topic, false, stream_context_create([
                 'http' => [
@@ -70,7 +67,6 @@ function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $
                         "Title: Call: $db_CallNumber $db_CallType ($delta) \r\n" .
                         "Tags: $tags \r\n" .
                         "Attach: $mapUrl \r\n" .
-                        #"Click: $mapUrl \r\n" .
                         "Icon: https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX37302430.jpg \r\n" .
                         "Priority: $priority",
                     'content' => "\r\n

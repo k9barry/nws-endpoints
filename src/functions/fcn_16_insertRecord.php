@@ -28,7 +28,6 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
     // $AgencyContexts_AgencyContext_CallType = $xml->AgencyContexts->AgencyContext[0]->CallType;
     $AgencyContexts_AgencyContext_CallType = $sep = '';
     $nrOfRows = $xml->AgencyContexts->AgencyContext->count();
-    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->AgencyContexts->AgencyContext[$n]->CallType;
         $AgencyContexts_AgencyContext_CallType .= $sep . $value;
@@ -49,8 +48,8 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
     $Location_LongitudeX = $xml->Location->LongitudeX;
 
     $Incidents_Incident_Jurisdiction = $jurisdictions;
+    $sep = '';
     $nrOfRows = $xml->Incidents->Incident->count();
-    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Incidents->Incident[$n]->Jurisdiction;
         $Incidents_Incident_Jurisdiction .= $sep . $value;
@@ -61,7 +60,6 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
     $RadioChannel = implode("|", $match);
     $Incidents_Incident_Number = $sep = '';
     $nrOfRows = $xml->Incidents->Incident->count();
-    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Incidents->Incident[$n]->Number;
         $Incidents_Incident_Number .= $sep . $value;
@@ -69,7 +67,6 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
     }
     $Narratives_Narrative_Text = $sep = '';
     $nrOfRows = $xml->Narratives->Narrative->count();
-    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Narratives->Narrative[$n]->Text;
         $Narratives_Narrative_Text .= $sep . $value;
@@ -113,32 +110,33 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
         db_Narrative_Text
         )
         VALUES
-        (
-        '$CallId',
-        '$CallNumber',
-        '$ClosedFlag',
-        '$AgencyContexts_AgencyContext_AgencyType',
-        '$CreateDateTime',
-        '$AgencyContexts_AgencyContext_CallType',
-        '$AlarmLevel',
-        '$RadioChannel',
-        '$NatureOfCall',
-        '$Location_CommonName',
-        '$Location_FullAddress',
-        '$Location_State',
-        '$Location_NearestCrossStreets',
-        '$Location_AdditionalInfo',
-        '$Location_FireOri',
-        '$Location_FireQuadrant',
-        '$Location_PoliceOri',
-        '$Location_PoliceBeat',
-        '$Location_LatitudeY',
-        '$Location_LongitudeX',
-        '$AssignedUnits_Unit_UnitNumber',
-        '$Incidents_Incident_Number',
-        '$Incidents_Incident_Jurisdiction',
-        '$Narratives_Narrative_Text'
-        )";
-    $db_conn->exec($sql);
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $db_conn->prepare($sql);
+    $stmt->execute([
+        $CallId,
+        $CallNumber,
+        $ClosedFlag,
+        $AgencyContexts_AgencyContext_AgencyType,
+        $CreateDateTime,
+        $AgencyContexts_AgencyContext_CallType,
+        $AlarmLevel,
+        $RadioChannel,
+        $NatureOfCall,
+        $Location_CommonName,
+        $Location_FullAddress,
+        $Location_State,
+        $Location_NearestCrossStreets,
+        $Location_AdditionalInfo,
+        $Location_FireOri,
+        $Location_FireQuadrant,
+        $Location_PoliceOri,
+        $Location_PoliceBeat,
+        $Location_LatitudeY,
+        $Location_LongitudeX,
+        $AssignedUnits_Unit_UnitNumber,
+        $Incidents_Incident_Number,
+        $Incidents_Incident_Jurisdiction,
+        $Narratives_Narrative_Text
+    ]);
     $logger->info("Record inserted into DB");
 }
