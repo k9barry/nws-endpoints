@@ -9,11 +9,11 @@
  *
  * @param mixed $db_conn Database connection (PDO instance)
  * @param string $db_incident Database table name for incident records
- * @param int $CallId New World CAD Call ID to delete from the database
+ * @param int|string $CallId New World CAD Call ID to delete from the database
  * @param mixed $logger Logger instance for record deletion operations
  * @return void
  */
-function fcn_14_deleteRecord(mixed $db_conn, string $db_incident, $CallId, mixed $logger): void
+function fcn_14_deleteRecord(mixed $db_conn, string $db_incident, int|string $CallId, mixed $logger): void
 {
     $sql = "DELETE FROM $db_incident WHERE db_CallId = ?";
     $stmt = $db_conn->prepare($sql);

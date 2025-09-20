@@ -28,7 +28,6 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
     // $AgencyContexts_AgencyContext_CallType = $xml->AgencyContexts->AgencyContext[0]->CallType;
     $AgencyContexts_AgencyContext_CallType = $sep = '';
     $nrOfRows = $xml->AgencyContexts->AgencyContext->count();
-    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->AgencyContexts->AgencyContext[$n]->CallType;
         $AgencyContexts_AgencyContext_CallType .= $sep . $value;
@@ -49,8 +48,8 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
     $Location_LongitudeX = $xml->Location->LongitudeX;
 
     $Incidents_Incident_Jurisdiction = $jurisdictions;
+    $sep = '';
     $nrOfRows = $xml->Incidents->Incident->count();
-    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Incidents->Incident[$n]->Jurisdiction;
         $Incidents_Incident_Jurisdiction .= $sep . $value;
@@ -61,7 +60,6 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
     $RadioChannel = implode("|", $match);
     $Incidents_Incident_Number = $sep = '';
     $nrOfRows = $xml->Incidents->Incident->count();
-    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Incidents->Incident[$n]->Number;
         $Incidents_Incident_Number .= $sep . $value;
@@ -69,7 +67,6 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
     }
     $Narratives_Narrative_Text = $sep = '';
     $nrOfRows = $xml->Narratives->Narrative->count();
-    #####$n = 0;
     for ($n = 0; $n < $nrOfRows; $n++) {
         $value = $xml->Narratives->Narrative[$n]->Text;
         $Narratives_Narrative_Text .= $sep . $value;
