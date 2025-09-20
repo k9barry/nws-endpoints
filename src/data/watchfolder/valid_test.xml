@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CADData>
+    <CallId>TEST123</CallId>
+    <CreateDateTime>2025-09-20T22:15:00</CreateDateTime>
+    <ClosedFlag>false</ClosedFlag>
+    <AlarmLevel>1</AlarmLevel>
+    <AgencyContexts>
+        <AgencyContext>
+            <AgencyType>Fire</AgencyType>
+            <CallType>Emergency Response</CallType>
+        </AgencyContext>
+    </AgencyContexts>
+    <Incidents>
+        <Incident>
+            <Jurisdiction>TEST_DEPT</Jurisdiction>
+        </Incident>
+    </Incidents>
+    <AssignedUnits>
+        <Unit>
+            <UnitNumber>UNIT1</UnitNumber>
+        </Unit>
+    </AssignedUnits>
+    <Location>
+        <FullAddress>123 Test St</FullAddress>
+    </Location>
+</CADData>

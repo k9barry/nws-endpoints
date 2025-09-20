@@ -12,7 +12,11 @@ RUN composer install
 
 FROM php:8.3.2-fpm
 
-RUN pecl install xdebug && docker-php-ext-enable xdebug
+# Install required packages and PHP extensions
+RUN apt-get update && apt-get install -y \
+    libsqlite3-dev \
+    && docker-php-ext-install pdo pdo_sqlite \
+    && rm -rf /var/lib/apt/lists/*
 
 #RUN useradd -m appuser
 #USER appuser
