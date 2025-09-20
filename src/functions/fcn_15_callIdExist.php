@@ -15,10 +15,10 @@
  */
 function fcn_15_callIdExist(mixed $db_conn, string $db_incident, $CallId, mixed $logger): mixed
 {
-    $sql = "SELECT count(1) FROM $db_incident WHERE db_CallId = $CallId LIMIT 1";
-    $result = $db_conn->query($sql);
-    foreach ($result as $result) {
-    }
+    $sql = "SELECT count(1) FROM $db_incident WHERE db_CallId = ? LIMIT 1";
+    $stmt = $db_conn->prepare($sql);
+    $stmt->execute([$CallId]);
+    $result = $stmt->fetch(PDO::FETCH_NUM);
     if ($result[0]) {
         $logger->info("Call ID exists in database");
     } else {

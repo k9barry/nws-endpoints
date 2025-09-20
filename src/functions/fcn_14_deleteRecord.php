@@ -15,7 +15,8 @@
  */
 function fcn_14_deleteRecord(mixed $db_conn, string $db_incident, $CallId, mixed $logger): void
 {
-    $sql = "DELETE FROM $db_incident WHERE db_CallId = $CallId";
-    $db_conn->exec($sql);
+    $sql = "DELETE FROM $db_incident WHERE db_CallId = ?";
+    $stmt = $db_conn->prepare($sql);
+    $stmt->execute([$CallId]);
     $logger->info("Delete record " . $CallId . " from table " . $db_incident);
 }

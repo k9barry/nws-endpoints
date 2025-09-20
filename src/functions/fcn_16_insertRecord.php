@@ -113,32 +113,33 @@ function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mi
         db_Narrative_Text
         )
         VALUES
-        (
-        '$CallId',
-        '$CallNumber',
-        '$ClosedFlag',
-        '$AgencyContexts_AgencyContext_AgencyType',
-        '$CreateDateTime',
-        '$AgencyContexts_AgencyContext_CallType',
-        '$AlarmLevel',
-        '$RadioChannel',
-        '$NatureOfCall',
-        '$Location_CommonName',
-        '$Location_FullAddress',
-        '$Location_State',
-        '$Location_NearestCrossStreets',
-        '$Location_AdditionalInfo',
-        '$Location_FireOri',
-        '$Location_FireQuadrant',
-        '$Location_PoliceOri',
-        '$Location_PoliceBeat',
-        '$Location_LatitudeY',
-        '$Location_LongitudeX',
-        '$AssignedUnits_Unit_UnitNumber',
-        '$Incidents_Incident_Number',
-        '$Incidents_Incident_Jurisdiction',
-        '$Narratives_Narrative_Text'
-        )";
-    $db_conn->exec($sql);
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $db_conn->prepare($sql);
+    $stmt->execute([
+        $CallId,
+        $CallNumber,
+        $ClosedFlag,
+        $AgencyContexts_AgencyContext_AgencyType,
+        $CreateDateTime,
+        $AgencyContexts_AgencyContext_CallType,
+        $AlarmLevel,
+        $RadioChannel,
+        $NatureOfCall,
+        $Location_CommonName,
+        $Location_FullAddress,
+        $Location_State,
+        $Location_NearestCrossStreets,
+        $Location_AdditionalInfo,
+        $Location_FireOri,
+        $Location_FireQuadrant,
+        $Location_PoliceOri,
+        $Location_PoliceBeat,
+        $Location_LatitudeY,
+        $Location_LongitudeX,
+        $AssignedUnits_Unit_UnitNumber,
+        $Incidents_Incident_Number,
+        $Incidents_Incident_Jurisdiction,
+        $Narratives_Narrative_Text
+    ]);
     $logger->info("Record inserted into DB");
 }

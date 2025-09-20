@@ -17,9 +17,9 @@ function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mi
 {
     global $pushoverUrl, $pushoverToken, $pushoverUser;
     $CallId = $xml->CallId;
-    $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
+    $sql = "SELECT * FROM $db_incident WHERE db_CallId = ?";
     $row = $db_conn->prepare($sql);
-    $row->execute();
+    $row->execute([$CallId]);
     $pushoverMessage = $row->fetchAll(PDO::FETCH_ASSOC);
     extract($pushoverMessage[0]);
 

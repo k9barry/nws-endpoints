@@ -70,9 +70,9 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
         $logger->info("Record exists in DB - gathering topic changes and checking for changes to requsite fields");
         #Load the info from the db
         $CallId = $xml->CallId;
-        $sql = "SELECT * FROM $db_incident WHERE db_CallId = '$CallId'";
+        $sql = "SELECT * FROM $db_incident WHERE db_CallId = ?";
         $row = $db_conn->prepare($sql);
-        $row->execute();
+        $row->execute([$CallId]);
         $ntfyMessage = $row->fetchAll(PDO::FETCH_ASSOC);
         $out = '';
         foreach ($ntfyMessage[0] as $key => $value) {
