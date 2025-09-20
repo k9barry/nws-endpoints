@@ -2,7 +2,8 @@
   "name": "k9barry/nws-endpoints",
   "description": "A PHP package to send notifications to various endpoints from New World Systems",
   "license": "proprietary",
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
+  "prefer-stable": true,
   "keywords": [
     "nws",
     "ntfy"
@@ -19,7 +20,7 @@
     "ext-curl": "*",
     "ext-pdo": "*",
     "ext-pdo_sqlite": "*",
-    "monolog/monolog": "3.*",
+    "monolog/monolog": "^3.0",
     "ext-simplexml": "*"
   }
 }
