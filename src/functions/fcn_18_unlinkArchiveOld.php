@@ -2,9 +2,13 @@
 
 /**
  * fcn_18_unlinkArchiveOld
+ * 
+ * Cleans up old files from the archive directory to manage disk space.
+ * Removes processed incident files older than 1 hour (3600 seconds) to prevent
+ * the archive folder from accumulating too many files over time.
  *
- * @param string $path
- * @param  mixed $logger
+ * @param string $path Path to the archive directory to clean up
+ * @param mixed $logger Logger instance for archive cleanup operations
  * @return void
  */
 function fcn_18_unlinkArchiveOld(string $path, mixed $logger): void // $strBackupFolder
