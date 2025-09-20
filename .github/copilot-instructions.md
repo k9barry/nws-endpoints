@@ -223,7 +223,7 @@ cd src/
     ├── functions/
     ├── run
     └── vendor/
-```tree
+```
 
 ### composer.json Dependencies
 ```json
@@ -247,4 +247,4 @@ src/data/
 │   └── db.sqlite
 ├── output/
 └── watchfolder/
-```tree
+```
