@@ -53,8 +53,7 @@ Always reference these instructions first and fallback to search or bash command
 
 ### Validation and Testing
 
-#### ALWAYS run these validation steps after making changes
-
+#### ALWAYS run these validation steps after making changes:
 1. **PHP Syntax Check** (< 5 seconds):
    ```bash
    cd src/
@@ -186,7 +185,7 @@ cd src/
 # Create minimal test XML (requires proper Tyler CAD structure)
 # See fcn_13_recordReceived.php for expected XML schema:
 # - AgencyContexts->AgencyContext->AgencyType
-# - Incidents->Incident->Jurisdiction
+# - Incidents->Incident->Jurisdiction  
 # - AssignedUnits->Unit->UnitNumber
 ```
 
@@ -210,12 +209,11 @@ cd src/
 ## Common File Outputs
 
 ### Repository Root Structure
-
-```text
+```
 .
 ├── .github/workflows/super-linter1.yml
 ├── .gitignore
-├── Dockerfile
+├── Dockerfile  
 ├── LICENSE
 ├── README.md
 ├── compose.yml
@@ -228,7 +226,6 @@ cd src/
 ```
 
 ### composer.json Dependencies
-
 ```json
 {
   "require": {
@@ -243,8 +240,7 @@ cd src/
 ```
 
 ### Expected Data Directory After First Run
-
-```text
+```
 src/data/
 ├── archive/
 ├── db/
