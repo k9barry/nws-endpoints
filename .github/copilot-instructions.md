@@ -13,7 +13,7 @@ Always reference these instructions first and fallback to search or bash command
   ```bash
   # Ubuntu/Debian
   sudo apt-get update && sudo apt-get install -y php8.3-cli php8.3-curl php8.3-pdo php8.3-sqlite3 php8.3-xml
-  
+
   # Verify required extensions
   php --modules | grep -E "(curl|pdo|sqlite|xml)"
   ```
@@ -54,7 +54,6 @@ Always reference these instructions first and fallback to search or bash command
 ### Validation and Testing
 
 #### ALWAYS run these validation steps after making changes:
-
 1. **PHP Syntax Check** (< 5 seconds):
    ```bash
    cd src/
@@ -76,7 +75,7 @@ Always reference these instructions first and fallback to search or bash command
    - Should show logger initialization and folder setup
    - Should create data directories if missing
    - Should show "Watch folder found at ./data/watchfolder"
-   - Should show "nws-endpoint logger is now ready" 
+   - Should show "nws-endpoint logger is now ready"
    - Should show all function includes loading successfully
    - Exit code 124 (timeout) is expected and normal
 
@@ -105,7 +104,7 @@ Always reference these instructions first and fallback to search or bash command
 
 - **GitHub Super Linter** runs on all pushes and PRs (.github/workflows/super-linter1.yml)
 - **NEVER CANCEL** CI builds - they include comprehensive validation
-- Super Linter validates: PHP syntax, JSON, YAML, Dockerfile, markdown
+- Super Linter validates: PHP syntax, JSON, YAML, Dockerfile, Markdown
 - CI installs PHP extensions: `php-curl php-pdo php-sqlite3 php-xml`
 
 ### Build Times and Timeouts
@@ -232,7 +231,7 @@ cd src/
   "require": {
     "php": "^8.1",
     "ext-curl": "*",
-    "ext-pdo": "*", 
+    "ext-pdo": "*",
     "ext-pdo_sqlite": "*",
     "monolog/monolog": "^3.0",
     "ext-simplexml": "*"
