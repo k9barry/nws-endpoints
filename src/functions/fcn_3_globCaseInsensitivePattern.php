@@ -2,12 +2,15 @@
 
 /**
  * fcn_3_globCaseInsensitivePattern
- *  create case-insensitive patterns for glob or similar functions
- * ['jpg','gif'] as input
- * converted to: *.{[Jj][Pp][Gg],[Gg][Ii][Ff]}
+ * 
+ * Creates case-insensitive file extension patterns for use with glob() function.
+ * Converts file extensions into patterns that match regardless of case sensitivity.
+ * Example: ['jpg','gif'] becomes '*.{[Jj][Pp][Gg],[Gg][Ii][Ff]}'
+ * 
+ * This ensures New World CAD files are found regardless of filename case.
  *
- * @param array $arr_extensions
- * @return string $outbound
+ * @param array $arr_extensions Array of file extensions to create patterns for
+ * @return string Glob pattern string for case-insensitive file matching
  */
 function fcn_3_globCaseInsensitivePattern(array $arr_extensions): string
 {

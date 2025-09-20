@@ -2,14 +2,18 @@
 
 /**
  * fcn_21_sendNtfy
+ * 
+ * Sends incident notifications to ntfy.sh topics with incident details and actions.
+ * Creates hierarchical topic structure (Agency/Jurisdiction/Unit) and formats 
+ * notification messages with location links and incident information.
  *
- * @param  mixed $db_conn
- * @param  mixed $db_incident
- * @param  mixed $xml
- * @param  mixed $delta
- * @param  mixed $logger
- * @param  mixed $topics
- * @param  mixed $resendAll
+ * @param mixed $db_conn Database connection (PDO instance)
+ * @param mixed $db_incident Database incident table name
+ * @param mixed $xml XML data containing CallId
+ * @param mixed $delta Time delta information for the notification
+ * @param mixed $logger Logger instance for notification operations
+ * @param mixed $topics Topic hierarchy for notification routing
+ * @param mixed $resendAll Whether to resend to all topics or just new ones
  * @return void
  */
 function fcn_21_sendNtfy(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $delta, mixed $logger, mixed $topics, mixed $resendAll): void

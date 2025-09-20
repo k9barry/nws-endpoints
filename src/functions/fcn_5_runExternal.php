@@ -2,14 +2,18 @@
 
 /**
  * fcn_5_runExternal
+ * 
+ * Processes a single New World CAD file through the complete workflow.
+ * Handles file movement, database operations, and triggers notification sending.
+ * This is the main processing function that coordinates all incident handling operations.
  *
- * @param string $strInFile
- * @param string $strInRootFolder
- * @param string $strOutFolder
- * @param string $strBackupFolder
- * @param mixed $logger
- * @param string $db
- * @param string $db_table
+ * @param string $strInFile Full path to the input file to process
+ * @param string $strInRootFolder Root input folder for relative path calculations
+ * @param string $strOutFolder Output folder for temporary file processing
+ * @param string $strBackupFolder Archive folder for storing processed files
+ * @param mixed $logger Logger instance for processing operations
+ * @param string $db Database file path for incident storage
+ * @param string $db_table Database table name for incident records
  * @return void
  */
 function fcn_5_runExternal(string $strInFile, string $strInRootFolder, string $strOutFolder, string $strBackupFolder, mixed $logger, string $db, string $db_table): void

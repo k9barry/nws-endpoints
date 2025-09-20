@@ -2,16 +2,17 @@
 
 /**
  * fcn_21a_sendPushover
+ * 
+ * Sends incident notifications to Pushover with incident details and Google Maps link.
+ * Retrieves incident data from database and formats it into a Pushover notification message.
  *
- * @param  mixed $db_conn
- * @param  mixed $db_incident
- * @param  mixed $xml
- * @param  mixed $delta
- * @param  mixed $logger
+ * @param  mixed $db_conn Database connection (PDO instance)
+ * @param  mixed $db_incident Database incident table name
+ * @param  mixed $xml XML data containing CallId
+ * @param  mixed $delta Time delta information for the notification
+ * @param  mixed $logger Logger instance for logging operations
  * @return void
  */
-
-
 function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mixed $delta, mixed $logger): void
 {
     global $pushoverUrl, $pushoverToken, $pushoverUser;
@@ -20,10 +21,6 @@ function fcn_21a_sendPushover(mixed $db_conn, mixed $db_incident, mixed $xml, mi
     $row = $db_conn->prepare($sql);
     $row->execute();
     $pushoverMessage = $row->fetchAll(PDO::FETCH_ASSOC);
-    $out = '';  //TODO: Unused local variable 'out'. The value of the variable is not used anywhere.
-    foreach ($pushoverMessage[0] as $key => $value) {
-        $out .= $key . ":" . $value . "\n";
-    }
     extract($pushoverMessage[0]);
 
     $mapUrl = "https://www.google.com/maps/dir/?api=1&destination=$db_LatitudeY,$db_LongitudeX";

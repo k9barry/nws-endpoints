@@ -1,12 +1,16 @@
 <?php
 
 /**
- * fcn_22_removeOldRecords Only keep the last 999 Call ID's
+ * fcn_22_removeOldRecords
+ * 
+ * Maintains database size by keeping only the most recent 999 incident records.
+ * Deletes older incident records to prevent the database from growing too large
+ * while preserving recent incident history for notifications and reference.
  *
- * @param  mixed $db_conn
- * @param string $db_incident
- * @param int $CallId
- * @param  mixed $logger
+ * @param mixed $db_conn Database connection (PDO instance)
+ * @param string $db_incident Database table name containing incident records
+ * @param int $CallId Current Call ID - records with IDs less than (CallId - 999) will be deleted
+ * @param mixed $logger Logger instance for database cleanup operations
  * @return void
  */
 function fcn_22_removeOldRecords(mixed $db_conn, string $db_incident, $CallId, mixed $logger): void

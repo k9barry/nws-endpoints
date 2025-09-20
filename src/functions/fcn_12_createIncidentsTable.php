@@ -2,10 +2,14 @@
 
 /**
  * fcn_12_createIncidentsTable
+ * 
+ * Creates the incidents table in the SQLite database if it doesn't exist.
+ * Defines the complete schema for storing New World CAD incident data including
+ * location, timing, agency information, and narrative details.
  *
- * @param  mixed $db_conn
- * @param string $db_incident
- * @param  mixed $logger
+ * @param mixed $db_conn Database connection (PDO instance)
+ * @param string $db_incident Database table name to create
+ * @param mixed $logger Logger instance for database schema operations
  * @return void
  */
 function fcn_12_createIncidentsTable(mixed $db_conn, string $db_incident, mixed $logger): void

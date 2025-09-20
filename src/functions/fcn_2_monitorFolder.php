@@ -2,14 +2,18 @@
 
 /**
  * fcn_2_monitorFolder
+ * 
+ * Monitors a folder for new files with specified extensions and processes them.
+ * This is the main entry point for file monitoring that initiates the recursive
+ * file discovery and processing workflow for New World CAD XML files.
  *
- * @param string $strInFolder
- * @param array $extensions
- * @param string $strOutFolder
- * @param string $strBackupFolder
- * @param mixed $logger
- * @param string $db
- * @param string $db_table
+ * @param string $strInFolder Input folder path to monitor for new files
+ * @param array $extensions Array of file extensions to monitor (e.g., ['xml'])
+ * @param string $strOutFolder Output folder for processed files
+ * @param string $strBackupFolder Archive folder for storing processed files
+ * @param mixed $logger Logger instance for monitoring operations
+ * @param string $db Database file path for incident storage
+ * @param string $db_table Database table name for incident records
  * @return void
  */
 function fcn_2_monitorFolder(string $strInFolder, array $extensions, string $strOutFolder, string $strBackupFolder, mixed $logger, string $db, string $db_table): void

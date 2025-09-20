@@ -2,11 +2,16 @@
 
 /**
  * fcn_13_recordReceived
+ * 
+ * Main processing function for New World CAD incident records.
+ * Parses XML data, extracts agency/jurisdiction/unit information, determines if 
+ * record is new or updated, and triggers appropriate notification workflows.
+ * Handles incident lifecycle including creation, updates, and closure.
  *
- * @param  mixed $db_conn
- * @param string $db_incident
- * @param string $strInFile
- * @param  mixed $logger
+ * @param mixed $db_conn Database connection (PDO instance)
+ * @param string $db_incident Database table name for incident records
+ * @param string $strInFile Full path to the XML file to process
+ * @param mixed $logger Logger instance for record processing operations
  * @return void
  */
 function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strInFile, mixed $logger): void

@@ -2,14 +2,18 @@
 
 /**
  * fcn_16_insertRecord
+ * 
+ * Inserts or updates incident record in the database from New World CAD XML data.
+ * Parses XML fields, cleans data, and stores complete incident information for
+ * notification processing and historical tracking.
  *
- * @param mixed $db_conn
- * @param string $db_incident
- * @param mixed $xml
- * @param mixed $logger
- * @param mixed $agencies
- * @param mixed $jurisdictions
- * @param mixed $units
+ * @param mixed $db_conn Database connection (PDO instance)
+ * @param string $db_incident Database table name for incident records
+ * @param mixed $xml XML object containing New World CAD incident data
+ * @param mixed $logger Logger instance for database operations
+ * @param mixed $agencies Agency information for incident categorization
+ * @param mixed $jurisdictions Jurisdiction data for incident routing
+ * @param mixed $units Unit information for incident response
  * @return void
  */
 function fcn_16_insertRecord(mixed $db_conn, string $db_incident, mixed $xml, mixed $logger, mixed $agencies, mixed $jurisdictions, mixed $units): void
