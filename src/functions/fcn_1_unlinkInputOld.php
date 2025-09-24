@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use Psr\Log\LoggerInterface;
+
 /**
  * fcn_1_unlinkInputOld
  *
@@ -12,7 +14,7 @@ declare(strict_types=1);
  * @param mixed $logger Logger instance for logging cleanup operations
  * @return void
  */
-function fcn_1_unlinkInputOld(string $path, int $TimeAdjust, mixed $logger): void
+function fcn_1_unlinkInputOld(string $path, int $TimeAdjust, LoggerInterface $logger): void
 {
   if (!is_dir($path)) {
     if ($logger) {
