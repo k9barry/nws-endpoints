@@ -14,7 +14,11 @@ use Psr\Log\LoggerInterface;
  * @param mixed $logger Logger instance for logging cleanup operations
  * @return void
  */
-function fcn_1_unlinkInputOld(string $path, int $TimeAdjust, LoggerInterface $logger): void
+function fcn_1_unlinkInputOld(
+    string $path,
+    int $TimeAdjust,
+    LoggerInterface $logger
+  ): void
 {
   if (!is_dir($path)) {
     if ($logger) {
