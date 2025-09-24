@@ -24,7 +24,8 @@ services:
       - watchfolder:/app/data/watchfolder
 
   sqlitebrowser:
-    image: lscr.io/linuxserver/sqlitebrowser:latest
+    #image: lscr.io/linuxserver/sqlitebrowser:latest
+    image: lscr.io/linuxserver/sqlitebrowser:3.12.2
     container_name: sqlitebrowser
     restart: unless-stopped
     ports:

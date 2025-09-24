@@ -23,8 +23,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-install pdo pdo_sqlite \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m appuser
-USER appuser
+# RUN useradd -m appuser
+# USER appuser
 
 COPY --from=builder /vendor /app/vendor
 
