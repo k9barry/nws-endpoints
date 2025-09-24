@@ -9,11 +9,20 @@
  *
  * @param string $CreateDateTime Incident creation timestamp from New World CAD
  * @return int Time difference in seconds between now and incident creation
+ * @throws InvalidArgumentException When timestamp format is invalid
  */
 function fcn_20_deltaTime(string $CreateDateTime): int
 {
-    global $TimeAdjust;
-    $Now = strtotime("now");
+    if (empty($CreateDateTime)) {
+        throw new InvalidArgumentException("CreateDateTime cannot be empty");
+    }
+    
+    $Now = time(); // More efficient than strtotime("now")
     $IncidentTime = strtotime($CreateDateTime);
-    return ($Now - $IncidentTime);
+    
+    if ($IncidentTime === false) {
+        throw new InvalidArgumentException("Invalid timestamp format: {$CreateDateTime}");
+    }
+    
+    return max(0, $Now - $IncidentTime); // Ensure non-negative result
 }
