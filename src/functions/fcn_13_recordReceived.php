@@ -1,5 +1,7 @@
 <?php
 
+use Psr\Log\LoggerInterface;
+
 /**
  * fcn_13_recordReceived
  * 
@@ -11,10 +13,10 @@
  * @param mixed $db_conn Database connection (PDO instance)
  * @param string $db_incident Database table name for incident records
  * @param string $strInFile Full path to the XML file to process
- * @param mixed $logger Logger instance for record processing operations
+ * @param LoggerInterface $logger Logger instance for record processing operations
  * @return void
  */
-function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strInFile, mixed $logger): void
+function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strInFile, LoggerInterface $logger): void
 {
     global $TimeAdjust;
     $xml = simplexml_load_file($strInFile) or die("Error: Cannot create object"); # read the xml file
