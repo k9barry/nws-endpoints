@@ -1,5 +1,7 @@
 <?php
 
+use Psr\Log\LoggerInterface;
+
 /**
  * fcn_18_unlinkArchiveOld
  * 
@@ -8,10 +10,10 @@
  * the archive folder from accumulating too many files over time.
  *
  * @param string $path Path to the archive directory to clean up
- * @param mixed $logger Logger instance for archive cleanup operations
+ * @param LoggerInterface $logger Logger instance for archive cleanup operations
  * @return void
  */
-function fcn_18_unlinkArchiveOld(string $path, mixed $logger): void // $strBackupFolder
+function fcn_18_unlinkArchiveOld(string $path, LoggerInterface $logger): void // $strBackupFolder
 {
     if ($handle = opendir($path)) {
         while (false !== ($file = readdir($handle))) {
