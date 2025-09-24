@@ -1,5 +1,7 @@
 <?php
 
+use Psr\Log\LoggerInterface;
+
 /**
  * fcn_12_createIncidentsTable
  * 
@@ -7,15 +9,15 @@
  * Defines the complete schema for storing New World CAD incident data including
  * location, timing, agency information, and narrative details.
  *
- * @param mixed $db_conn Database connection (PDO instance)
+ * @param PDO $db_conn Database connection (PDO instance)
  * @param string $db_incident Database table name to create
- * @param mixed $logger Logger instance for database schema operations
+ * @param LoggerInterface $logger Logger instance for database schema operations
  * @return void
+ * @throws PDOException When table creation fails
  */
-function fcn_12_createIncidentsTable(mixed $db_conn, string $db_incident, mixed $logger): void
+function fcn_12_createIncidentsTable(PDO $db_conn, string $db_incident, LoggerInterface $logger): void
 {
-    $sql = "CREATE TABLE IF NOT EXISTS $db_incident
-		(
+    $sql = "CREATE TABLE IF NOT EXISTS {$db_incident} (
         db_CallId INTEGER PRIMARY KEY,
         db_CallNumber INTEGER,
         db_ClosedFlag TEXT,
@@ -40,7 +42,13 @@ function fcn_12_createIncidentsTable(mixed $db_conn, string $db_incident, mixed 
         db_Incident_Number TEXT,
         db_Incident_Jurisdiction TEXT,
         db_Narrative_Text TEXT
-        )";
-    $db_conn->exec($sql);
-    $logger->info("[fcn_12_CreateIncidentsTable] Create table " . $db_incident . " if it does not exist");
+    )";
+    
+    try {
+        $db_conn->exec($sql);
+        $logger->info("[fcn_12_createIncidentsTable] Created table {$db_incident} if it did not exist");
+    } catch (PDOException $e) {
+        $logger->error("[fcn_12_createIncidentsTable] Failed to create table {$db_incident}: " . $e->getMessage());
+        throw $e;
+    }
 }

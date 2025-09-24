@@ -1,5 +1,7 @@
 <?php
 
+use Psr\Log\LoggerInterface;
+
 /**
  * fcn_15_callIdExist
  * 
@@ -7,22 +9,31 @@
  * Used to determine whether an incident is new (requiring notification) or 
  * an update to an existing incident (requiring change detection).
  *
- * @param mixed $db_conn Database connection (PDO instance)
+ * @param PDO $db_conn Database connection (PDO instance)
  * @param string $db_incident Database table name for incident records
  * @param int|string $CallId New World CAD Call ID to check for existence
- * @param mixed $logger Logger instance for database query operations
- * @return int Returns 1 if Call ID exists, 0 if it doesn't exist
+ * @param LoggerInterface $logger Logger instance for database query operations
+ * @return bool Returns true if Call ID exists, false if it doesn't exist
+ * @throws PDOException When database query fails
  */
-function fcn_15_callIdExist(mixed $db_conn, string $db_incident, int|string $CallId, mixed $logger): int
+function fcn_15_callIdExist(PDO $db_conn, string $db_incident, int|string $CallId, LoggerInterface $logger): bool
 {
-    $sql = "SELECT count(1) FROM $db_incident WHERE db_CallId = ? LIMIT 1";
-    $stmt = $db_conn->prepare($sql);
-    $stmt->execute([$CallId]);
-    $result = $stmt->fetch(PDO::FETCH_NUM);
-    if ($result[0]) {
-        $logger->info("Call ID exists in database");
-    } else {
-        $logger->info("Call ID does not exist in database");
+    try {
+        $sql = "SELECT COUNT(1) FROM {$db_incident} WHERE db_CallId = ? LIMIT 1";
+        $stmt = $db_conn->prepare($sql);
+        $stmt->execute([$CallId]);
+        $result = $stmt->fetchColumn();
+        
+        $exists = (bool) $result;
+        if ($exists) {
+            $logger->info("Call ID {$CallId} exists in database");
+        } else {
+            $logger->info("Call ID {$CallId} does not exist in database");
+        }
+        
+        return $exists;
+    } catch (PDOException $e) {
+        $logger->error("Failed to check if Call ID {$CallId} exists in table {$db_incident}: " . $e->getMessage());
+        throw $e;
     }
-    return $result[0];
 }
