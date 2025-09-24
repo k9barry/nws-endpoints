@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * fcn_2_monitorFolder
  * 
@@ -18,7 +20,8 @@
  */
 function fcn_2_monitorFolder(string $strInFolder, array $extensions, string $strOutFolder, string $strBackupFolder, mixed $logger, string $db, string $db_table): void
 {
-    $strFilterFormat = fcn_3_globCaseInsensitivePattern($extensions);
+    // Improved variable name for clarity while maintaining business logic
+    $globPatternFilter = fcn_3_globCaseInsensitivePattern($extensions);
 
-    fcn_4_recursiveGlob($strInFolder, $strFilterFormat, $strInFolder, $strOutFolder, $strBackupFolder, $logger, $db, $db_table);
+    fcn_4_recursiveGlob($strInFolder, $globPatternFilter, $strInFolder, $strOutFolder, $strBackupFolder, $logger, $db, $db_table);
 }
