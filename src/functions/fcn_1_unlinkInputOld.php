@@ -18,8 +18,7 @@ function fcn_1_unlinkInputOld(
     string $path,
     int $TimeAdjust,
     LoggerInterface $logger
-  ): void
-{
+): void {
   if (!is_dir($path)) {
     if ($logger) {
       $logger->error("Directory not found: {$path}");
