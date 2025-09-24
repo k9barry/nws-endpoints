@@ -16,33 +16,57 @@
  * @param string $db_table Database table name for incident records
  * @return void
  */
-function fcn_5_runExternal(string $strInFile, string $strInRootFolder, string $strOutFolder, string $strBackupFolder, mixed $logger, string $db, string $db_table): void
+function fcn_5_runExternal(
+    string $strInFile, 
+    string $strInRootFolder, 
+    string $strOutFolder, 
+    string $strBackupFolder, 
+    mixed $logger, 
+    string $db, 
+    string $db_table
+): void
 {
-    $logger->info("$strInFile => $strOutFolder");
-    $strRelativeFileName = str_replace($strInRootFolder, '', $strInFile);
-    $logger->info("RelativeFileName=$strRelativeFileName");
-    $strOutFile = $strOutFolder . '/' . $strRelativeFileName;
-    $strOutFile = str_replace('//', '/', $strOutFile);
-    fcn_6_recursiveMkdir(dirname($strOutFile), $logger);
-    fcn_7_renameIfExists($strOutFile);
+    try {
+        $logger->info("$strInFile => $strOutFolder");
 
-    /*************************************************************************************************************************************
-     * Add my custom functions to be preformed when new file is added to monitor folder
-    /*************************************************************************************************************************************/
-    $db_conn = fcn_10_openConnection($db, $logger);
-    if (!fcn_11_tableExists($db_conn, $db_table, $logger)) {
-        fcn_12_createIncidentsTable($db_conn, $db_table, $logger); // Create incidents table in DB if it does not exist
+        // Use DIRECTORY_SEPARATOR for compatibility
+        $strRelativeFileName = ltrim(str_replace($strInRootFolder, '', $strInFile), DIRECTORY_SEPARATOR);
+        $logger->info("RelativeFileName=$strRelativeFileName");
+
+        // Prepare output file path
+        $strOutFile = rtrim($strOutFolder, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $strRelativeFileName;
+        $strOutFile = preg_replace('#/+#', '/', $strOutFile);
+        fcn_6_recursiveMkdir(dirname($strOutFile), $logger);
+        $strOutFile = fcn_7_renameIfExists($strOutFile);
+
+        // Database operations
+        $db_conn = fcn_10_openConnection($db, $logger);
+        if (!fcn_11_tableExists($db_conn, $db_table, $logger)) {
+            fcn_12_createIncidentsTable($db_conn, $db_table, $logger);
+        }
+        fcn_13_recordReceived($db_conn, $db_table, $strInFile, $logger);
+
+        // Explicitly close DB connection
+        $db_conn = null;
+        $logger->info("Connection to database closed");
+
+        // Clean up old archives
+        fcn_18_unlinkArchiveOld($strBackupFolder, $logger);
+
+        // Prepare and move to backup/Archive folder
+        $strBackupFile = rtrim($strBackupFolder, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $strRelativeFileName;
+        $strBackupFile = preg_replace('#/+#', '/', $strBackupFile);
+        fcn_6_recursiveMkdir(dirname($strBackupFile), $logger);
+        $strBackupFile = fcn_7_renameIfExists($strBackupFile);
+
+        if (!@rename($strInFile, $strBackupFile)) {
+            $logger->error("Failed to move file: $strInFile => $strBackupFile");
+            throw new \RuntimeException("Unable to move file to archive folder");
+        }
+        $logger->info("MoveFile: $strInFile => $strBackupFile");
+
+    } catch (\Throwable $e) {
+        $logger->error("Exception in fcn_5_runExternal: " . $e->getMessage());
+        // Optionally rethrow or handle differently
     }
-    fcn_13_recordReceived($db_conn, $db_table, $strInFile, $logger);
-    $db_conn = null;
-    $logger->info("Connection to database closed");
-    fcn_18_unlinkArchiveOld($strBackupFolder, $logger);
-
-    //Move original file to Archive folder
-    $strBackupFile = $strBackupFolder . '/' . $strRelativeFileName;
-    $strBackupFile = str_replace('//', '/', $strBackupFile);
-    fcn_6_recursiveMkdir(dirname($strBackupFile), $logger);
-    $strBackupFile = fcn_7_renameIfExists($strBackupFile);
-    rename($strInFile, $strBackupFile);
-    $logger->info("MoveFile: $strInFile => $strBackupFile");
 }
