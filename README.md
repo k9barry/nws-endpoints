@@ -511,7 +511,24 @@ dozzle:
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
 ```
-Access at: http://localhost:8081
+
+**Web Browser Access:** http://localhost:8081
+
+Dozzle provides a real-time web interface for viewing Docker container logs. Once the containers are running, you can:
+
+1. **Access the Interface:** Open your web browser and navigate to `http://localhost:8081`
+2. **View Container Logs:** 
+   - Select the `nws-endpoints` container to view application logs
+   - Monitor real-time log output as XML files are processed
+   - Filter logs by time range or search for specific entries
+3. **Features Available:**
+   - Real-time log streaming
+   - Multi-container log viewing
+   - Search and filter capabilities
+   - Dark/light theme toggle
+   - Download logs as text files
+
+**Prerequisites:** Docker Compose must be running (`docker-compose up -d`) and port 8081 must be available.
 
 #### 3. SQLite Browser (Database Viewer)
 ```yaml
@@ -524,7 +541,29 @@ sqlitebrowser:
   volumes:
     - db:/config
 ```
-Access at: http://localhost:8082
+
+**Web Browser Access:** http://localhost:8082
+
+SQLite Browser provides a web-based interface for viewing and managing the incident database. Once the containers are running, you can:
+
+1. **Access the Interface:** Open your web browser and navigate to `http://localhost:8082`
+2. **Open the Database:** 
+   - Click "Open Database" in the web interface
+   - Navigate to `/config/` folder (this is the mounted `db` volume)
+   - Select `db.sqlite` to open the incidents database
+3. **View Incident Data:**
+   - Browse the `incidents` table to see all processed CAD records
+   - Filter and search incident records by call number, type, or location
+   - Export data to CSV or other formats
+   - View database schema and table structure
+4. **Features Available:**
+   - Browse table data with pagination
+   - Execute custom SQL queries
+   - View database structure and indexes
+   - Import/export database data
+   - Real-time data updates as new incidents are processed
+
+**Prerequisites:** Docker Compose must be running (`docker-compose up -d`) and port 8082 must be available.
 
 ### Volume Configuration
 
@@ -536,6 +575,78 @@ volumes:
       type: cifs
       o: "username=${CIFS_USERNAME},password=${CIFS_PASSWORD}"
       device: ${SHARED_FOLDER_PATH}
+```
+
+### Web Browser Access Guide
+
+#### Starting the Docker Services
+
+Before accessing the web interfaces, ensure all containers are running:
+
+```bash
+# Start all services in detached mode
+docker-compose up -d
+
+# Verify services are running
+docker-compose ps
+
+# Expected output should show all three containers as "running"
+```
+
+#### Accessing the Web Interfaces
+
+| Service | URL | Purpose | Default Credentials |  
+|---------|-----|---------|-------------------|
+| **Dozzle** | http://localhost:8081 | Real-time container log viewer | None required |
+| **SQLite Browser** | http://localhost:8082 | Database management interface | None required |
+
+#### Web Browser Troubleshooting
+
+**Port Already in Use:**
+```bash
+# Check what's using the ports
+netstat -tulpn | grep :8081
+netstat -tulpn | grep :8082
+
+# Modify compose.yml to use different ports if needed
+ports:
+  - "8083:8080"  # Change 8081 to 8083 for Dozzle
+  - "8084:3000"  # Change 8082 to 8084 for SQLite Browser
+```
+
+**Cannot Access Web Interface:**
+1. Verify containers are running: `docker-compose ps`
+2. Check container logs: `docker-compose logs dozzle` or `docker-compose logs sqlitebrowser`
+3. Ensure firewall allows connections to ports 8081 and 8082
+4. Try accessing via server IP instead of localhost if using remote Docker host
+
+**Database Not Visible in SQLite Browser:**
+1. Ensure the `nws-endpoints` container has created the database by processing at least one XML file
+2. Check the `/config` directory in the SQLite Browser interface
+3. The database file should appear as `db.sqlite` after the first incident is processed
+
+#### Container Management Commands
+
+```bash
+# View service status
+docker-compose ps
+
+# Start services
+docker-compose up -d
+
+# Stop services  
+docker-compose down
+
+# Restart a specific service
+docker-compose restart dozzle
+docker-compose restart sqlitebrowser
+
+# View logs without Dozzle web interface
+docker-compose logs -f nws-endpoints    # Follow logs in real-time
+docker-compose logs --tail=100 dozzle   # View last 100 log lines
+
+# Access container shell for debugging
+docker exec -it nws-endpoints /bin/bash
 ```
 
 ### Environment Variables
