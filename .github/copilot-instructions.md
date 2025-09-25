@@ -128,8 +128,7 @@ Always reference these instructions first and fallback to search or bash command
 - `fcn_4_recursiveGlob.php` - File discovery and scanning
 - `fcn_5_runExternal.php` - Main file processing orchestration
 - `fcn_13_recordReceived.php` - XML parsing and incident processing
-- `fcn_21_sendNtfy.php` - ntfy.sh notification sending
-- `fcn_21a_sendPushover.php` - Pushover notification sending
+- `fcn_21_sendMessage.php` - unified notification sending for both ntfy.sh and Pushover
 - Database functions: `fcn_10_*` through `fcn_16_*`
 
 ### Configuration and Deployment
