@@ -14,11 +14,11 @@ use Psr\Log\LoggerInterface;
  * @param string $db_incident Database table name for incident records
  * @param string $strInFile Full path to the XML file to process
  * @param LoggerInterface $logger Logger instance for record processing operations
+ * @param array $config Configuration array containing notification and timing settings
  * @return void
  */
-function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strInFile, LoggerInterface $logger): void
+function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strInFile, LoggerInterface $logger, array $config): void
 {
-    global $TimeAdjust;
     $xml = simplexml_load_file($strInFile) or die("Error: Cannot create object"); # read the xml file
     $logger->info("File " . $strInFile . " read into simpleXML");
     // $AgencyContexts_AgencyContext_AgencyType = $xml->AgencyContexts->AgencyContext[0]->AgencyType;
@@ -63,7 +63,7 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     } elseif (!fcn_15_callIdExist($db_conn, $db_incident, $xml->CallId, $logger)) { // record does not exist in db
         $logger->info("New record to enter into the DB and send to all topics.");
         fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
-        fcn_21_sendMessage($db_conn, $db_incident, $xml, $delta, $logger, $topics, 0); // Send notifications
+        fcn_21_sendMessage($db_conn, $db_incident, $xml, $delta, $logger, $topics, 0, $config); // Send notifications
     } else {
         $logger->info("Record exists in DB - gathering topic changes and checking for changes to requsite fields");
         #Load the info from the db
@@ -134,11 +134,11 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
 
         if ($saveToDb) {
             #Check Delta time
-            if ($delta < $TimeAdjust) { // if return true then send
-                $logger->info("Time delta is " . $delta . " if less than " . $TimeAdjust . " message will be sent");
+            if ($delta < $config['timeAdjust']) { // if return true then send
+                $logger->info("Time delta is " . $delta . " if less than " . $config['timeAdjust'] . " message will be sent");
                 fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
                 $logger->info("Passing xml file to fcn_21_sendMessage");
-                fcn_21_sendMessage($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll); // Send notifications
+                fcn_21_sendMessage($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll, $config); // Send notifications
             } else {
                 $logger->info("Time delta is too high " . $delta . " - NOT passing record to Ntfy");
                 fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);

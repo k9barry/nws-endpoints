@@ -16,14 +16,13 @@ use Psr\Log\LoggerInterface;
  * @param LoggerInterface $logger Logger instance for notification operations
  * @param string $topics Topic hierarchy for notification routing (ntfy only)
  * @param int $resendAll Whether to resend to all topics (1) or just new ones (0)
+ * @param array $config Configuration array containing notification settings
  * @return void
  * @throws PDOException When database query fails
  * @throws RuntimeException When notification sending fails
  */
-function fcn_21_sendMessage(PDO $db_conn, string $db_incident, SimpleXMLElement $xml, string $delta, LoggerInterface $logger, string $topics, int $resendAll): void
+function fcn_21_sendMessage(PDO $db_conn, string $db_incident, SimpleXMLElement $xml, string $delta, LoggerInterface $logger, string $topics, int $resendAll, array $config): void
 {
-    global $ntfySend, $ntfyUrl, $ntfyAuthToken, $pushoverSend, $pushoverUrl, $pushoverToken, $pushoverUser;
-    
     $CallId = (string) $xml->CallId;
     
     try {
@@ -43,13 +42,13 @@ function fcn_21_sendMessage(PDO $db_conn, string $db_incident, SimpleXMLElement 
         $mapUrl = "https://www.google.com/maps/dir/?api=1&destination={$db_LatitudeY},{$db_LongitudeX}";
         
         // Send NTFY notifications if enabled
-        if ($ntfySend === true || $ntfySend === "true") {
-            sendNtfyNotification($incidentData[0], $mapUrl, $delta, $topics, $resendAll, $logger);
+        if ($config['ntfy']['send'] === true || $config['ntfy']['send'] === "true") {
+            sendNtfyNotification($incidentData[0], $mapUrl, $delta, $topics, $resendAll, $logger, $config);
         }
 
         // Send Pushover notification if enabled
-        if ($pushoverSend === true || $pushoverSend === "true") {
-            sendPushoverNotification($incidentData[0], $mapUrl, $delta, $logger);
+        if ($config['pushover']['send'] === true || $config['pushover']['send'] === "true") {
+            sendPushoverNotification($incidentData[0], $mapUrl, $delta, $logger, $config);
         }
 
         // Clean up old records
@@ -73,13 +72,12 @@ function fcn_21_sendMessage(PDO $db_conn, string $db_incident, SimpleXMLElement 
  * @param string $topics Topic hierarchy for notification routing
  * @param int $resendAll Whether to resend to all topics
  * @param LoggerInterface $logger Logger instance
+ * @param array $config Configuration array containing ntfy settings
  * @return void
  * @throws RuntimeException When NTFY notification sending fails
  */
-function sendNtfyNotification(array $incidentData, string $mapUrl, string $delta, string $topics, int $resendAll, LoggerInterface $logger): void
+function sendNtfyNotification(array $incidentData, string $mapUrl, string $delta, string $topics, int $resendAll, LoggerInterface $logger, array $config): void
 {
-    global $ntfyUrl, $ntfyAuthToken;
-    
     extract($incidentData);
     
     $logger->info("Preparing NTFY notification with Google Maps URL: {$mapUrl}");
@@ -131,7 +129,7 @@ function sendNtfyNotification(array $incidentData, string $mapUrl, string $delta
                         'timeout' => 10,
                         'header' => implode("\r\n", [
                             "Content-Type: text/plain",
-                            "Authorization: {$ntfyAuthToken}",
+                            "Authorization: {$config['ntfy']['authToken']}",
                             "Title: Call: {$db_CallNumber} {$db_CallType} ({$delta})",
                             "Tags: {$tags}",
                             "Attach: {$mapUrl}",
@@ -142,7 +140,7 @@ function sendNtfyNotification(array $incidentData, string $mapUrl, string $delta
                     ]
                 ]);
 
-                $result = @file_get_contents("{$ntfyUrl}/{$topic}", false, $context);
+                $result = @file_get_contents("{$config['ntfy']['url']}/{$topic}", false, $context);
                 
                 if ($result === false) {
                     $error = error_get_last();
@@ -167,13 +165,12 @@ function sendNtfyNotification(array $incidentData, string $mapUrl, string $delta
  * @param string $mapUrl Google Maps URL for incident location
  * @param string $delta Time delta information
  * @param LoggerInterface $logger Logger instance
+ * @param array $config Configuration array containing pushover settings
  * @return void
  * @throws RuntimeException When Pushover notification sending fails
  */
-function sendPushoverNotification(array $incidentData, string $mapUrl, string $delta, LoggerInterface $logger): void
+function sendPushoverNotification(array $incidentData, string $mapUrl, string $delta, LoggerInterface $logger, array $config): void
 {
-    global $pushoverUrl, $pushoverToken, $pushoverUser;
-    
     extract($incidentData);
     
     $logger->info("Preparing Pushover notification with Google Maps URL: {$mapUrl}");
@@ -185,15 +182,15 @@ function sendPushoverNotification(array $incidentData, string $mapUrl, string $d
 
     try {
         curl_setopt_array($ch, [
-            CURLOPT_URL => $pushoverUrl,
+            CURLOPT_URL => $config['pushover']['url'],
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_POSTFIELDS => [
-                "token" => $pushoverToken,
-                "user" => $pushoverUser,
+                "token" => $config['pushover']['token'],
+                "user" => $config['pushover']['user'],
                 "title" => "MCCD Call: {$db_CallNumber} {$db_CallType} ({$delta})",
                 "message" => "C-Name: {$db_CommonName}\nLoc: {$db_FullAddress}\nInc: {$db_CallType}\nNature: {$db_NatureOfCall}\nCross Rd: {$db_NearestCrossStreets}\nBeat: {$db_PoliceBeat}\nQuad: {$db_FireQuadrant}\nUnit: {$db_UnitNumber}\nTime: {$db_CreateDateTime}\nNarr: {$db_Narrative_Text}",
                 "sound" => "bike",

@@ -15,6 +15,7 @@ use Psr\Log\LoggerInterface;
  * @param LoggerInterface $logger Logger instance for file processing operations
  * @param string $db Database file path for incident storage
  * @param string $db_table Database table name for incident records
+ * @param array $config Configuration array containing notification and timing settings
  * @return void
  * @throws \InvalidArgumentException When directory parameters are invalid
  */
@@ -26,7 +27,8 @@ function fcn_4_recursiveGlob(
     string $strBackupFolder,
     LoggerInterface $logger,
     string $db,
-    string $db_table
+    string $db_table,
+    array $config
 ): void {
     // Input validation
     if (!is_dir($dir)) {
@@ -57,7 +59,8 @@ function fcn_4_recursiveGlob(
                     $strBackupFolder,
                     $logger,
                     $db,
-                    $db_table
+                    $db_table,
+                    $config
                 );
             } catch (\Throwable $e) {
                 $logger->error("Error processing subdirectory {$_dir}: " . $e->getMessage());
@@ -91,7 +94,8 @@ function fcn_4_recursiveGlob(
                     $strBackupFolder,
                     $logger,
                     $db,
-                    $db_table
+                    $db_table,
+                    $config
                 );
             } catch (\Throwable $e) {
                 $logger->error("Error processing file {$file}: " . $e->getMessage());

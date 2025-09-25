@@ -16,6 +16,7 @@ use Psr\Log\LoggerInterface;
  * @param LoggerInterface $logger Logger instance for processing operations
  * @param string $db Database file path for incident storage
  * @param string $db_table Database table name for incident records
+ * @param array $config Configuration array containing notification and timing settings
  * @return void
  * @throws \RuntimeException When file operations fail
  * @throws \InvalidArgumentException When input parameters are invalid
@@ -27,7 +28,8 @@ function fcn_5_runExternal(
     string $strBackupFolder, 
     LoggerInterface $logger, 
     string $db, 
-    string $db_table
+    string $db_table,
+    array $config
 ): void
 {
     // Input validation
@@ -70,7 +72,7 @@ function fcn_5_runExternal(
             if (!fcn_11_tableExists($db_conn, $db_table, $logger)) {
                 fcn_12_createIncidentsTable($db_conn, $db_table, $logger);
             }
-            fcn_13_recordReceived($db_conn, $db_table, $strInFile, $logger);
+            fcn_13_recordReceived($db_conn, $db_table, $strInFile, $logger, $config);
         } finally {
             // Ensure database connection is always closed
             $db_conn = null;

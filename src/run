@@ -41,7 +41,7 @@ $logger->pushHandler($stream_handler);
 $logger->info('nws-endpoint logger is now ready'); // You can now use your logger
 
 /**
- * Include config.php file
+ * Include config.php file and create configuration array
  * */
 
 if (!file_exists('./config.php')) {
@@ -49,6 +49,22 @@ if (!file_exists('./config.php')) {
     $logger->warning("config.php file was not located so I created one for you.  Please be sure to change the settings");
     die("config.php file was not located so I created one for you.  Please be sure to change the settings");
 }
+
+// Create configuration array to replace global variables
+$config = [
+    'timeAdjust' => $TimeAdjust,
+    'ntfy' => [
+        'send' => $ntfySend,
+        'url' => $ntfyUrl,
+        'authToken' => $ntfyAuthToken
+    ],
+    'pushover' => [
+        'send' => $pushoverSend,
+        'url' => $pushoverUrl,
+        'token' => $pushoverToken,
+        'user' => $pushoverUser
+    ]
+];
 
 /**
  * Include all functions in the src/functions folder
@@ -85,13 +101,13 @@ if (!is_dir($strBackupFolder)) {  // ArchiveFolder
 /**
  * Cleanup the watch folder.....
  */
-fcn_1_unlinkInputOld($strInFolder, $TimeAdjust, $logger);
+fcn_1_unlinkInputOld($strInFolder, $config['timeAdjust'], $logger);
 
 /**
  * Start monitoring folders
  */
 while (true) {
-    fcn_2_monitorFolder($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder, $logger, $db, $db_table);
+    fcn_2_monitorFolder($strInFolder, $arrayInputFileExtensions, $strOutFolder, $strBackupFolder, $logger, $db, $db_table, $config);
 
     // All the remaining functions are called from here
 
