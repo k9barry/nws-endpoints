@@ -12,21 +12,26 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  run-lint:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
 
       - name: Install PHP extensions
         run: sudo apt-get update && sudo apt-get install -y php-curl php-pdo php-sqlite3 php-xml
-
-      - name: Lint Code Base
-        uses: github/super-linter@v4
+      - name: Run Super-Linter
+        uses: github/super-linter@v5
         env:
+          VALIDATE_PHP_PHPSTAN: true
+          VALIDATE_PHP_PHPCS: true
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_YAML: true
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_INCLUDE: "^(src/|Dockerfile|README\\.md|\\.github/workflows/)"
+          FILTER_REGEX_EXCLUDE: "vendor/|data/|\\.dist$"
