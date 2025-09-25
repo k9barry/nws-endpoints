@@ -18,7 +18,7 @@ A PHP application that monitors Tyler Tech New World CAD XML exports and sends r
 
 ## Overview
 
-This application bridges Tyler Tech's New World CAD system with modern notification services. It continuously monitors a watch folder for XML files exported from the CAD system, parses incident data, stores it in SQLite, and sends notifications through multiple channels.
+This application bridges Tyler Tech's New World CAD system with modern notification services. **The entire repository is designed to run in Docker** with a complete containerized deployment that includes the main application and supporting services. The system continuously monitors a watch folder for XML files exported from the CAD system, parses incident data, stores it in SQLite, and sends notifications through multiple channels.
 
 ### Key Workflow
 1. **Monitor** - Continuously watches for new XML files from New World CAD exporter
@@ -499,6 +499,22 @@ nws-endpoints:
     - db:/app/data/db
     - watchfolder:/app/data/watchfolder
 ```
+
+The **nws-endpoints** service is the core application container that runs the PHP-based New World CAD monitoring and notification system. This container:
+
+1. **Monitors XML Files:** Continuously watches the `watchfolder` volume for new Tyler Tech CAD XML exports
+2. **Processes Incidents:** Parses CAD XML files to extract incident details, agency information, and unit assignments
+3. **Database Management:** Stores and maintains incident data in the SQLite database mounted on the `db` volume
+4. **Sends Notifications:** Delivers real-time notifications via ntfy.sh and Pushover services
+5. **File Archiving:** Moves processed XML files to archive folder for retention
+6. **Automatic Cleanup:** Removes old archived files and closed incidents to manage storage
+
+**Key Features:**
+- Built from the local Dockerfile using the repository source code
+- Runs the `php run` command as a daemon process for continuous monitoring
+- Automatically restarts if the container stops (`restart: unless-stopped`)
+- Connects to shared Docker volumes for database persistence and file processing
+- No exposed ports (operates internally, accessed via logs through Dozzle)
 
 #### 2. Dozzle (Log Viewer)
 ```yaml
