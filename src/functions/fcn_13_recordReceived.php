@@ -63,7 +63,7 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     } elseif (!fcn_15_callIdExist($db_conn, $db_incident, $xml->CallId, $logger)) { // record does not exist in db
         $logger->info("New record to enter into the DB and send to all topics.");
         fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
-        fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, 0); // Send to ntfy
+        fcn_21_sendMessage($db_conn, $db_incident, $xml, $delta, $logger, $topics, 0); // Send notifications
     } else {
         $logger->info("Record exists in DB - gathering topic changes and checking for changes to requsite fields");
         #Load the info from the db
@@ -137,8 +137,8 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
             if ($delta < $TimeAdjust) { // if return true then send
                 $logger->info("Time delta is " . $delta . " if less than " . $TimeAdjust . " message will be sent");
                 fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
-                $logger->info("Passing xml file to fcn_21_sendNtfy");
-                fcn_21_sendNtfy($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll); // Ntfy
+                $logger->info("Passing xml file to fcn_21_sendMessage");
+                fcn_21_sendMessage($db_conn, $db_incident, $xml, $delta, $logger, $topics, $resendAll); // Send notifications
             } else {
                 $logger->info("Time delta is too high " . $delta . " - NOT passing record to Ntfy");
                 fcn_16_insertRecord($db_conn, $db_incident, $xml, $logger, $agencies, $jurisdictions, $units);
