@@ -18,6 +18,7 @@ use Psr\Log\LoggerInterface;
  * @param LoggerInterface $logger Logger instance for monitoring operations
  * @param string $db Database file path for incident storage
  * @param string $db_table Database table name for incident records
+ * @param array $config Configuration array containing notification and timing settings
  * @return void
  * @throws \InvalidArgumentException When input parameters are invalid
  */
@@ -28,7 +29,8 @@ function fcn_2_monitorFolder(
     string $strBackupFolder, 
     LoggerInterface $logger, 
     string $db, 
-    string $db_table
+    string $db_table,
+    array $config
 ): void {
     try {
         // Parameter validation
@@ -89,7 +91,7 @@ function fcn_2_monitorFolder(
         $strFilterFormat = fcn_3_globCaseInsensitivePattern($extensions);
 
         // Proceed with recursive file monitoring
-        fcn_4_recursiveGlob($strInFolder, $strFilterFormat, $strInFolder, $strOutFolder, $strBackupFolder, $logger, $db, $db_table);
+        fcn_4_recursiveGlob($strInFolder, $strFilterFormat, $strInFolder, $strOutFolder, $strBackupFolder, $logger, $db, $db_table, $config);
     } catch (\InvalidArgumentException $e) {
         $logger->error("Invalid argument in fcn_2_monitorFolder: " . $e->getMessage());
         return;
