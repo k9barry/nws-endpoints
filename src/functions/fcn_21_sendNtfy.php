@@ -71,7 +71,7 @@ function fcn_21_sendNtfy(PDO $db_conn, string $db_incident, SimpleXMLElement $xm
         $priority = ((int) ($db_AlarmLevel ?? 1)) + 2;
         $priority = max(1, min(5, $priority)); // Ensure priority is between 1-5
 
-        $logger->info("NTFY messages will be sent to topics: {$topics}");
+        $logger->info("NTFY {$db_CallType} at {$db_FullAddress} will be sent to topics: {$topics}");
         
         $topicArray = array_unique(array_filter(explode('|', $topics)));
 
