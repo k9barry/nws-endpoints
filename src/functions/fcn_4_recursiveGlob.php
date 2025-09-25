@@ -80,7 +80,6 @@ function fcn_4_recursiveGlob(
                 continue;
             }
 
-            $logger->info(str_repeat("=", 53));
             $logger->info("Found file: {$file} (size: {$nFileSize} bytes)");
 
             // Process file with comprehensive error handling
