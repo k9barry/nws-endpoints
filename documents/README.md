@@ -20,7 +20,7 @@ This directory contains comprehensive documentation for the NWS Endpoints reposi
 
 ### Individual Function Documentation
 
-The `functions/` directory contains detailed documentation for each of the 20 core functions:
+The `functions/` directory contains detailed documentation for each of the core functions (Note: functions are numbered non-sequentially - fcn_17 and fcn_19 are not present in the codebase):
 
 #### File Monitoring Functions
 - [fcn_1_unlinkInputOld.md](functions/fcn_1_unlinkInputOld.md) - Cleanup old files from watch folder
@@ -124,6 +124,6 @@ When updating documentation:
 
 ---
 
-**Last Updated**: 2025-10-12  
+**Last Updated**: 2024-10-12  
 **Documentation Version**: 1.0  
 **Repository**: https://github.com/k9barry/nws-endpoints

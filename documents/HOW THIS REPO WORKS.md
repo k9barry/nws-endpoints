@@ -168,7 +168,7 @@ foreach (glob('./functions/*.php') as $filename) {
 
 **Purpose**: Load all 20 function files from `functions/` directory.
 
-**Functions Loaded**:
+**Functions Loaded** (Note: functions 17 and 19 are not present in the codebase):
 - fcn_1_unlinkInputOld.php
 - fcn_2_monitorFolder.php
 - fcn_3_globCaseInsensitivePattern.php
