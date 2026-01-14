@@ -24,3 +24,9 @@ $pushoverSend = true;
 $pushoverUrl = "https://api.pushover.net/1/messages.json";
 $pushoverToken = "{PushoverToken}";
 $pushoverUser = "{PushoverUserId}";
+
+// Default source timezone for incoming CreateDateTime values when the
+// XML timestamp has no explicit timezone/offset. You can change this
+// to any valid IANA timezone string, e.g. 'America/Indiana/Indianapolis'
+$sourceTimeZone = 'America/Indiana/Indianapolis';
+

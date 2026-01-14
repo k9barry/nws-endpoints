@@ -63,7 +63,9 @@ $config = [
         'url' => $pushoverUrl,
         'token' => $pushoverToken,
         'user' => $pushoverUser
-    ]
+    ],
+    // Add source timezone from config.php (default provided in config.php.dist)
+    'sourceTimeZone' => isset($sourceTimeZone) ? $sourceTimeZone : 'America/Indiana/Indianapolis'
 ];
 
 /**

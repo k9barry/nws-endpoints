@@ -56,7 +56,7 @@ function fcn_13_recordReceived(mixed $db_conn, string $db_incident, string $strI
     #echo "XML topics are: ".var_dump($arr_Topics_Xml)." \r\n";
 
     #Delta time check
-    $delta = fcn_20_deltaTime($xml->CreateDateTime);
+    $delta = fcn_20_deltaTime($xml->CreateDateTime, $config['sourceTimeZone'] ?? null);
     if ($xml->ClosedFlag == "true") { //record is closed
         $logger->info("ClosedFlag is true so remove record " . $xml->CallId . " from db");
         fcn_14_deleteRecord($db_conn, $db_incident, $xml->CallId, $logger);
