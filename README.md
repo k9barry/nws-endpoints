@@ -1,20 +1,12 @@
-# NWS Endpoints - New World CAD Notification System
+# nws-endpoints — DEPRECATED
 
-A PHP application that monitors Tyler Tech New World CAD XML exports and sends real-time incident notifications via ntfy.sh and Pushover. The system processes emergency dispatch data and creates hierarchical notification topics based on agency, jurisdiction, and unit assignments.
+> **This repository is superseded by [k9barry/nws-cad](https://github.com/k9barry/nws-cad) as of v1.2.0 (2026-05-07).**
+> The functionality of this repo (CAD XML → ntfy.sh / Pushover notifications) now lives inside nws-cad as the `NwsCad\Notifications\*` module, sharing a single XML parser, a single watcher process, and the normalized 13-table schema.
+> See: https://github.com/k9barry/nws-cad/blob/main/docs/NOTIFICATIONS.md
+>
+> The historical content below is preserved for reference. **Do not deploy this code for new installs.**
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Architecture](#architecture)
-- [Core Functions](#core-functions)
-- [Notification System](#notification-system)
-- [Docker Deployment](#docker-deployment)
-- [Troubleshooting](#troubleshooting)
+---
 
 ## Overview
 
